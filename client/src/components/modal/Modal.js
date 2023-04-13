@@ -18,9 +18,7 @@ const Modal = ({
 
   const modalStyle = {
     textColor: textColor,
-    background: backgroundColor,
-    width: "0",
-    height: "max-content",
+    background: backgroundColor
   };
 
   function handleOutsideClick(e) {

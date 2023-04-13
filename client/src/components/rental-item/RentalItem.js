@@ -17,22 +17,22 @@ function RentalItem({
     const [like, setLike] = useState(false);
     const [cart, setCart] = useState(false);
 
+    const {id, title, category, price, currency, status, discount, imageSrc} = {...item}
+
     function handleLikeClick(){
-        onLikeClick(!like)
+        onLikeClick(id, !like)
         setLike(!like)
     }
 
     function handleCartClick(){
+        onCartClick(id, !cart)
         setCart(!cart)
-        onCartClick(!cart)
     }
 
     function handleItemClick(e){
         if (e.target.className === "image")
-            onItemClick();
+            onItemClick(id);
     }
-
-    const {title, category, price, currency, status, discount, imageSrc} = {...item}
 
     return (
         <div class="card">

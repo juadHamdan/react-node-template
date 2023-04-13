@@ -1,5 +1,6 @@
 const mockRentalItems = [
     {
+        id: 0,
         title: "Mastercraft 5A Orbital Jigsaw with LED Light & Straight Edge Guide",
         category: "Power Tools",
         price: 15,
@@ -9,6 +10,7 @@ const mockRentalItems = [
         imageSrc: "https://apim.canadiantire.ca/v1/product/api/v1/product/image/0548259p?baseStoreId=CTR&lang=en_CA&subscription-key=c01ef3612328420c9f5cd9277e815a0e"
     },
     {
+        id: 1,
         title: "Hitachi Circular saw",
         category: "Power Tools",
         price: 20,
@@ -18,6 +20,7 @@ const mockRentalItems = [
         imageSrc: "https://cdn.shopify.com/s/files/1/0083/3450/8068/products/HIKOKI-C7-SS-CIRCULAR-SAW.jpg?v=1573974138"
     },
     {
+        id: 2,
         title: "Milwaukee Tool M18 FUEL™ 2-Tool Combo Kit",
         category: "Power Tools",
         price: 100,
@@ -27,6 +30,7 @@ const mockRentalItems = [
         imageSrc: "https://us.evocdn.io/dealer/1230/catalog/product/images/3697-22_kit_101_1676306912.png"
     },
     {
+        id: 3,
         title: "Makita Tools GA7021 Angle Grinder",
         category: "Power Tools",
         price: 30,
@@ -36,6 +40,7 @@ const mockRentalItems = [
         imageSrc: "https://cdn11.bigcommerce.com/s-y0mb5v9hpd/images/stencil/1280x1280/products/263/303/makita_ga_7021__68768.1610643559.png?c=2"
     },
     {
+        id: 4,
         title: "Loowoko Hiking Backpack, Waterproof Camping Bag",
         category: "Camping Gear",
         price: 10,
@@ -45,6 +50,7 @@ const mockRentalItems = [
         imageSrc: "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71uCg26TTiL._AC_UY1000_.jpg"
     },
     {
+        id: 5,
         title: "HiZYNICE 0 Degree Sleeping Bag",
         category: "Camping Gear",
         price: 20,
@@ -54,6 +60,7 @@ const mockRentalItems = [
         imageSrc: "https://m.media-amazon.com/images/I/817pc1RrDbL.__AC_SX300_SY300_QL70_FMwebp_.jpg"
     },
     {
+        id: 6,
         title: "Lioamoy 6-Person Tent for Camping, Windproof",
         category: "Camping Gear",
         price: 15,

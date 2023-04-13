@@ -5,7 +5,7 @@
     gap: 20px;
     align-items: center;
     justify-content: center;
-    padding: 35px 60px 60px 60px;
+    padding: 30px 60px 30px 60px;
     border-radius: 80px;
     width: max-content;
     height: max-content;
@@ -33,7 +33,6 @@
 #sign-up-container .title-container .logo{
     width: 30px;
 }
-
 
 
 
@@ -69,9 +68,15 @@
     color: white;
 }
 #sign-up-container .email-btn{
-    border: 1px solid gray;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+#sign-up-container .email-btn:hover{
+    border: 1px solid;
 }
 
 #sign-up-container button img{
@@ -79,4 +84,19 @@
 }
 #sign-up-container button img.apple-icon{
     width: 17px;
+}
+
+
+
+
+#form-container form{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+#form-container form .row{
+    display: flex;
+    gap: 7px;
 }

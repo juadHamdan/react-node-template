@@ -1,49 +1,56 @@
 import './App.css';
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import {ToastContainer, toast} from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import NavigationBar from './components/navigation-bar/NavigationBar'
 import { fetchUser, trySignOut } from './AuthApi'
 import { RENTAL_ITEMS_ROUTE, RENTAL_ITEM_ROUTE, ADD_RENTAL_ITEM_ROUTE } from './Constants'
+import axios from 'axios'
 
 import RentalItems from './components/rental-items/RentalItems';
-import {mockRentalItems} from './MockRentalItems';
+import { mockRentalItems } from './MockRentalItems';
 
 function App() {
   const [user, setUser] = useState(null)
-  const [rentalItems, setRentalItems] = useState(mockRentalItems)
-
-  console.log(mockRentalItems)
+  const [token, setToken] = useState(sessionStorage.getItem("token") ? JSON.parse(sessionStorage.getItem("token")) : null)
 
   useEffect(() => {
-    const tryGetUser = async () => setUser(await fetchUser())
-    tryGetUser()
-  }, [])
-
-  function onSignOutClick() {
-    if(trySignOut()){
-      setUser(null)
-      toast("Logged Out Successfully")
+    if (token) {
+      const tryGetUser = async () => {
+        console.log("Fetching user")
+        const fetchedUser = await fetchUser(token)
+        setUser(fetchedUser)
+      }
+      tryGetUser()
     }
-    else toast("Log Out Failed.") 
+  }, [token])
+
+
+  const onAuthorization = async (token) => {
+    setToken(token)
+    sessionStorage.setItem("token", JSON.stringify(token))
   }
 
-  const onItemClick = () => console.log("Item")
-  const onLikeClick = () => console.log("Like")
-  const onCartClick = () => console.log("Cart")
-  const RentalItemsComponent = <RentalItems items={rentalItems} onItemClick={onItemClick} onLikeClick={onLikeClick} onCartClick={onCartClick}/>
+  const onLogout = () => {
+    setUser(null)
+    sessionStorage.clear()
+    toast("Logged Out Successfully")
+  }
+
 
   return (
     <div>
       <Router>
-        <ToastContainer/>
-        <NavigationBar user={user} onLogoutClick={onSignOutClick} />
+        <ToastContainer />
+        <NavigationBar
+          user={user}
+          onLogout={onLogout}
+          onAuthorization={onAuthorization}
+        />
+
         <Routes>
-          <Route path="/" exact element={<Navigate to={RENTAL_ITEMS_ROUTE} />} />
-          <Route path={RENTAL_ITEMS_ROUTE} element={RentalItemsComponent} />
-          <Route path={ADD_RENTAL_ITEM_ROUTE} element={<div>Add Rental Item</div>} />
-          <Route path={RENTAL_ITEM_ROUTE} element={<div>Rental Item</div>} />
+          <Route path="/" exact element={<div>Home Page</div>} />
         </Routes>
       </Router>
     </div>
@@ -51,3 +58,58 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+/*
+const [rentalItems, setRentalItems] = useState(mockRentalItems)
+const [likedItemsIds, setLikedItemsIds] = useState([])
+const [cartItemsIds, setCartItemsIds] = useState([])
+
+function onSignOutClick() {
+  if (trySignOut()) {
+    setUser(null)
+    toast("Logged Out Successfully")
+  }
+  else toast("Log Out Failed.")
+}
+
+const onItemClick = (id) => console.log("Item") //change to link !
+const onLikeClick = (id, isLiked) => {
+  if (isLiked) {
+    setLikedItemsIds(likedItemsIds => [...likedItemsIds, id])
+  }
+  else {
+    const newLikedItemsIds = [...likedItemsIds]
+    const likedItemIdIndex = newLikedItemsIds.findIndex(likedItemsId => likedItemsId === id)
+    newLikedItemsIds.splice(likedItemIdIndex, 1)
+    setLikedItemsIds(newLikedItemsIds)
+  }
+}
+const onCartClick = (id, isAddedToCart) => {
+  if (isAddedToCart) {
+    setCartItemsIds(cartItemsIds => [...cartItemsIds, id])
+  }
+  else {
+    const newCartItemsIds = [...cartItemsIds]
+    const cartItemIdIndex = newCartItemsIds.findIndex(cartItemsId => cartItemsId === id)
+    newCartItemsIds.splice(cartItemIdIndex, 1)
+    setCartItemsIds(newCartItemsIds)
+  }
+}
+const RentalItemsComponent = <RentalItems items={rentalItems} onItemClick={onItemClick} onLikeClick={onLikeClick} onCartClick={onCartClick} />
+
+/*
+useEffect(() => {
+  console.log("Here")
+  const tryGetUser = async () => setUser(await fetchUser(accessToken))
+  if(accessToken) tryGetUser()
+}, [accessToken])
+*/

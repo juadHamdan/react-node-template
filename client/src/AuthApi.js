@@ -1,25 +1,14 @@
 import axios from 'axios'
 import { SERVER_URL } from './Constants';
 
-async function trySignOut() {
-    try{
-        await axios.get('auth/logout')
-        return true
-    }
-    catch(err){
-        console.log(err.response.statusText)
-        return false
-    }
-}
-
-async function onGoogleSignUp() {
-    window.open(SERVER_URL + "/auth/google", "_self");
-}
-
-async function fetchUser(){
+async function googleLogin(token){
     try {
-        const response = await axios.get("/auth/success")
-        return response.data.user
+        const response = await axios.post('/auth/google-login', { authHeader: `Bearer ${token}`} )
+        console.log(response.data)
+        return response.data
+        //const response = await axios.get(GOOGLE_LOGIN_ROUTE, { headers: {"Authorization" : `Bearer ${token}`} })
+        //console.log(response.data)
+        //return response.data
     }
     catch(err){
         console.log(err.response.statusText)
@@ -27,4 +16,15 @@ async function fetchUser(){
     }
 }
 
-export {fetchUser, onGoogleSignUp, trySignOut}
+async function fetchUser(token){
+    try {
+        const response = await axios.get('/auth/user', { headers: {"Authorization" : `Bearer ${token}`} })
+        return response.data
+    }
+    catch(err){
+        console.log(err.response.statusText)
+        return null
+    }
+}
+
+export {fetchUser, googleLogin}
