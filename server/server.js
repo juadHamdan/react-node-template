@@ -22,6 +22,31 @@ app.get("/uid", isLoggedIn, (req, res) => {
 app.get("/api", (req, res) => {
 })
 
+const Mentor = require("./models/Mentor")
+const Skill = require("./models/Skill")
+
+app.get("/mentors", (req, res) => {
+  let skill = req.query.skill;
+  try {
+    Mentor.find({}).populate([{ path: 'skills' }, { path: 'user', select: 'firstName lastName picture email position' }]).then(mentors => {
+      if (!skill) {
+        res.send(mentors)
+      }
+      else {
+        let mentorsWithSkill = mentors.filter(mentor => {
+          return mentor.skills.some(element => {
+            return element.skill.toLowerCase() === skill.toLocaleLowerCase()
+          });
+        })
+        res.send(mentorsWithSkill)
+      }
+    })
+  } catch (error) {
+    res.send(error)
+  }
+})
+
+
 
 app.listen(process.env.PORT, () => console.log(`Running on port ${process.env.PORT}`))
 
