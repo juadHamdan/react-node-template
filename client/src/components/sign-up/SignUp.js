@@ -1,54 +1,60 @@
 import './sign-up.css'
 import { useState } from 'react'
-import {googleLogin} from '../../AuthApi'
+import { GoogleLogin, useGoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import LoadingPage from '../loading-page/LoadingPage'
+import LogInForm from './LogInForm'
+import SignUpForm from './SignUpForm'
+import { googleLogin, emailSignUp, emailLogin } from '../../AuthApi'
 import SignUpIcon from './icons/sign-up.svg'
 import GoogleIcon from './icons/google.png'
 
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google'
-import LogInForm from './LogInForm'
-import SignInForm from './SignInForm'
-import axios from 'axios'
 
 const SignUp = ({ onSubmitClick, onAuthorization }) => {
     const [isSignedUp, setIsSignedUp] = useState(false)
     const [showLoadingPage, setShowLoadingPage] = useState(false)
 
-    const GoogleAuth = useGoogleLogin({
-        onSuccess: async credentialResponse => {
-            onSubmitClick()
-            console.log(credentialResponse);
-            await googleLogin(credentialResponse.access_token)
-            onAuthorization(credentialResponse.access_token)
-            setShowLoadingPage(false)
-        },
-        onError: () => {
-            console.log('Login Failed');
-            return null
-        }
-    });
-
-    const onGoogleLogin = () => {
-        setShowLoadingPage(true)
-        GoogleAuth()
-    }
-
     const onEmailLogin = async (formData) => {
         onSubmitClick()
         console.log(formData)
-        const result = await axios.post('/auth/login', formData)
-        onAuthorization(result.data.token)
+        try{
+            const token = await emailLogin(formData)
+            onAuthorization(token)
+        }
+        catch(err){
+            toast(err.message)
+        }
     }
 
-    const onEmailSignin = async (formData) => {
+    const onEmailSignUp = async (formData) => {
         onSubmitClick()
         console.log(formData)
-        const result = await axios.post('/auth/signin', formData)
-        onAuthorization(result.data.token)
+        try{
+            const token = await emailSignUp(formData)
+            onAuthorization(token)
+        }
+        catch(err){
+            toast(err.message)
+        }
+    }
+
+    async function onGoogleLoginSuccess(token) {
+        setShowLoadingPage(true)
+        onSubmitClick()
+        try {
+            await googleLogin(token)
+        }
+        catch (err) {
+            toast(err.message)
+        }
+        onAuthorization(token)
+        setShowLoadingPage(false)
     }
 
     return (
         <div id="sign-up-container">
+            <ToastContainer/>
             <LoadingPage show={showLoadingPage} text={"Logging You In ..."} />
 
             <div className="title-container">
@@ -57,43 +63,34 @@ const SignUp = ({ onSubmitClick, onAuthorization }) => {
                     {isSignedUp ? 'Sign In' : 'Sign Up'}
                 </h2>
             </div>
-            <GoogleLogin
-                onSuccess={async credentialResponse => {
-                    console.log(credentialResponse);
-                    onSubmitClick()
-                    console.log(credentialResponse);
-                    await googleLogin(credentialResponse.credential)
-                    onAuthorization(credentialResponse.credential)
-                    setShowLoadingPage(false)
-                }}
-                onError={() => {
-                    console.log('Login Failed');
-                }}
-                />;
 
-            <button className="google-btn" onClick={onGoogleLogin}>
+            <div className="google-title-container">
                 <img className="logo" src={GoogleIcon} />
-                <p>Continue With Google</p>
-            </button>
-            <p>OR</p>
+                <p style={{textDecoration: "underline"}}>Continue With Google:</p>
+            </div>
 
-            {isSignedUp ? 
-                <LogInForm onSubmit={onEmailLogin}/>
-            :
-                <SignInForm onSubmit={onEmailSignin}/>
-            }
+            <div className="google-btn-container" onMouseEnter={() => console.log("click")}>
+                <GoogleLogin
+                    onSuccess={res => onGoogleLoginSuccess(res.credential)}
+                    onError={() => toast('Login Failed')}
+                />
+            </div>
 
-            <span>
+            <p style={{textDecoration: "underline"}}>OR</p>
+
+            {isSignedUp ? <LogInForm onSubmit={onEmailLogin} /> : <SignUpForm onSubmit={onEmailSignUp} />}
+
+            <div className="auth-toggle">
                 {isSignedUp ?
-                    <a onClick={() => setIsSignedUp(false)} href="javascript:void(0);">Sign Up</a>
+                    <button onClick={() => setIsSignedUp(false)}>Sign Up</button>
                 :
                     <>
-                        Already Signed Up? {' '}
-                        <a onClick={() => setIsSignedUp(true)} href="javascript:void(0);">Log In</a>
+                        <p>Already Signed Up? {' '}</p>
+                        <button onClick={() => setIsSignedUp(true)}>Log In</button>
                     </>
                 }
 
-            </span>
+            </div>
         </div>
     )
 }

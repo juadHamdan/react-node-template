@@ -1,18 +1,37 @@
 import axios from 'axios'
-import { SERVER_URL } from './Constants';
 
 async function googleLogin(token){
-    try {
+    try{
         const response = await axios.post('/auth/google-login', { authHeader: `Bearer ${token}`} )
-        console.log(response.data)
         return response.data
-        //const response = await axios.get(GOOGLE_LOGIN_ROUTE, { headers: {"Authorization" : `Bearer ${token}`} })
-        //console.log(response.data)
-        //return response.data
     }
     catch(err){
-        console.log(err.response.statusText)
-        return null
+        if(err.response.status === 500) throw new Error("Log In Failed.")
+        else throw new Error(err)
+    }
+}   
+
+async function emailLogin(signUpData){
+    try{
+        const result = await axios.post('/auth/login', signUpData)
+        return result.data.token
+    }
+    catch(err){
+        if(err.response.status === 400) throw new Error("Invalid Credentials.")
+        if(err.response.status === 404) throw new Error("Incorrect Email / Password.")
+        if(err.response.status === 500) throw new Error("Log In Failed.")
+        else throw new Error(err)
+    }
+}
+
+async function emailSignUp(signUpData){
+    try{
+        const result = await axios.post('/auth/signup', signUpData)
+        return result.data.token
+    }
+    catch(err){
+        if(err.response.status === 400) throw new Error("User Already Exists.")
+        else throw new Error(err)
     }
 }
 
@@ -22,9 +41,9 @@ async function fetchUser(token){
         return response.data
     }
     catch(err){
-        console.log(err.response.statusText)
+        console.log(err)
         return null
     }
 }
 
-export {fetchUser, googleLogin}
+export {fetchUser, googleLogin, emailSignUp, emailLogin}

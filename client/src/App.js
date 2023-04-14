@@ -16,20 +16,24 @@ function App() {
   const [token, setToken] = useState(sessionStorage.getItem("token") ? JSON.parse(sessionStorage.getItem("token")) : null)
 
   useEffect(() => {
+    console.log("Here")
     if (token) {
-      const tryGetUser = async () => {
-        console.log("Fetching user")
-        const fetchedUser = await fetchUser(token)
-        setUser(fetchedUser)
-      }
+      const tryGetUser = async () => login(token)
       tryGetUser()
     }
-  }, [token])
+  }, [])
 
 
   const onAuthorization = async (token) => {
     setToken(token)
     sessionStorage.setItem("token", JSON.stringify(token))
+    login(token)
+    toast("Logged In Successfully")
+  }
+
+  const login = async (token) => {
+    const fetchedUser = await fetchUser(token)
+    setUser(fetchedUser)
   }
 
   const onLogout = () => {

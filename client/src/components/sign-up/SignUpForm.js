@@ -4,7 +4,7 @@ import './sign-up.css'
 import TextField from '@mui/material/TextField';
 import EmailIcon from './icons/email.svg'
 
-const SignInForm = ({ onSubmit }) => {
+const SignUpForm = ({ onSubmit }) => {
     const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", password: "" });
 
     const handleChange = (event) => {
@@ -36,12 +36,4 @@ const SignInForm = ({ onSubmit }) => {
     )
 }
 
-export default SignInForm
-
-/*
-
-                <input name="text" required type="text" value={formData.text} onChange={handleChange} />
-                <input name="isChecked" required type="checkbox" checked={formData.isChecked} onChange={handleChange} />
-                <button type="submit">Submit</button>
-
-                */
+export default SignUpForm

@@ -12,14 +12,16 @@ app.use(express.urlencoded({ extended: false }));
 const authRoute = require("./routes/auth");
 app.use("/auth", authRoute);
 
-const isLoggedIn = require("./route-handlers");
+const isLoggedIn = require("./auth-route-handlers");
 
 //request that requires login
-app.get("/uid", isLoggedIn, (req, res) => {
+app.get("/api-login", isLoggedIn, (req, res) => {
+  res.send("request that requires login")
 })
 
 //request that doesn't requires login
 app.get("/api", (req, res) => {
+  res.send("request that doesn't requires login is successfull")
 })
 
 
