@@ -1,6 +1,13 @@
+import './mentor.css'
+
 function Mentor({ mentor }) {
-    return (<div>{`${mentor.user.firstName} ${mentor.user.lastName}`}</div>)
-    // display the other data
+    return (
+        <div id="mentor">
+            <div>
+                {mentor.user.firstName} {mentor.user.lastName}
+            </div>
+        </div>
+    )
 }
 
 export default Mentor

@@ -2,21 +2,65 @@
 
 #landing-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
+#landing-container .mentors{
+    width: 45%;
+    padding: 5%;
+}
 .about-container {
     font-family: "Quicksand", sans-serif;
-    padding: 2% 15% 2% 15%;
-    width: min(750px, 100%);
+    padding: 5%;
+    width: 55%;
 }
-
 .about-title-header {
     text-align: center;
 }
-
 .about-header {
     text-align: center;
     font-size: 2rem;
     font-weight: bold;
+}
+
+
+
+#landing-container .search-mentors{
+    position: relative;
+    margin-bottom: 50px;
+}
+#landing-container .search-mentors form{
+    display: flex;
+    gap: 5px;
+}
+#landing-container .search-mentors form button{
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+}
+#landing-container .search-mentors form button:hover{
+    cursor: pointer;
+    filter: brightness(85%);
+}
+#landing-container .search-mentors .menu{
+    width: 100%;
+    position: absolute;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: scroll;
+    box-shadow: 0 5px 5px 2px rgba(0, 0, 0, 0.05);
+    border: 1px solid lightgray;
+}
+#landing-container .search-mentors .menu .menu-item{
+    padding: 15px;
+    font-size: 1.2rem;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+#landing-container .search-mentors .menu .menu-item:hover{
+    background-color: rgba(0, 0, 0, 0.02);
+    cursor: pointer;
 }
