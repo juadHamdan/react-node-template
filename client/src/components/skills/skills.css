@@ -1,0 +1,81 @@
+:root{
+    --skills-container-padding: 100px;
+}
+
+#skills-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: var(--skills-container-padding);
+}
+
+#skills-container .added-skills{
+    position: relative;
+    background-color: #fafafa;
+    border-radius: 5px;
+    border: 1px solid #f5f5f5;
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 50px 50px 25px 50px;
+    gap: 10px;
+}
+#skills-container .added-skills .title{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+#skills-container .added-skill{
+    font-size: 1.1rem;
+    border: 1px solid gray;
+    border-radius: 20px;
+    height: 30px;
+    width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 2px 2px 2px 10px;
+    gap: 5px;
+}
+#skills-container .added-skill .delete-icon-container{
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+}
+#skills-container .added-skill .delete-icon-container:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+
+
+
+#skills-container .search-skills{
+    position: relative;
+    width: max(80%, 300px);
+}
+#skills-container .search-skills .menu{
+    width: 100%;
+    position: absolute;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: scroll;
+    box-shadow: 0 5px 5px 2px rgba(0, 0, 0, 0.05);
+    border: 1px solid lightgray;
+}
+#skills-container .search-skills .menu .menu-item{
+    padding: 5px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+#skills-container .search-skills .menu .menu-item:hover{
+    background-color: rgba(0, 0, 0, 0.02);
+    cursor: pointer;
+}

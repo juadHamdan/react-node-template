@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+
+#landing-container {
+    display: flex;
+    justify-content: center;
+}
+
+.about-container {
+    font-family: "Quicksand", sans-serif;
+    padding: 2% 15% 2% 15%;
+    width: min(750px, 100%);
+}
+
+.about-title-header {
+    text-align: center;
+}
+
+.about-header {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+}

@@ -3,14 +3,11 @@ import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import Landing from './components/landing/Landing'
 import NavigationBar from './components/navigation-bar/NavigationBar'
-import { fetchUser, trySignOut } from './AuthApi'
+import { fetchUser } from './AuthApi'
+import Skills from './components/skills/Skills'
 import { RENTAL_ITEMS_ROUTE, RENTAL_ITEM_ROUTE, ADD_RENTAL_ITEM_ROUTE } from './Constants'
-import axios from 'axios'
-import Mentors from './components/Mentors/Mentors';
-
-import RentalItems from './components/rental-items/RentalItems';
-import { mockRentalItems } from './MockRentalItems';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -55,7 +52,7 @@ function App() {
         />
 
         <Routes>
-          <Route path="/" exact element={<div>Home Page</div>} />
+          <Route path="/" exact element={<Landing/>} />
         </Routes>
       </Router>
     </div>
