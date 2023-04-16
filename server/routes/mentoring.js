@@ -18,4 +18,22 @@ router.get("/mentors", async (req, res) => {
     }
 })
 
+
+router.post('/mentor/:userId', async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const skills = req.body.skills;
+      const workExperience = req.body.workExperience;
+      const contactDetails = req.body.contactDetails;
+  
+      const result = await databaseQueries.createMentor(userId, skills, workExperience, contactDetails);
+  
+      res.send(result);
+    } 
+    catch (err) {
+      console.error(err);
+      res.status(500).send({ message: 'Internal server error' });
+    }
+  });
+
 module.exports = router
