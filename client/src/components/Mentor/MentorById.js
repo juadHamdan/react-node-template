@@ -1,5 +1,6 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+
+/*import axios from "axios";
+import { useEffect, useState } from 'react'
 import MentorPage from "./MentorPage";
 function MentorById(props) {
   const [mentor, setMentor] = useState([]);
@@ -17,3 +18,4 @@ function MentorById(props) {
 }
 
 export default MentorById;
+*/

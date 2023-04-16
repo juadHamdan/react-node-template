@@ -30,7 +30,7 @@ router.get("/mentor/:id", (req, res) => {
           return mentor._id == mentorId;
         });
         console.log(mentorById);
-        res.send(mentorById);
+        res.send(mentorById[0]);
       });
   } catch (error) {
     res.send(error);

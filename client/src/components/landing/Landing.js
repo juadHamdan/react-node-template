@@ -1,7 +1,10 @@
 import './landing.css'
 import axios from 'axios'
 import { useEffect, useState } from 'react';
-import Mentors from '../Mentors/Mentors'
+import {Link} from 'react-router-dom'
+import { fetchMentors, fetchMentorsBySkill } from '../../MentorsApi';
+import SkillsSearchForm from '../skills-names-form/SkillsSearchForm';
+import Mentors from '../mentors/Mentors'
 import TextField from '@mui/material/TextField';
 import LaunchIcon from '@mui/icons-material/Launch';
 
@@ -11,11 +14,11 @@ const Landing = () => {
   const [mentors, setMentors] = useState([]);
 
   useEffect(() => {
-      axios.get('/mentors').then(response => { 
-      setMentors(response.data)
-      }).catch(error => {
-          console.log(error);
-      })
+    const getMentors = async () => {
+      const mentors = await fetchMentors()
+      setMentors(mentors)
+    }
+    getMentors()
   }, []);
 
   const handleChange = (event) => {
@@ -23,15 +26,10 @@ const Landing = () => {
     setSkillNameInput(input)
   }
 
-  const searchMentorBySkill = (e) => {
+  const getSearchedMentorsBySkill = async (e) => {
     e.preventDefault()
-    console.log(skillNameInput)
-    axios.get('/mentors?skill=' + skillNameInput).then(response => { 
-      setSearchedMentors(response.data)
-      console.log(response.data)
-      }).catch(error => {
-          console.log(error);
-      })
+    const mentors = await fetchMentorsBySkill(skillNameInput)
+    setSearchedMentors(mentors)
   }
 
   return (
@@ -58,22 +56,28 @@ const Landing = () => {
 
         <div className="search-mentors">
           <h3>Look For A Mentor:</h3>
-          <form onSubmit={searchMentorBySkill}>
+          <form onSubmit={getSearchedMentorsBySkill}>
             <TextField value={skillNameInput} fullWidth id="outlined-basic" label="Search Mentors By Skill" variant="outlined" onChange={handleChange} />
             <button type="submit">Search</button>
           </form>
+
+
           
           {searchedMentors.length === 0 ? null :
             <div className="menu">
               {searchedMentors.map(mentor =>
-                <div key={mentor._id} className="menu-item">
-                  <p>{mentor.user.firstName} {mentor.user.lastName}</p>
-                  <LaunchIcon />
-                </div>
+                <Link key={mentor._id} to={`/mentor/${mentor._id}`}>
+                  <div  className="menu-item">
+                    <p>{mentor.user.firstName} {mentor.user.lastName}</p>
+                    <LaunchIcon />
+                  </div>
+                </Link>
               )}
             </div>
           }
         </div>
+
+
         {searchedMentors.length === 0 && 
         <>
           <h3>Featured Mentors:</h3>

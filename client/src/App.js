@@ -11,9 +11,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Landing from "./components/landing/Landing";
 import NavigationBar from "./components/navigation-bar/NavigationBar";
 import { fetchUser } from "./AuthApi";
-import Skills from "./components/skills/Skills";
-import Mentors from "./components/Mentors/Mentors";
-import MentorById from "./components/Mentor/MentorById";
+import MentorPage from "./components/mentor/MentorPage";
+import MentorForm from "./components/mentor-form/MentorForm";
 import { MENTOR_FORM_ROUTE, COMPENY_MENTORSHIP_ROUTE } from "./Constants";
 
 function App() {
@@ -62,16 +61,9 @@ function App() {
 
         <Routes>
           <Route path="/" exact element={<Landing />} />
-          <Route
-            path={MENTOR_FORM_ROUTE}
-            exact
-            element={<div>Mentor Form (only users)</div>}
-          />
-          <Route
-            path={COMPENY_MENTORSHIP_ROUTE}
-            exact
-            element={<div>Company Mentorship (only users)</div>}
-          />
+          <Route path={MENTOR_FORM_ROUTE} element={<MentorForm user={{email: "joad.hamdan@gmail.com"}}/>}/>
+          <Route path={COMPENY_MENTORSHIP_ROUTE} element={<div>Company Mentorship (only users)</div>}/>
+          <Route path="/mentor/:id" element={<MentorPage/>} />
         </Routes>
       </Router>
     </div>
