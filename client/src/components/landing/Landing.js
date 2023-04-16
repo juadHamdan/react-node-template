@@ -1,7 +1,7 @@
 import './landing.css'
 import axios from 'axios'
 import { useEffect, useState } from 'react';
-import Mentors from '../mentors/Mentors'
+import Mentors from '../Mentors/Mentors'
 import TextField from '@mui/material/TextField';
 import LaunchIcon from '@mui/icons-material/Launch';
 
