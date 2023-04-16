@@ -1,45 +1,54 @@
-import './App.css';
-import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
-import Landing from './components/landing/Landing'
-import NavigationBar from './components/navigation-bar/NavigationBar'
-import { fetchUser } from './AuthApi'
-import Skills from './components/skills/Skills'
-import { MENTOR_FORM_ROUTE, COMPENY_MENTORSHIP_ROUTE } from './Constants'
+import "./App.css";
+import { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Landing from "./components/landing/Landing";
+import NavigationBar from "./components/navigation-bar/NavigationBar";
+import { fetchUser } from "./AuthApi";
+import Skills from "./components/skills/Skills";
+import Mentors from "./components/Mentors/Mentors";
+import MentorById from "./components/Mentor/MentorById";
+import { MENTOR_FORM_ROUTE, COMPENY_MENTORSHIP_ROUTE } from "./Constants";
 
 function App() {
-  const [user, setUser] = useState(null)
-  const [token, setToken] = useState(sessionStorage.getItem("token") ? JSON.parse(sessionStorage.getItem("token")) : null)
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(
+    sessionStorage.getItem("token")
+      ? JSON.parse(sessionStorage.getItem("token"))
+      : null
+  );
 
   useEffect(() => {
-    console.log("Here")
+    console.log("Here");
     if (token) {
-      const tryGetUser = async () => login(token)
-      tryGetUser()
+      const tryGetUser = async () => login(token);
+      tryGetUser();
     }
-  }, [])
-
+  }, []);
 
   const onAuthorization = async (token) => {
-    setToken(token)
-    sessionStorage.setItem("token", JSON.stringify(token))
-    login(token)
-    toast("Logged In Successfully")
-  }
+    setToken(token);
+    sessionStorage.setItem("token", JSON.stringify(token));
+    login(token);
+    toast("Logged In Successfully");
+  };
 
   const login = async (token) => {
-    const fetchedUser = await fetchUser(token)
-    setUser(fetchedUser)
-  }
+    const fetchedUser = await fetchUser(token);
+    setUser(fetchedUser);
+  };
 
   const onLogout = () => {
-    setUser(null)
-    sessionStorage.clear()
-    toast("Logged Out Successfully")
-  }
-
+    setUser(null);
+    sessionStorage.clear();
+    toast("Logged Out Successfully");
+  };
 
   return (
     <div>
@@ -52,9 +61,17 @@ function App() {
         />
 
         <Routes>
-          <Route path="/" exact element={<Landing/>} />
-          <Route path={MENTOR_FORM_ROUTE} exact element={<div>Mentor Form (only users)</div>} />
-          <Route path={COMPENY_MENTORSHIP_ROUTE} exact element={<div>Company Mentorship (only users)</div>} />
+          <Route path="/" exact element={<Landing />} />
+          <Route
+            path={MENTOR_FORM_ROUTE}
+            exact
+            element={<div>Mentor Form (only users)</div>}
+          />
+          <Route
+            path={COMPENY_MENTORSHIP_ROUTE}
+            exact
+            element={<div>Company Mentorship (only users)</div>}
+          />
         </Routes>
       </Router>
     </div>
@@ -62,15 +79,6 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
 
 /*
 const [rentalItems, setRentalItems] = useState(mockRentalItems)

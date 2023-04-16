@@ -24,6 +24,7 @@
     "mongoose": "^7.0.3",
     "passport": "^0.5.3",
     "passport-google-oauth2": "^0.2.0",
-    "passwort": "^1.0.4"
+    "passwort": "^1.0.4",
+    "react-native-calendars": "^1.1295.0"
   }
 }
