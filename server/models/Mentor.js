@@ -3,8 +3,8 @@ const Schema = mongoose.Schema
 
 const contactDetailsSchema = new Schema({
     phoneNumber: String,
-    linkedIn: String,
-    gitHub: String
+    linkedinUrl: String,
+    githubUrl: String
 })
 
 const mentorSchema = new Schema({

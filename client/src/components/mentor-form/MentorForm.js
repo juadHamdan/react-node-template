@@ -20,14 +20,13 @@ const initSkill = { name: "", rating: 3, githubUrl: "", description: "" }
 
 const MentorForm = ({ user }) => {
     const [mentorData, setMentorData] = useState({
-        skills: [], workExperience: "", githubUrl: "", phoneNumber: "", linkedinUrl: "", workExperience: "", githubUrl: ""
+        skills: [], workExperience: "", githubUrl: "", phoneNumber: "", linkedinUrl: ""
     });
     const [skills, setSkills] = useState([])
 
     const getSkillsNames = () => skills.map(skill => skill.name)
 
     const onAddSkillName = (skillName) => {
-        console.log(skillName)
         const newSkill = { ...initSkill, name: skillName }
         setSkills(skills => [...skills, newSkill])
         setMentorData(mentorData => {return {...mentorData, skills: [...skills, newSkill]}})
@@ -51,8 +50,9 @@ const MentorForm = ({ user }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        console.log(mentorData)
-        const addedMentor = await postMentorById()
+
+        // check at least one skill // alert if NOt !
+        const addedMentor = await postMentorById(user._id , mentorData)
         console.log(addedMentor) // add alert
     }
 
@@ -99,7 +99,7 @@ const MentorForm = ({ user }) => {
 
                 <div className="controllers">
                     <button disabled={step === 0} onClick={handlePrev}>Previous</button>
-                    {step === 2 ?<button type="submit">Done</button>:<button onClick={handleNext}>Next</button>}
+                    {step === 2 ?<button type="submit">Done</button>:<button type="button" onClick={handleNext}>Next</button>}
                 </div>
             </form>
         </div>

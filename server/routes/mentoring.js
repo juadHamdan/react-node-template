@@ -29,11 +29,12 @@ router.get("/mentors/:id", async (req, res) => {
 });
 
 router.post("/mentor/:userId", async (req, res) => {
+ 
   try {
     const userId = req.params.userId;
     const skills = req.body.skills;
     const workExperience = req.body.workExperience;
-    const contactDetails = req.body.contactDetails;
+    const contactDetails = { githubUrl : req.body.githubUrl  ,phoneNumber :  req.body.phoneNumber , linkedinUrl : req.body.linkedinUrl};
     const result = await databaseQueries.createMentor(userId, skills, workExperience, contactDetails);
     res.send(result);
   } catch (err) {

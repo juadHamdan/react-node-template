@@ -62,7 +62,7 @@ function App() {
         <Routes>
           <Route path="/" exact element={<Landing />} />
           <Route path="mentors/:mentorID" element={<MentorPage />}></Route>
-          <Route path={MENTOR_FORM_ROUTE} element={<MentorForm user={{email: "joad.hamdan@gmail.com"}}/>}/>
+          <Route path={MENTOR_FORM_ROUTE} element={<MentorForm user={user}/>}/>
           <Route path={COMPENY_MENTORSHIP_ROUTE} element={<div>Company Mentorship (only users)</div>}/>
         </Routes>
       </Router>
