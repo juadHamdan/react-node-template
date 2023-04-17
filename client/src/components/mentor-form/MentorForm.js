@@ -52,11 +52,11 @@ const MentorForm = ({ user }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-
+        console.log(user._id)
         // check at least one skill // alert if NOt !
         const addedMentor = await postMentorById(user._id , mentorData)
-        navigate(`/`)
         console.log(addedMentor) // add alert
+        navigate('/mentors/' + addedMentor._id)
     }
 
     const onSkillChange = (skill) => {
@@ -66,9 +66,6 @@ const MentorForm = ({ user }) => {
         setSkills(newSkills)
         setMentorData(mentorData => {return {...mentorData, skills: newSkills}})
     }
-
-
-
 
     return (
         <div id="mentor-form-container">

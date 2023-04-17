@@ -3,7 +3,7 @@ import {useState} from 'react'
 import {skills} from '../../skills-dataset'
 import TextField from '@mui/material/TextField';
 
-const SkillsSearchForm = ({onAddSkillName, onChange}) => {
+const SkillsSearchForm = ({onAddSkillName}) => {
     const [skillNameInput, setSkillNameInput] = useState("")
     const [searchedSkills, setSearchedSkills] = useState([])
 
@@ -23,9 +23,8 @@ const SkillsSearchForm = ({onAddSkillName, onChange}) => {
     const handleChange = (event) => {
         const input = event.target.value
         setSkillNameInput(input)
-        onChange(input)
         if(input === '') setSearchedSkills([])
-        else setSearchedSkills(skills.filter(skill => skill.toLowerCase().includes(input.toLowerCase())))
+        else setSearchedSkills([input, ...skills.filter(skill => skill.toLowerCase().includes(input.toLowerCase()))])
     }
 
     return (

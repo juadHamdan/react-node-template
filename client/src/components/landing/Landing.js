@@ -25,8 +25,8 @@ const Landing = () => {
     setSkillNameInput(input)
   }
 
-  const getSearchedMentorsBySkill = async (e) => {
-    e.preventDefault()
+  const getSearchedMentorsBySkill = async () => {
+    //e.preventDefault()
     const mentors = await fetchMentorsBySkill(skillNameInput)
     setSearchedMentors(mentors)
   }
@@ -55,10 +55,9 @@ const Landing = () => {
 
         <div className="search-mentors">
           <h3>Look For A Mentor:</h3>
-          <form onSubmit={getSearchedMentorsBySkill}>
-            <TextField value={skillNameInput} fullWidth id="outlined-basic" label="Search Mentors By Skill" variant="outlined" onChange={handleChange} />
-            <button type="submit">Search</button>
-          </form>
+
+
+          <SkillsSearchForm onAddSkillName={getSearchedMentorsBySkill}/>
 
           {searchedMentors.length === 0 ? null :
             <div className="menu">
@@ -87,6 +86,11 @@ const Landing = () => {
 
 export default Landing
 
+/*
 
-//TODO: auto complete the skill name input (by the fetched dataset of skills)
-//fetch (axios) by seperate file
+          <form onSubmit={getSearchedMentorsBySkill}>
+            <TextField value={skillNameInput} fullWidth id="outlined-basic" label="Search Mentors By Skill" variant="outlined" onChange={handleChange} />
+            <button type="submit">Search</button>
+          </form>
+
+          */

@@ -10,6 +10,10 @@
     padding: var(--skills-container-padding);
 }
 
+#skills-names-form-container .skills-search-form-container{
+    width: 65%;
+}
+
 #skills-names-form-container .added-skills{
     position: relative;
     background-color: #fafafa;

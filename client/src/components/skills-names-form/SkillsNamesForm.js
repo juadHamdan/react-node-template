@@ -34,7 +34,10 @@ const SkillsNamesForm = ({ skillsNames, onAddSkillName, onDeleteSkill}) => {
                 )}
             </div>
 
-            <SkillsSearchForm onAddSkillName={onAddSkillName}/>
+            <div className="skills-search-form-container">
+                <SkillsSearchForm onAddSkillName={onAddSkillName}/>
+            </div>
+            
 
             <div className="suggested-skills">
                 <div className="title">Suggested Skills</div>
