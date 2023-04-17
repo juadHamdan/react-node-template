@@ -1,0 +1,96 @@
+:root{
+    --skills-container-padding: 50px;
+}
+
+#skills-names-form-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: var(--skills-container-padding);
+}
+
+#skills-names-form-container .added-skills{
+    position: relative;
+    background-color: #fafafa;
+    border-radius: 5px;
+    border: 1px solid #f5f5f5;
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 50px 50px 25px 50px;
+    gap: 10px;
+    margin-bottom: 20px;;
+}
+#skills-names-form-container .added-skills .title{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+#skills-names-form-container .added-skill{
+    font-size: 1.1rem;
+    border: 1px solid gray;
+    border-radius: 20px;
+    height: 30px;
+    width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 2px 2px 2px 10px;
+    gap: 5px;
+}
+#skills-names-form-container .added-skill .delete-icon-container{
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+}
+#skills-names-form-container .added-skill .delete-icon-container:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+
+
+#skills-names-form-container .suggested-skills{
+    position: relative;
+    background-color: #fafafa;
+    border-radius: 5px;
+    border: 1px solid #f5f5f5;
+    width: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 50px 50px 25px 50px;
+    gap: 10px;
+    margin-top: 20px;
+}
+#skills-names-form-container .suggested-skills .title{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+#skills-names-form-container .suggested-skill{
+    background-color: rgba(0, 0, 0, 0.1);
+    font-size: 1.1rem;
+    border-radius: 20px;
+    height: 30px;
+    width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 5px 10px;
+    gap: 5px;
+
+}
+#skills-names-form-container .suggested-skill:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}

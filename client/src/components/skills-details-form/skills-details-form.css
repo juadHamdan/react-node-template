@@ -1,0 +1,16 @@
+#skills-details-form-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#skills-details-form-container #skill-detail-form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border: 1px solid lightgray;
+    border-radius: 2px;
+    width: 800px;
+}

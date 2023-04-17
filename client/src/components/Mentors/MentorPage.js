@@ -1,23 +1,20 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import { PROFILE_IMG } from "../../config"
 import "./MentorPage.css"
 import Rating from '@mui/material/Rating';
+import { fetchMentorById } from '../../MentorsApi'
 
 function MentorPage() {
     let { mentorID } = useParams();
     const [mentor, setMentor] = useState(null);
     useEffect(() => {
-        axios
-            .get(`/mentors/${mentorID}`)
-            .then((response) => {
-                setMentor(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
+        const getMentor = async () => {
+          const mentor = await fetchMentorById(mentorID)
+          setMentor(mentor)
+        }
+        getMentor()
+      }, []);
 
     return (
         mentor && <div className="mentor-container">
