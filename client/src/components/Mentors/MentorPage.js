@@ -5,12 +5,14 @@ import "./MentorPage.css"
 import Rating from '@mui/material/Rating';
 import { fetchMentorById } from '../../MentorsApi'
 
+
 function MentorPage() {
     let { mentorID } = useParams();
     const [mentor, setMentor] = useState(null);
     useEffect(() => {
         const getMentor = async () => {
           const mentor = await fetchMentorById(mentorID)
+          
           setMentor(mentor)
         }
         getMentor()
@@ -33,9 +35,9 @@ function MentorPage() {
                         phone number:{mentor.contactDetails.phoneNumber}
                     </div>
                     <div className="linkedIn">
-                        linkedIn:{mentor.contactDetails.linkedIn}
+                        linkedIn:{mentor.contactDetails.linkedinUrl}
                     </div>
-                    <div className="gitHub">gitHub:{mentor.contactDetails.gitHub}</div>
+                    <div className="gitHub">gitHub:{mentor.contactDetails.githubUrl}</div>
                 </div>
             </div>
             <div className="skills-container">

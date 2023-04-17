@@ -26,7 +26,7 @@ async function createMentor(userId, skills, workExperience, contactDetails) {
   const savedSkills = await Promise.all(skillDocs.map(doc => doc.save()));
   const mentor = new Mentor({
     user,
-    skills: savedSkills.map(doc => doc._id),
+    skills: savedSkills.map(skill => skill._id),
     workExperience,
     contactDetails
   });

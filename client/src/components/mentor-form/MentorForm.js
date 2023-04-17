@@ -13,6 +13,7 @@ import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import GavelIcon from '@mui/icons-material/Gavel';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
+import { useNavigate } from 'react-router-dom';
 
 const steps = ['Add Skills', 'Add Details', '-'];
 
@@ -23,6 +24,7 @@ const MentorForm = ({ user }) => {
         skills: [], workExperience: "", githubUrl: "", phoneNumber: "", linkedinUrl: ""
     });
     const [skills, setSkills] = useState([])
+    const navigate = useNavigate()
 
     const getSkillsNames = () => skills.map(skill => skill.name)
 
@@ -53,6 +55,7 @@ const MentorForm = ({ user }) => {
 
         // check at least one skill // alert if NOt !
         const addedMentor = await postMentorById(user._id , mentorData)
+        navigate(`/`)
         console.log(addedMentor) // add alert
     }
 

@@ -14,7 +14,7 @@ import { fetchUser } from "./AuthApi";
 import { MENTOR_FORM_ROUTE, COMPENY_MENTORSHIP_ROUTE } from "./Constants";
 import MentorPage from "./components/mentors/MentorPage";
 import MentorForm from "./components/mentor-form/MentorForm"
-
+import AlertShouldLogin from "./components/alerts/AlertShouldLogin";
 function App() {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(
@@ -62,7 +62,7 @@ function App() {
         <Routes>
           <Route path="/" exact element={<Landing />} />
           <Route path="mentors/:mentorID" element={<MentorPage />}></Route>
-          <Route path={MENTOR_FORM_ROUTE} element={<MentorForm user={user}/>}/>
+          <Route path={MENTOR_FORM_ROUTE} element={token ? <MentorForm user={user}/> : <AlertShouldLogin />}/>
           <Route path={COMPENY_MENTORSHIP_ROUTE} element={<div>Company Mentorship (only users)</div>}/>
         </Routes>
       </Router>
