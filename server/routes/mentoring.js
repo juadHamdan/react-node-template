@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const databaseQueries = require("../services/databaseQueries");
-const { compareRatings } = require("../utils/compare-ratings")
+const { compareSkillsRatings, compareSkillRating } = require("../utils/compare-ratings")
 
 
 router.get("/mentors", async (req, res) => {
@@ -11,10 +11,11 @@ router.get("/mentors", async (req, res) => {
   try {
     if (!skill) {
       mentors = await databaseQueries.getMentors();
+      mentors = mentors.sort(compareSkillsRatings);
     } else {
       mentors = await databaseQueries.getMentorsBySkill(skill);
+      mentors = mentors.sort((mentor1, mentor2) => compareSkillRating(mentor1, mentor2, skill));
     }
-    mentors = mentors.sort(compareRatings);
     mentors = limit ? mentors.slice(0, limit) : mentors;
     res.send(mentors);
   } catch (error) {

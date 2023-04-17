@@ -52,6 +52,10 @@
     box-shadow: 0 5px 5px 2px rgba(0, 0, 0, 0.05);
     border: 1px solid lightgray;
 }
+#landing-container .search-mentors .menu a {
+    text-decoration: none;
+    color: black;
+}
 #landing-container .search-mentors .menu .menu-item{
     padding: 15px;
     font-size: 1.2rem;
