@@ -59,6 +59,8 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+    text-decoration: none;
+    color: black;
 }
 #landing-container .search-mentors .menu .menu-item:hover{
     background-color: rgba(0, 0, 0, 0.02);

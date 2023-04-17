@@ -11,10 +11,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Landing from "./components/landing/Landing";
 import NavigationBar from "./components/navigation-bar/NavigationBar";
 import { fetchUser } from "./AuthApi";
-import Skills from "./components/skills/Skills";
-import Mentors from "./components/Mentors/Mentors";
-import MentorById from "./components/Mentor/MentorById";
 import { MENTOR_FORM_ROUTE, COMPENY_MENTORSHIP_ROUTE } from "./Constants";
+import MentorPage from "./components/Mentors/MentorPage";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -72,6 +70,7 @@ function App() {
             exact
             element={<div>Company Mentorship (only users)</div>}
           />
+          <Route path="mentors/:mentorID" element={<MentorPage />}></Route>
         </Routes>
       </Router>
     </div>

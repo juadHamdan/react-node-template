@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Mentors from '../Mentors/Mentors'
 import TextField from '@mui/material/TextField';
 import LaunchIcon from '@mui/icons-material/Launch';
+import { Link } from 'react-router-dom';
 
 const Landing = () => {
   const [skillNameInput, setSkillNameInput] = useState("");
@@ -11,11 +12,11 @@ const Landing = () => {
   const [mentors, setMentors] = useState([]);
 
   useEffect(() => {
-      axios.get('/mentors').then(response => { 
+    axios.get('/mentors').then(response => {
       setMentors(response.data)
-      }).catch(error => {
-          console.log(error);
-      })
+    }).catch(error => {
+      console.log(error);
+    })
   }, []);
 
   const handleChange = (event) => {
@@ -26,12 +27,12 @@ const Landing = () => {
   const searchMentorBySkill = (e) => {
     e.preventDefault()
     console.log(skillNameInput)
-    axios.get('/mentors?skill=' + skillNameInput).then(response => { 
+    axios.get('/mentors?skill=' + skillNameInput).then(response => {
       setSearchedMentors(response.data)
       console.log(response.data)
-      }).catch(error => {
-          console.log(error);
-      })
+    }).catch(error => {
+      console.log(error);
+    })
   }
 
   return (
@@ -62,24 +63,24 @@ const Landing = () => {
             <TextField value={skillNameInput} fullWidth id="outlined-basic" label="Search Mentors By Skill" variant="outlined" onChange={handleChange} />
             <button type="submit">Search</button>
           </form>
-          
+
           {searchedMentors.length === 0 ? null :
             <div className="menu">
               {searchedMentors.map(mentor =>
-                <div key={mentor._id} className="menu-item">
-                  <p>{mentor.user.firstName} {mentor.user.lastName}</p>
-                  <LaunchIcon />
+                <div key={mentor._id} >
+                  <Link to={`/mentors/${mentor._id}`} className="menu-item"> <p>{mentor.user.firstName} {mentor.user.lastName}</p>
+                    <LaunchIcon /></Link>
                 </div>
               )}
             </div>
           }
         </div>
-        {searchedMentors.length === 0 && 
-        <>
-          <h3>Featured Mentors:</h3>
-          <Mentors mentors={mentors}/>
-        </>
-}
+        {searchedMentors.length === 0 &&
+          <>
+            <h3>Featured Mentors:</h3>
+            <Mentors mentors={mentors} />
+          </>
+        }
       </div>
     </div>
   )

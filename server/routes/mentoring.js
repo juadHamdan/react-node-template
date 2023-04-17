@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const databaseQueries = require("../services/databaseQueries");
-const Mentor = require("../models/Mentor");
+
 
 router.get("/mentors", async (req, res) => {
   let skill = req.query.skill;
@@ -17,21 +17,12 @@ router.get("/mentors", async (req, res) => {
     res.send(error);
   }
 });
-router.get("/mentor/:id", (req, res) => {
+
+router.get("/mentors/:id", async (req, res) => {
   let mentorId = req.params.id;
-  console.log(mentorId);
   try {
-    Mentor.find({})
-      .populate([{ path: "skills" }, { path: "user" }])
-      .then((mentors) => {
-        let mentorById = mentors.filter((mentor) => {
-          console.log(mentor._id);
-          console.log(mentorId);
-          return mentor._id == mentorId;
-        });
-        console.log(mentorById);
-        res.send(mentorById);
-      });
+    let mentor = await databaseQueries.getMentorByID(mentorId);
+    res.send(mentor)
   } catch (error) {
     res.send(error);
   }
@@ -43,14 +34,7 @@ router.post("/mentor/:userId", async (req, res) => {
     const skills = req.body.skills;
     const workExperience = req.body.workExperience;
     const contactDetails = req.body.contactDetails;
-
-    const result = await databaseQueries.createMentor(
-      userId,
-      skills,
-      workExperience,
-      contactDetails
-    );
-
+    const result = await databaseQueries.createMentor(userId, skills, workExperience, contactDetails);
     res.send(result);
   } catch (err) {
     console.error(err);
