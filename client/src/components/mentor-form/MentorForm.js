@@ -25,13 +25,13 @@ const MentorForm = ({ user }) => {
     });
     const [skills, setSkills] = useState([])
     const navigate = useNavigate()
-
+    console.log(user._id)
     const getSkillsNames = () => skills.map(skill => skill.name)
 
     const onAddSkillName = (skillName) => {
         const newSkill = { ...initSkill, name: skillName }
         setSkills(skills => [...skills, newSkill])
-        setMentorData(mentorData => {return {...mentorData, skills: [...skills, newSkill]}})
+        setMentorData(mentorData => { return { ...mentorData, skills: [...skills, newSkill] } })
     }
 
     const onDeleteSkill = (skillIndex) => {
@@ -54,8 +54,8 @@ const MentorForm = ({ user }) => {
         event.preventDefault()
 
         // check at least one skill // alert if NOt !
-        const addedMentor = await postMentorById(user._id , mentorData)
-        navigate(`/`)
+        const addedMentor = await postMentorById(user._id, mentorData)
+        navigate(`/mentors/${addedMentor._id}`)
         console.log(addedMentor) // add alert
     }
 
@@ -64,7 +64,7 @@ const MentorForm = ({ user }) => {
         const skillIndex = newSkills.findIndex(newSkill => newSkill.name === skill.name)
         newSkills[skillIndex] = skill
         setSkills(newSkills)
-        setMentorData(mentorData => {return {...mentorData, skills: newSkills}})
+        setMentorData(mentorData => { return { ...mentorData, skills: newSkills } })
     }
 
 
@@ -102,7 +102,7 @@ const MentorForm = ({ user }) => {
 
                 <div className="controllers">
                     <button disabled={step === 0} onClick={handlePrev}>Previous</button>
-                    {step === 2 ?<button type="submit">Done</button>:<button type="button" onClick={handleNext}>Next</button>}
+                    {step === 2 ? <button type="submit">Done</button> : <button type="button" onClick={handleNext}>Next</button>}
                 </div>
             </form>
         </div>

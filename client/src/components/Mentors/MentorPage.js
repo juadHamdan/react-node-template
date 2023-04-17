@@ -5,18 +5,17 @@ import "./MentorPage.css"
 import Rating from '@mui/material/Rating';
 import { fetchMentorById } from '../../MentorsApi'
 
-
 function MentorPage() {
     let { mentorID } = useParams();
     const [mentor, setMentor] = useState(null);
     useEffect(() => {
         const getMentor = async () => {
-          const mentor = await fetchMentorById(mentorID)
-          
-          setMentor(mentor)
+            const mentor = await fetchMentorById(mentorID)
+
+            setMentor(mentor)
         }
         getMentor()
-      }, []);
+    }, []);
 
     return (
         mentor && <div className="mentor-container">

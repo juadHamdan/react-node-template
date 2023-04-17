@@ -29,7 +29,6 @@ router.get("/mentors/:id", async (req, res) => {
 });
 
 router.post("/mentor/:userId", async (req, res) => {
- 
   try {
     const userId = req.params.userId;
     const skills = req.body.skills;
