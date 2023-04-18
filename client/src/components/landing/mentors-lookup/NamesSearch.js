@@ -11,7 +11,6 @@ const NamesSearch = () => {
     useEffect(() => {
         const getMentorsNames = async () => {
             const names = await fetchMentorsNames()
-            console.log(names);
             setMentorsNames(names)
         }
         getMentorsNames()
@@ -20,7 +19,12 @@ const NamesSearch = () => {
     const handleChange = (event) => {
         const input = event.target.value
         setMentorName(input)
-        setSearchedMentors([...mentorsNames.filter(mentor => mentor.fullName.toLowerCase().startsWith(input.toLowerCase()))])
+        if (input === "") {
+            setSearchedMentors([]);
+        }
+        else {
+            setSearchedMentors([...mentorsNames.filter(mentor => mentor.fullName.toLowerCase().startsWith(input.toLowerCase()))])
+        }
     }
 
     return (<div id="skills-search-form-container">
