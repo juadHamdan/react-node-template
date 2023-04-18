@@ -5,18 +5,17 @@ import "./MentorPage.css"
 import Rating from '@mui/material/Rating';
 import { fetchMentorById } from '../../MentorsApi'
 
-
 function MentorPage() {
     let { mentorID } = useParams();
     const [mentor, setMentor] = useState(null);
+
     useEffect(() => {
         const getMentor = async () => {
-          const mentor = await fetchMentorById(mentorID)
-          
-          setMentor(mentor)
+            const mentor = await fetchMentorById(mentorID)
+            setMentor(mentor)
         }
         getMentor()
-      }, []);
+    }, []);
 
     return (
         mentor && <div className="mentor-container">
@@ -24,18 +23,20 @@ function MentorPage() {
                 <div className="picture">{mentor.user.picture || <img className="mentor-profile" src={PROFILE_IMG}></img>}</div>
                 <div className="mentor-info">
                     <div className="full-name">{`${mentor.user.firstName} ${mentor.user.lastName}`}</div>
-                    <div className="position">position at company:{mentor.user.position}</div>
                     <div className="Education-work">
-                        Education and work:{mentor.workExperience}
+                        Education and work: {mentor.workExperience}
                     </div>
                 </div>
                 <h4 className="contact-details">Contact Details:</h4>
                 <div className="contact-details-container">
                     <div className="phoneNumber">
-                        phone number:{mentor.contactDetails.phoneNumber}
+                        Email: {mentor.user.email}
+                    </div>
+                    <div className="phoneNumber">
+                        Phone Number: {mentor.contactDetails.phoneNumber}
                     </div>
                     <div className="linkedIn">
-                        linkedIn:{mentor.contactDetails.linkedinUrl}
+                        linkedIn: {mentor.contactDetails.linkedinUrl}
                     </div>
                     <div className="gitHub">gitHub:{mentor.contactDetails.githubUrl}</div>
                 </div>
@@ -56,6 +57,3 @@ function MentorPage() {
 }
 
 export default MentorPage;
-
-  // picture => picture file (.png, jpg)
-  // pictureUrl => link

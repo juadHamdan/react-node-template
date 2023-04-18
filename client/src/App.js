@@ -25,7 +25,6 @@ function App() {
   );
 
   useEffect(() => {
-    console.log("Here");
     if (token) {
       const tryGetUser = async () => await login(token);
       tryGetUser();

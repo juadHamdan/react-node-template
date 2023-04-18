@@ -1,8 +1,6 @@
 import './mentor.css'
 
 function Mentor({ mentor }) {
-
-    
     return (
         <div id="mentor">
             <div>

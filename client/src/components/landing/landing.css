@@ -47,10 +47,15 @@
     width: 100%;
     position: absolute;
     border-radius: 5px;
-    max-height: 200px;
+    max-height: 400px;
     overflow-y: scroll;
     box-shadow: 0 5px 5px 2px rgba(0, 0, 0, 0.05);
     border: 1px solid lightgray;
+}
+
+#landing-container .search-mentors .menu .menu-title{
+    margin: 10px;
+    text-decoration: underline;
 }
 #landing-container .search-mentors .menu .menu-item{
     padding: 15px;

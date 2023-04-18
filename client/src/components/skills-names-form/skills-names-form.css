@@ -1,5 +1,5 @@
 :root{
-    --skills-container-padding: 50px;
+    --skills-container-padding: 20px;
 }
 
 #skills-names-form-container{
@@ -22,7 +22,7 @@
     width: 50%;
     display: flex;
     flex-wrap: wrap;
-    padding: 50px 50px 25px 50px;
+    padding: 50px 50px 40px 50px;
     gap: 10px;
     margin-bottom: 20px;;
 }
@@ -65,13 +65,13 @@
     position: relative;
     background-color: #fafafa;
     border-radius: 5px;
-    border: 1px solid #f5f5f5;
     width: 500px;
     display: flex;
     flex-wrap: wrap;
     padding: 50px 50px 25px 50px;
     gap: 10px;
     margin-top: 20px;
+    border: 1px solid #f0f0f0;
 }
 #skills-names-form-container .suggested-skills .title{
     position: absolute;

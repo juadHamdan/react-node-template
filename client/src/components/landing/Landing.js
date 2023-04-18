@@ -2,9 +2,8 @@ import './landing.css'
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import { fetchMentors, fetchMentorsBySkill } from '../../MentorsApi';
-import SkillsSearchForm from '../skills-names-form/SkillsSearchForm';
+import SkillsSearchInput from './SkillsSearchInput';
 import Mentors from '../mentors/Mentors'
-import TextField from '@mui/material/TextField';
 import LaunchIcon from '@mui/icons-material/Launch';
 
 const Landing = () => {
@@ -20,14 +19,10 @@ const Landing = () => {
     getMentors()
   }, []);
 
-  const handleChange = (event) => {
-    const input = event.target.value
-    setSkillNameInput(input)
-  }
 
-  const getSearchedMentorsBySkill = async () => {
-    //e.preventDefault()
-    const mentors = await fetchMentorsBySkill(skillNameInput)
+  const getSearchedMentorsBySkill = async (skill) => {
+    setSkillNameInput(skill)
+    const mentors = await fetchMentorsBySkill(skill)
     setSearchedMentors(mentors)
   }
 
@@ -56,11 +51,11 @@ const Landing = () => {
         <div className="search-mentors">
           <h3>Look For A Mentor:</h3>
 
-
-          <SkillsSearchForm onAddSkillName={getSearchedMentorsBySkill}/>
+          <SkillsSearchInput onAddSkillName={getSearchedMentorsBySkill}/>
 
           {searchedMentors.length === 0 ? null :
             <div className="menu">
+              <h3 className="menu-title">Our {skillNameInput} Mentors:</h3>
               {searchedMentors.map(mentor =>
                 <Link key={mentor._id} to={`/mentors/${mentor._id}`}>
                   <div className="menu-item">
@@ -85,12 +80,3 @@ const Landing = () => {
 }
 
 export default Landing
-
-/*
-
-          <form onSubmit={getSearchedMentorsBySkill}>
-            <TextField value={skillNameInput} fullWidth id="outlined-basic" label="Search Mentors By Skill" variant="outlined" onChange={handleChange} />
-            <button type="submit">Search</button>
-          </form>
-
-          */

@@ -1,5 +1,7 @@
 import './mentor-form.css';
 import { useState } from 'react';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import SkillsNamesForm from '../skills-names-form/SkillsNamesForm';
 import { postMentorById } from '../../MentorsApi';
 import TextField from '@mui/material/TextField';
@@ -25,13 +27,12 @@ const MentorForm = ({ user }) => {
     });
     const [skills, setSkills] = useState([])
     const navigate = useNavigate()
-
     const getSkillsNames = () => skills.map(skill => skill.name)
 
     const onAddSkillName = (skillName) => {
         const newSkill = { ...initSkill, name: skillName }
         setSkills(skills => [...skills, newSkill])
-        setMentorData(mentorData => {return {...mentorData, skills: [...skills, newSkill]}})
+        setMentorData(mentorData => { return { ...mentorData, skills: [...skills, newSkill] } })
     }
 
     const onDeleteSkill = (skillIndex) => {
@@ -40,21 +41,22 @@ const MentorForm = ({ user }) => {
         setSkills(newSkills)
     }
 
-
     const [step, setStep] = useState(0)
     const handlePrev = () => setStep(step => step - 1)
     const handleNext = () => setStep(step => step + 1)
 
-
-    const handleChange = (event) => {
-        setMentorData({ ...mentorData, [event.target.name]: event.target.value })
-    }
+    const handleChange = (event) => setMentorData({ ...mentorData, [event.target.name]: event.target.value })
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        console.log(user._id)
-        // check at least one skill // alert if NOt !
-        const addedMentor = await postMentorById(user._id , mentorData)
+
+        if(skills.length === 0){
+            toast("You Must Add At Least One Skill")
+            setStep(0)
+            return
+        }
+        const addedMentor = await postMentorById(user._id, mentorData)
+        navigate(`/mentors/${addedMentor._id}`)
         console.log(addedMentor) // add alert
         navigate('/mentors/' + addedMentor._id)
     }
@@ -64,11 +66,13 @@ const MentorForm = ({ user }) => {
         const skillIndex = newSkills.findIndex(newSkill => newSkill.name === skill.name)
         newSkills[skillIndex] = skill
         setSkills(newSkills)
-        setMentorData(mentorData => {return {...mentorData, skills: newSkills}})
+        setMentorData(mentorData => { return { ...mentorData, skills: newSkills } })
     }
 
     return (
         <div id="mentor-form-container">
+            <ToastContainer/>
+
             <Stack sx={{ width: '100%', marginBottom: '50px' }} spacing={4}>
                 <Stepper alternativeLabel activeStep={step} connector={<ColorlibConnector />}>
                     {steps.map((label) => (
@@ -99,7 +103,7 @@ const MentorForm = ({ user }) => {
 
                 <div className="controllers">
                     <button disabled={step === 0} onClick={handlePrev}>Previous</button>
-                    {step === 2 ?<button type="submit">Done</button>:<button type="button" onClick={handleNext}>Next</button>}
+                    {step === 2 ? <button type="submit">Done</button> : <button type="button" onClick={handleNext}>Next</button>}
                 </div>
             </form>
         </div>
@@ -107,11 +111,6 @@ const MentorForm = ({ user }) => {
 };
 
 export default MentorForm;
-
-
-
-
-
 
 
 
@@ -155,7 +154,8 @@ const ColorlibStepIconRoot = styled('div')(({ theme, ownerState }) => ({
     alignItems: 'center',
     ...(ownerState.active && {
         background: StepperActiveColor,
-        boxShadow: '0 0 10px 0 rgba(0,0,0,.25)',
+        boxShadow: '0 0 10px 0 rgba(0,0,0,0.5)',
+        scale: '1.1',
     }),
     ...(ownerState.completed && {
         background: StepperActiveColor,
