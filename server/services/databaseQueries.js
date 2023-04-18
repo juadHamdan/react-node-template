@@ -22,6 +22,10 @@ async function createMentor(userId, skills, workExperience, contactDetails) {
   if (!user) {
     throw new Error('User not found');
   }
+  else {
+    user.isMentor = true;
+    user.save()
+  }
   const skillDocs = skills.map(skill => new Skill(skill));
   const savedSkills = await Promise.all(skillDocs.map(doc => doc.save()));
   const mentor = new Mentor({

@@ -17,9 +17,9 @@ import GavelIcon from '@mui/icons-material/Gavel';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 import { useNavigate } from 'react-router-dom';
 
-const steps = ['Add Skills', 'Add Details', '-'];
+const steps = ['Add Skills', 'Skill Details', 'Personal Details'];
 
-const initSkill = { name: "", rating: 3, githubUrl: "", description: "" }
+const initSkill = { name: "", rating: 3, experienceYears: 0, lastTimeUsed: 0 }
 
 const MentorForm = ({ user }) => {
     const [mentorData, setMentorData] = useState({
@@ -58,7 +58,6 @@ const MentorForm = ({ user }) => {
         const addedMentor = await postMentorById(user._id, mentorData)
         navigate(`/mentors/${addedMentor._id}`)
         console.log(addedMentor) // add alert
-        navigate('/mentors/' + addedMentor._id)
     }
 
     const onSkillChange = (skill) => {

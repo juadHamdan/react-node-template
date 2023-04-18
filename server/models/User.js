@@ -8,7 +8,8 @@ const userSchema = new Schema({
     password: String,
     picture: String,
     position: String,
-    companyID: { type: Schema.Types.ObjectId, ref: "company" }
+    companyID: { type: Schema.Types.ObjectId, ref: "company" },
+    isMentor : Boolean
 })
 
 const User = mongoose.model("user", userSchema)
