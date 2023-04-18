@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { FEATURED_MENTORS_NUMBER } from "./Constants"
 
 async function fetchMentorById(id) {
     try {
@@ -22,22 +23,22 @@ async function postMentorById(id, mentor) {
 }
 
 async function fetchMentorsBySkill(skill) {
-    try{
-        const response = await axios.get('/mentors?skill=' + skill) 
+    try {
+        const response = await axios.get('/mentors?skill=' + skill)
         return response.data
     }
-    catch(error){
+    catch (error) {
         console.log(error);
         return null
     }
 }
 
 async function fetchMentors() {
-    try{
-        const response = await axios.get('/mentors')
+    try {
+        const response = await axios.get('/mentors?limit=' + FEATURED_MENTORS_NUMBER)
         return response.data
     }
-    catch(error){
+    catch (error) {
         console.log(error)
         return null
     }

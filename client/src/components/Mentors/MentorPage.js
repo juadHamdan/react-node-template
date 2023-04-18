@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { PROFILE_IMG } from "../../config"
+import { PROFILE_IMG } from "../../Constants"
 import "./MentorPage.css"
 import Rating from '@mui/material/Rating';
 import { fetchMentorById } from '../../MentorsApi'

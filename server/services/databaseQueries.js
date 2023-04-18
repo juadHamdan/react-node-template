@@ -40,6 +40,4 @@ function getMentorByID(mentorID) {
   { path: 'user', select: 'firstName lastName picture email position' }]);
 }
 
-
-
 module.exports = { getMentors, getMentorsBySkill, createMentor, getMentorByID }

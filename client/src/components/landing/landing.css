@@ -57,6 +57,10 @@
     margin: 10px;
     text-decoration: underline;
 }
+#landing-container .search-mentors .menu a {
+    text-decoration: none;
+    color: black;
+}
 #landing-container .search-mentors .menu .menu-item{
     padding: 15px;
     font-size: 1.2rem;
