@@ -10,6 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import { MENTOR_FORM_ROUTE, COMPENY_MENTORSHIP_ROUTE } from '../../Constants'
+import { useNavigate } from 'react-router-dom';
 
 const ROUTES = [MENTOR_FORM_ROUTE, COMPENY_MENTORSHIP_ROUTE]
 const userMenuItems = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -23,7 +24,7 @@ const NavBar = ({
     const [showUserMenu, setShowUserMenu] = useState(false);
     const [showSignUpModal, setShowSignUpModal] = useState(false)
     const [showProfileModal, setShowProfileModal] = useState(false)
-
+    const navigate = useNavigate()
     function handleUserMenuClick(settingName) {
         switch (settingName) {
             case "Logout":
@@ -31,7 +32,13 @@ const NavBar = ({
                 onLogout()
                 break;
             case "Profile":
-                onProfileClick()
+                if(!user.isMentor){
+                    onProfileClick()
+                }
+                else {
+                    navigate(`/mentor-profile/${user._id}`) //user is mentor
+                    console.log(user._id);
+                }
                 break;
         }
     }
