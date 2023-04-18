@@ -1,0 +1,12 @@
+#about-container {
+    font-family: "Quicksand", sans-serif;
+    padding: 5% 10%;
+}
+#about-container .about-title-header {
+    text-align: center;
+}
+#about-container .about-header {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+}

@@ -1,6 +1,6 @@
-import '../skills-names-form/skills-search-form.css'
+import '../../skills-names-form/skills-search-form.css'
 import {useState} from 'react'
-import {skills} from '../../skills-dataset'
+import {skills} from '../../../skills-dataset'
 import TextField from '@mui/material/TextField';
 
 const SkillsSearchInput = ({onAddSkillName}) => {
