@@ -44,4 +44,14 @@ async function fetchMentors() {
     }
 }
 
-export { fetchMentorById, postMentorById, fetchMentorsBySkill, fetchMentors }
+async function fetchMentorsNames() {
+    try {
+        const response = await axios.get('/mentorsNames');
+        return response.data
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}
+
+export { fetchMentorById, postMentorById, fetchMentorsBySkill, fetchMentors, fetchMentorsNames }

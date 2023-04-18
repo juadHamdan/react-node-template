@@ -23,6 +23,13 @@ router.get("/mentors", async (req, res) => {
   }
 });
 
+router.get("/mentorsNames", async (req, res) => {
+  let mentorsNames = await databaseQueries.getMentorsNames();
+  mentorsNames = mentorsNames.map(mentor => {
+    return { _id: mentor._id, fullName: mentor.user.firstName + " " + mentor.user.lastName }
+  })
+  res.send(mentorsNames);
+})
 
 router.get("/mentors/:id", async (req, res) => {
   let mentorId = req.params.id;

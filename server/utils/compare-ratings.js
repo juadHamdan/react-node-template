@@ -1,9 +1,10 @@
 function compareSkillsRatings(mentor1, mentor2) {
     let mentor1Ratings = 0;
     let mentor2Ratings = 0;
-    for (let i = 0; i < mentor1.skills.length; i++) {
-        mentor1Ratings += mentor1.skills[i].rating;
-        mentor2Ratings += mentor2.skills[i].rating;
+    let skillLength = mentor1.skills.length > mentor2.skills.length ? mentor1.skills.length : mentor2.skills.length
+    for (let i = 0; i < skillLength; i++) {
+        mentor1Ratings += mentor1.skills[i]?.rating ? mentor1.skills[i].rating : 0;
+        mentor2Ratings += mentor2.skills[i]?.rating ? mentor2.skills[i].rating : 0;
     }
     if (mentor1Ratings >= mentor2Ratings) {
         return -1;

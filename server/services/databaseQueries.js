@@ -40,4 +40,8 @@ function getMentorByID(mentorID) {
   { path: 'user', select: 'firstName lastName picture email position' }]);
 }
 
-module.exports = { getMentors, getMentorsBySkill, createMentor, getMentorByID }
+function getMentorsNames() {
+  return Mentor.find({}).populate({ path: "user", select: 'firstName lastName' });
+}
+
+module.exports = { getMentors, getMentorsBySkill, createMentor, getMentorByID, getMentorsNames }

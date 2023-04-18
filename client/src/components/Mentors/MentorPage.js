@@ -20,7 +20,7 @@ function MentorPage() {
     return (
         mentor && <div className="mentor-container">
             <div>
-                <div className="picture">{mentor.user.picture || <img className="mentor-profile" src={PROFILE_IMG}></img>}</div>
+                <div className="picture">{<img className="mentor-profile" src={mentor.user.picture || PROFILE_IMG}></img>}</div>
                 <div className="mentor-info">
                     <div className="full-name">{`${mentor.user.firstName} ${mentor.user.lastName}`}</div>
                     <div className="Education-work">
