@@ -22,7 +22,7 @@ const Modal = ({
   };
 
   function handleOutsideClick(e) {
-    if (e.target.className.includes("modal-bg")) onClose();
+    if (typeof(e.target.className) === 'string' && e.target.className.includes("modal-bg")) onClose();
   }
 
   return (

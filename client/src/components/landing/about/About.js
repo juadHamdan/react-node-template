@@ -9,7 +9,7 @@ const About = () => {
             </h1>
             <h2 class="about-title-header">Why Hook A Mentor?</h2>
             <p class="about-text">
-                Our website is designed to connect individuals who are seeking guidance and mentorship with experienced professionals
+                Our website is designed to connect individuals who are seeking guidance and mentorship with skilled individuals.
                 <hr />
                 Our website allows users to search for mentors based on skills.
                 Users can view the profiles of potential mentors, read their bios and reviews,
