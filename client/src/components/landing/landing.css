@@ -2,15 +2,6 @@
 
 #landing-container {
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
 }
-
-#landing-container .about-container{
-    width: 50%;
-}
-#landing-container .mentors-lookup-container{
-    width: 50%;
-}
-
-
-/*Add Media to controll flex-direction ROW => COLUMN*/

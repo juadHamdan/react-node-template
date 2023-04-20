@@ -62,7 +62,7 @@ const NavBar = ({
                     <SignUp onSubmitClick={() => setShowSignUpModal(false)} onAuthorization={onAuthorization} />
                 </Modal>
                 <Modal show={showProfileModal} onClose={onCloseProfileModal}>
-                    <Profile user={user} />
+                    <Profile user={user} onDelete={onLogout} />
                 </Modal>
 
                 <div className="navigation-bar">
