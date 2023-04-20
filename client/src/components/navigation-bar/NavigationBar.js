@@ -32,7 +32,7 @@ const NavBar = ({
                 onLogout()
                 break;
             case "Profile":
-                if(!user.isMentor){
+                if (!user.isMentor) {
                     onProfileClick()
                 }
                 else {
@@ -65,7 +65,7 @@ const NavBar = ({
                     <Profile user={user} />
                 </Modal>
 
-                <div class="navigation-bar">
+                <div className="navigation-bar">
                     <div className="menu nav-menu">
                         <IconButton
                             className=""
@@ -89,13 +89,13 @@ const NavBar = ({
                     </div>
 
 
-                    <div className="app-logo-container" onClick={() => window.location.href="/"}>
-                        <img class="app-icon" src="https://icons.iconarchive.com/icons/fa-team/fontawesome/256/FontAwesome-Laptop-Code-icon.png" />
+                    <div className="app-logo-container" onClick={() => window.location.href = "/"}>
+                        <img className="app-icon" src="https://icons.iconarchive.com/icons/fa-team/fontawesome/256/FontAwesome-Laptop-Code-icon.png" />
                         <h3>Hook A Mentor</h3>
                     </div>
-                    
-                    
-                    
+
+
+
                     <div className="routes">
                         <Link className="route" to="/">
                             <button className="btn">
@@ -131,7 +131,7 @@ const NavBar = ({
                                 }
                             </div>
                             :
-                            <button onClick={onLoginClick} class="btn login-btn">Log In</button>
+                            <button onClick={onLoginClick} className="btn login-btn">Log In</button>
                         }
                     </div>
                 </div>

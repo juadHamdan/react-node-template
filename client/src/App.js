@@ -16,6 +16,7 @@ import MentorPage from "./components/mentors/MentorPage";
 import MentorForm from "./components/mentor-form/MentorForm"
 import AlertShouldLogin from "./components/alerts/AlertShouldLogin";
 import EditMentorPage from "./components/mentors/EditMentorPage";
+import { bookMeeting } from "./MeetingsApi";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -59,13 +60,13 @@ function App() {
           onLogout={onLogout}
           onAuthorization={onAuthorization}
         />
-        
+
         <Routes>
           <Route path="/" exact element={<Landing />} />
-          <Route path="mentors/:mentorID" element={<MentorPage />}/>
-          <Route path="/mentor-profile/:mentorID" element={<EditMentorPage />}/>
-          <Route path={MENTOR_FORM_ROUTE} element={user ? <MentorForm user={user}/> : <AlertShouldLogin />}/>
-          <Route path={COMPENY_MENTORSHIP_ROUTE} element={<div>Company Mentorship (only users)</div>}/>
+          <Route path="mentors/:mentorID" element={<MentorPage />} />
+          <Route path="/mentor-profile/:mentorID" element={<EditMentorPage />} />
+          <Route path={MENTOR_FORM_ROUTE} element={user ? <MentorForm user={user} /> : <AlertShouldLogin />} />
+          <Route path={COMPENY_MENTORSHIP_ROUTE} element={<div>Company Mentorship (only users)</div>} />
         </Routes>
       </Router>
     </div>

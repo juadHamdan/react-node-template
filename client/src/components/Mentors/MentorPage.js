@@ -44,7 +44,7 @@ function MentorPage() {
             <div className="skills-container">
                 <div className="skills">
                     {mentor.skills.map((skill) => (
-                        <ol>
+                        <ol key={skill}>
                             <il className="skill-info"><i className={`programming lang-${skill.name.toLowerCase()}`}></i>
                                 {`${skill.name}`} <Rating name="read-only" value={skill.rating} readOnly />
                             </il>
