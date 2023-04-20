@@ -41,6 +41,16 @@ router.get("/mentors/:id", async (req, res) => {
   }
 });
 
+router.get("/mentor/:userId", async (req, res) => {
+  let userId = req.params.userId;
+  try {
+    let mentor = await databaseQueries.getMentorByUserId(userId);
+    res.send(mentor)
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 router.post("/mentor/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -55,4 +65,15 @@ router.post("/mentor/:userId", async (req, res) => {
   }
 });
 
+router.put("/mentor/:id", async (req, res) => {
+  try {
+    const userID = req.params.id;
+    const updatedMentor = req.body;
+    const mentor = await databaseQueries.updateMentor( userID , updatedMentor)
+    res.status(200).send({ mentor });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+});
 module.exports = router;

@@ -8,7 +8,7 @@ import { fetchMentorById } from '../../MentorsApi'
 function MentorPage() {
     let { mentorID } = useParams();
     const [mentor, setMentor] = useState(null);
-
+    console.log(mentor);
     useEffect(() => {
         const getMentor = async () => {
             const mentor = await fetchMentorById(mentorID)

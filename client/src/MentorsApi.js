@@ -12,6 +12,17 @@ async function fetchMentorById(id) {
     }
 }
 
+async function fetchMentorByUserId(userId) {
+    try {
+        const response = await axios.get('/mentor/' + userId)
+        return response.data
+    }
+    catch (err) {
+        console.log(err)
+        return null
+    }
+}
+
 async function postMentorById(id, mentor) {
     try {
         const response = await axios.post('/mentor/' + id, mentor);
@@ -54,4 +65,15 @@ async function fetchMentorsNames() {
     }
 }
 
-export { fetchMentorById, postMentorById, fetchMentorsBySkill, fetchMentors, fetchMentorsNames }
+async function updateMentor(userID , updatedMentor){
+    try {
+        const response = await axios.put('/mentor/' + userID , updatedMentor)
+        return response.data
+    }
+    catch (err) {
+        console.log(err)
+        return null
+    }
+}
+
+export { fetchMentorById, postMentorById, fetchMentorsBySkill, fetchMentors, fetchMentorsNames , fetchMentorByUserId , updateMentor }

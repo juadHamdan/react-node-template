@@ -48,4 +48,19 @@ function getMentorsNames() {
   return Mentor.find({}).populate({ path: "user", select: 'firstName lastName' });
 }
 
-module.exports = { getMentors, getMentorsBySkill, createMentor, getMentorByID, getMentorsNames }
+function getMentorByUserId(userId){
+  return Mentor.findOne({user : userId}).populate('skills user')
+}
+
+
+async function updateMentor(userId, updatedMentor) {
+  const mentor = await getMentorByUserId(userId);
+  return Mentor.findByIdAndUpdate(mentor._id, updatedMentor, { new: true });
+}
+
+
+
+
+
+
+module.exports = { getMentors, getMentorsBySkill, createMentor, getMentorByID, getMentorsNames , getMentorByUserId , updateMentor}
