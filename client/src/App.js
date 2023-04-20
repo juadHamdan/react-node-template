@@ -16,6 +16,8 @@ import MentorPage from "./components/mentors/MentorPage";
 import MentorForm from "./components/mentor-form/MentorForm"
 import AlertShouldLogin from "./components/alerts/AlertShouldLogin";
 import EditMentorPage from "./components/mentors/EditMentorPage";
+import MySchedulerModal from './components/schedules/MySchedulerModal'
+import MentorScheduleModal from "./components/schedules/MentorScheduleModal";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -48,6 +50,7 @@ function App() {
     setUser(null);
     sessionStorage.clear();
     toast("Logged Out Successfully");
+    window.location.href = "/"
   };
 
   return (
@@ -60,12 +63,22 @@ function App() {
           onAuthorization={onAuthorization}
         />
         
+        <MySchedulerModal/>
+        <MentorScheduleModal/>
+        
         <Routes>
           <Route path="/" exact element={<Landing />} />
+<<<<<<< HEAD
           <Route path="mentors/:mentorID" element={<MentorPage />}/>
           <Route path="/mentor-profile/:userID" element={<EditMentorPage />}/>
           <Route path={MENTOR_FORM_ROUTE} element={user ? <MentorForm user={user}/> : <AlertShouldLogin />}/>
           <Route path={COMPENY_MENTORSHIP_ROUTE} element={<div>Company Mentorship (only users)</div>}/>
+=======
+          <Route path="mentors/:mentorID" element={<MentorPage />} />
+          <Route path="/mentor-profile/:mentorID" element={<EditMentorPage />} />
+          <Route path={MENTOR_FORM_ROUTE} element={user ? <MentorForm user={user} /> : <AlertShouldLogin />} />
+          <Route path={COMPENY_MENTORSHIP_ROUTE} element={<div>Company Mentorship (only users)</div>} />
+>>>>>>> master
         </Routes>
       </Router>
     </div>
@@ -73,49 +86,3 @@ function App() {
 }
 
 export default App;
-
-/*
-const [rentalItems, setRentalItems] = useState(mockRentalItems)
-const [likedItemsIds, setLikedItemsIds] = useState([])
-const [cartItemsIds, setCartItemsIds] = useState([])
-
-function onSignOutClick() {
-  if (trySignOut()) {
-    setUser(null)
-    toast("Logged Out Successfully")
-  }
-  else toast("Log Out Failed.")
-}
-
-const onItemClick = (id) => console.log("Item") //change to link !
-const onLikeClick = (id, isLiked) => {
-  if (isLiked) {
-    setLikedItemsIds(likedItemsIds => [...likedItemsIds, id])
-  }
-  else {
-    const newLikedItemsIds = [...likedItemsIds]
-    const likedItemIdIndex = newLikedItemsIds.findIndex(likedItemsId => likedItemsId === id)
-    newLikedItemsIds.splice(likedItemIdIndex, 1)
-    setLikedItemsIds(newLikedItemsIds)
-  }
-}
-const onCartClick = (id, isAddedToCart) => {
-  if (isAddedToCart) {
-    setCartItemsIds(cartItemsIds => [...cartItemsIds, id])
-  }
-  else {
-    const newCartItemsIds = [...cartItemsIds]
-    const cartItemIdIndex = newCartItemsIds.findIndex(cartItemsId => cartItemsId === id)
-    newCartItemsIds.splice(cartItemIdIndex, 1)
-    setCartItemsIds(newCartItemsIds)
-  }
-}
-const RentalItemsComponent = <RentalItems items={rentalItems} onItemClick={onItemClick} onLikeClick={onLikeClick} onCartClick={onCartClick} />
-
-/*
-useEffect(() => {
-  console.log("Here")
-  const tryGetUser = async () => setUser(await fetchUser(accessToken))
-  if(accessToken) tryGetUser()
-}, [accessToken])
-*/

@@ -65,6 +65,7 @@ router.post("/mentor/:userId", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 router.put("/mentor/:id", async (req, res) => {
   try {
     const userID = req.params.id;
@@ -76,4 +77,77 @@ router.put("/mentor/:id", async (req, res) => {
     res.status(500).send({ message: "Internal Server Error" });
   }
 });
+=======
+router.post("/meetings/:userID", async (req, res) => {
+  try {
+    const user = await databaseQueries.getUserByID(req.params.userID)
+    if (user.isMentor) {
+      let meetingID = await databaseQueries.addMeeting(req.params.userID, req.body.title, req.body.startDate, req.body.endDate)
+      res.send(meetingID.toString())
+    }
+    else {
+      res.send("This user is not a mentor");
+    }
+  } catch (error) {
+    res.send(error)
+  }
+})
+
+router.delete("/meetings/:meetingID", async (req, res) => {
+  try {
+    await databaseQueries.deleteMeeting(req.params.meetingID)
+    res.send({ msg: "The meeting deleted successfully" })
+  } catch (error) {
+    res.send(error)
+  }
+})
+
+router.patch("/meetings/:meetingID", async (req, res) => {
+  try {
+    await databaseQueries.updateMeeting(req.params.meetingID, req.body.title, req.body.startDate, req.body.endDate)
+    res.send("Meeting updated successfully.")
+  } catch (error) {
+    res.send(error);
+  }
+})
+
+router.get('/meetings/:userID', async (req, res) => {
+  try {
+    let userID = req.params.userID
+    let user = await databaseQueries.getUserByID(userID);
+    let mentorMeetings = []
+    if (user.isMentor) {
+      mentorMeetings = await databaseQueries.getMentorMeetings(userID)
+      mentorMeetings = mentorMeetings.map(meeting => {
+        return {
+          _id: meeting._id,
+          startDate: meeting.startDate,
+          endDate: meeting.endDate,
+          mentor: meeting.mentor,
+          mentee: meeting.mentee,
+          isBooked: meeting.mentee ? true : false
+        }
+      })
+    }
+    else {
+      mentorMeetings = await databaseQueries.getMenteeMeetings(userID)
+    }
+    res.send(mentorMeetings)
+  } catch (error) {
+    res.send(error);
+  }
+})
+
+router.patch('/book-meeting/:meetingID/:menteeID', async (req, res) => {
+  try {
+    await databaseQueries.bookMeeting(req.params.meetingID, req.params.menteeID);
+    res.send("Meeting booked successfully.")
+  } catch (error) {
+    console.log(error);
+    res.send(error)
+  }
+})
+
+>>>>>>> master
 module.exports = router;
+

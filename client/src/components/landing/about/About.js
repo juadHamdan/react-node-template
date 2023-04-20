@@ -3,13 +3,13 @@ import './about.css'
 const About = () => {
     return (
         <div id="about-container">
-            <h1 class="about-header">
+            <h1 className="about-header">
                 "Alone we can do so little, together we can do so much."
                 <br /> - Helen Keller
             </h1>
-            <h2 class="about-title-header">Why Hook A Mentor?</h2>
-            <p class="about-text">
-                Our website is designed to connect individuals who are seeking guidance and mentorship with experienced professionals
+            <h2 className="about-title-header">Why Hook A Mentor?</h2>
+            <p className="about-text">
+                Our website is designed to connect individuals who are seeking guidance and mentorship with skilled individuals.
                 <hr />
                 Our website allows users to search for mentors based on skills.
                 Users can view the profiles of potential mentors, read their bios and reviews,
