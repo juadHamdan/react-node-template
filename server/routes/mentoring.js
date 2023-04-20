@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const databaseQueries = require("../services/databaseQueries");
-const { compareSkillsRatings, compareSkillRating } = require("../utils/compare-ratings")
-
+const {
+  compareSkillsRatings,
+  compareSkillRating,
+} = require("../utils/compare-ratings");
 
 router.get("/mentors", async (req, res) => {
   let skill = req.query.skill;
@@ -14,7 +16,9 @@ router.get("/mentors", async (req, res) => {
       mentors = mentors.sort(compareSkillsRatings);
     } else {
       mentors = await databaseQueries.getMentorsBySkill(skill);
-      mentors = mentors.sort((mentor1, mentor2) => compareSkillRating(mentor1, mentor2, skill));
+      mentors = mentors.sort((mentor1, mentor2) =>
+        compareSkillRating(mentor1, mentor2, skill)
+      );
     }
     mentors = limit ? mentors.slice(0, limit) : mentors;
     res.send(mentors);
@@ -25,17 +29,20 @@ router.get("/mentors", async (req, res) => {
 
 router.get("/mentorsNames", async (req, res) => {
   let mentorsNames = await databaseQueries.getMentorsNames();
-  mentorsNames = mentorsNames.map(mentor => {
-    return { _id: mentor._id, fullName: mentor.user.firstName + " " + mentor.user.lastName }
-  })
+  mentorsNames = mentorsNames.map((mentor) => {
+    return {
+      _id: mentor._id,
+      fullName: mentor.user.firstName + " " + mentor.user.lastName,
+    };
+  });
   res.send(mentorsNames);
-})
+});
 
 router.get("/mentors/:id", async (req, res) => {
   let mentorId = req.params.id;
   try {
     let mentor = await databaseQueries.getMentorByID(mentorId);
-    res.send(mentor)
+    res.send(mentor);
   } catch (error) {
     res.send(error);
   }
@@ -46,8 +53,17 @@ router.post("/mentor/:userId", async (req, res) => {
     const userId = req.params.userId;
     const skills = req.body.skills;
     const workExperience = req.body.workExperience;
-    const contactDetails = { githubUrl: req.body.githubUrl, phoneNumber: req.body.phoneNumber, linkedinUrl: req.body.linkedinUrl };
-    const result = await databaseQueries.createMentor(userId, skills, workExperience, contactDetails);
+    const contactDetails = {
+      githubUrl: req.body.githubUrl,
+      phoneNumber: req.body.phoneNumber,
+      linkedinUrl: req.body.linkedinUrl,
+    };
+    const result = await databaseQueries.createMentor(
+      userId,
+      skills,
+      workExperience,
+      contactDetails
+    );
     res.send(result);
   } catch (err) {
     console.error(err);
@@ -55,4 +71,27 @@ router.post("/mentor/:userId", async (req, res) => {
   }
 });
 
+router.delete("/mentor/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const result = await databaseQueries.getUserByID(userId);
+    if (result && result.isMentor) {
+      //is mentor
+      const mentor = await databaseQueries.getMentorByUserId(userId);
+      await databaseQueries.deleteMentorByID(mentor._id);
+      await databaseQueries.deleteUserByID({
+        _id: userId,
+      });
+    } else {
+      //only user
+      await databaseQueries.deleteUserByID({
+        _id: userId,
+      });
+    }
+    res.send(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Internal server error" });
+  }
+});
 module.exports = router;
