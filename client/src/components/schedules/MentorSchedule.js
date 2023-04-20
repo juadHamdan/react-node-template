@@ -13,9 +13,7 @@ import {
   Resources
 } from '@devexpress/dx-react-scheduler-material-ui';
 import Button from '@mui/material/Button';
-
-
-
+import {fetchMeetings, bookMeeting} from '../../MeetingsApi'
 
 const resources = [{
   fieldName: 'isBooked',
@@ -29,11 +27,21 @@ export default class MentorSchedule extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      data: props.meetings,
+      data: [],
       currentDate: new Date().toISOString().slice(0, 10),
       startDayHour: 9,
       endDayHour: 19,
     };
+  }
+
+  componentDidMount(){
+    console.log(this.props.mentorId)
+    const getMeetings = async () => {
+      const meetings = await fetchMeetings(this.props.mentorId)
+      console.log(meetings)
+      this.setState({data: meetings})
+    }
+    getMeetings()
   }
 
   BookMeetingBtn = (({appointmentData, onHide}) => (
@@ -42,17 +50,16 @@ export default class MentorSchedule extends React.PureComponent {
       disabled={appointmentData.isBooked} 
       variant="contained"
       onClick={() => {
-      console.log(appointmentData.id)
-
-      this.setState((state) => {
-        const { data } = state;
-        const newData = [...data]
-        const appointmentIndex = newData.findIndex(appointment => appointment.id === appointmentData.id)
-        newData[appointmentIndex].isBooked = true
-        return { data: newData };
-      });
-      //render or close the 
-      onHide()
+      bookMeeting(appointmentData.id, this.props.user._id).then(response => {
+        this.setState((state) => {
+          const { data } = state;
+          const newData = [...data]
+          const appointmentIndex = newData.findIndex(appointment => appointment.id === appointmentData.id)
+          newData[appointmentIndex].isBooked = true
+          return { data: newData };
+        });
+        onHide()
+      })
     }} 
     >
       Book This Meeting

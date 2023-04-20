@@ -4,8 +4,9 @@ import { PROFILE_IMG } from "../../Constants"
 import "./MentorPage.css"
 import Rating from '@mui/material/Rating';
 import { fetchMentorById } from '../../MentorsApi'
+import MentorScheduleModal from "../schedules/MentorScheduleModal";
 
-function MentorPage() {
+function MentorPage({user}) {
     let { mentorID } = useParams();
     const [mentor, setMentor] = useState(null);
     console.log(mentor);
@@ -53,6 +54,8 @@ function MentorPage() {
                     ))}
                 </div>
             </div>
+            
+            <MentorScheduleModal user={user} mentorId={mentor.user._id}/>
         </div>);
 }
 

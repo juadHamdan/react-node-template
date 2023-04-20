@@ -9,6 +9,7 @@ const SkillsSearchInput = ({ onAddSkillName }) => {
 
     const handleAddSkill = (skill) => {
         onAddSkillName(skill)
+        setSkillNameInput(skill)
         setSearchedSkills([])
     }
 

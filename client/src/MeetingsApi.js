@@ -3,7 +3,6 @@ import axios from 'axios'
 async function addMeeting(userID, meeting) {
     try {
         const response = await axios.post(`/meetings/${userID}/`, meeting);
-        console.log(response.data);
         return response.data
     } catch (error) {
         console.error(error);
@@ -13,6 +12,7 @@ async function addMeeting(userID, meeting) {
 
 async function deleteMeeting(meetingID) {
     try {
+        console.log("")
         const response = await axios.delete(`/meetings/${meetingID}/`);
         console.log(response.data);
     } catch (error) {
@@ -31,10 +31,11 @@ async function updateMeeting(meetingID, updatedData) { // updatedData is object 
     }
 }
 
-async function getMeetings(userID) {
+async function fetchMeetings(userID) {
     try {
         const response = await axios.get(`/meetings/${userID}/`);
-        return (response.data)
+        const meetings = response.data.map(meeting => {return {...meeting, id: meeting._id}})
+        return meetings
     } catch (error) {
         console.error(error);
         return null
@@ -51,4 +52,4 @@ async function bookMeeting (meetingID, menteeID) {
     }
 }
 
-export { addMeeting, deleteMeeting, updateMeeting, getMeetings,bookMeeting }
+export { addMeeting, deleteMeeting, updateMeeting, fetchMeetings,bookMeeting }
