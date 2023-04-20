@@ -81,7 +81,6 @@ router.post("/mentor/:userId", async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
 router.delete("/mentor/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -105,7 +104,6 @@ router.delete("/mentor/:userId", async (req, res) => {
     res.status(500).send({ message: "Internal server error" });
   }
 });
-=======
 router.put("/mentor/:id", async (req, res) => {
   try {
     const userID = req.params.id;
@@ -187,6 +185,5 @@ router.patch('/book-meeting/:meetingID/:menteeID', async (req, res) => {
   }
 })
 
->>>>>>> master
 module.exports = router;
 

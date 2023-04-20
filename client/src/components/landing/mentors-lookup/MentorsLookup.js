@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchMentors, fetchMentorsBySkill } from "../../../MentorsApi";
 import SkillsSearchInput from "./SkillsSearchInput";
-import Mentors from "../../Mentors/Mentors";
+import Mentors from "../../mentors/Mentors";
 import LaunchIcon from "@mui/icons-material/Launch";
 import NamesSearch from "./NamesSearch";
 

@@ -1,19 +1,12 @@
-<<<<<<< HEAD
-const Mentor = require("../models/Mentor");
-const Skill = require("../models/Skill");
-const User = require("../models/User");
-=======
 const Mentor = require("../models/Mentor")
 const Skill = require("../models/Skill")
 const User = require("../models/User")
 const Meeting = require("../models/Meeting")
 const mongoose = require('mongoose')
-const moment = require("moment")
 
 const getIdObject = (id) => {
   return new mongoose.Types.ObjectId(id);
 };
->>>>>>> master
 
 function getMentors() {
   return Mentor.find({}).populate([
@@ -53,16 +46,8 @@ async function createMentor(userId, skills, workExperience, contactDetails) {
 }
 
 function getMentorByID(mentorID) {
-<<<<<<< HEAD
-  return Mentor.findById(mentorID).populate([
-    { path: "skills" },
-    // we use select because we don't want to return the password.
-    { path: "user", select: "firstName lastName picture email position" },
-  ]);
-=======
   return Mentor.findById(mentorID).populate([{ path: 'skills' },
   { path: 'user', select: 'firstName lastName picture email position' }]);
->>>>>>> master
 }
 
 function getMentorsNames() {
@@ -72,27 +57,6 @@ function getMentorsNames() {
   });
 }
 
-<<<<<<< HEAD
-function getMentorByID(mentorID) {
-  return Mentor.findById(mentorID).populate([
-    { path: "skills" },
-    // we use select because we don't want to return the password.
-    { path: "user", select: "firstName lastName picture email position" },
-  ]);
-}
-
-function getMentorsNames() {
-  return Mentor.find({}).populate({
-    path: "user",
-    select: "firstName lastName",
-  });
-}
-function getMentorByUserId(userID) {
-  return Mentor.find({ user: userID }).populate({
-    path: "user",
-    select: "firstName lastName",
-  });
-}
 async function getUserByID(userID) {
   const user = await User.findById(userID);
   console.log(user);
@@ -114,18 +78,7 @@ function deleteUserByID(userID) {
   return User.findOneAndDelete(userID);
 }
 
-module.exports = {
-  getMentors,
-  getMentorsBySkill,
-  createMentor,
-  getMentorByID,
-  getMentorsNames,
-  deleteMentorByID,
-  deleteUserByID,
-  getUserByID,
-  getMentorByUserId,
-};
-=======
+
 function getMentorByUserId(userId){
   return Mentor.findOne({user : userId}).populate('skills user')
 }
@@ -184,7 +137,6 @@ async function bookMeeting(meetingID, menteeID) {
 module.exports = {
   getMentors, getMentorsBySkill, createMentor, getMentorByID, getMentorsNames,
   addMeeting, getUserByID, deleteMeeting, updateMeeting, getMentorMeetings, getMenteeMeetings,
-  bookMeeting, getMentorByUserId , updateMentor
+  bookMeeting, getMentorByUserId , updateMentor, deleteMentorByID, deleteUserByID
 }
 
->>>>>>> master
