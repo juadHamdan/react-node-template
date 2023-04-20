@@ -65,7 +65,6 @@ router.post("/mentor/:userId", async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
 router.put("/mentor/:id", async (req, res) => {
   try {
     const userID = req.params.id;
@@ -77,7 +76,6 @@ router.put("/mentor/:id", async (req, res) => {
     res.status(500).send({ message: "Internal Server Error" });
   }
 });
-=======
 router.post("/meetings/:userID", async (req, res) => {
   try {
     const user = await databaseQueries.getUserByID(req.params.userID)
@@ -148,6 +146,5 @@ router.patch('/book-meeting/:meetingID/:menteeID', async (req, res) => {
   }
 })
 
->>>>>>> master
 module.exports = router;
 

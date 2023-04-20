@@ -68,17 +68,10 @@ function App() {
         
         <Routes>
           <Route path="/" exact element={<Landing />} />
-<<<<<<< HEAD
           <Route path="mentors/:mentorID" element={<MentorPage />}/>
           <Route path="/mentor-profile/:userID" element={<EditMentorPage />}/>
           <Route path={MENTOR_FORM_ROUTE} element={user ? <MentorForm user={user}/> : <AlertShouldLogin />}/>
           <Route path={COMPENY_MENTORSHIP_ROUTE} element={<div>Company Mentorship (only users)</div>}/>
-=======
-          <Route path="mentors/:mentorID" element={<MentorPage />} />
-          <Route path="/mentor-profile/:mentorID" element={<EditMentorPage />} />
-          <Route path={MENTOR_FORM_ROUTE} element={user ? <MentorForm user={user} /> : <AlertShouldLogin />} />
-          <Route path={COMPENY_MENTORSHIP_ROUTE} element={<div>Company Mentorship (only users)</div>} />
->>>>>>> master
         </Routes>
       </Router>
     </div>

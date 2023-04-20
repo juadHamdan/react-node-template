@@ -54,7 +54,6 @@ function getMentorsNames() {
   return Mentor.find({}).populate({ path: "user", select: 'firstName lastName' });
 }
 
-<<<<<<< HEAD
 function getMentorByUserId(userId){
   return Mentor.findOne({user : userId}).populate('skills user')
 }
@@ -70,8 +69,7 @@ async function updateMentor(userId, updatedMentor) {
 
 
 
-module.exports = { getMentors, getMentorsBySkill, createMentor, getMentorByID, getMentorsNames , getMentorByUserId , updateMentor}
-=======
+
 function getUserByID(userID) {
   return User.findById(userID);
 }
@@ -114,6 +112,6 @@ async function bookMeeting(meetingID, menteeID) {
 module.exports = {
   getMentors, getMentorsBySkill, createMentor, getMentorByID, getMentorsNames,
   addMeeting, getUserByID, deleteMeeting, updateMeeting, getMentorMeetings, getMenteeMeetings,
-  bookMeeting
+  bookMeeting, getMentorByUserId , updateMentor
 }
->>>>>>> master
+
