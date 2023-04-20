@@ -8,7 +8,7 @@ const Landing = () => {
       <div className="about-container">
         <About/>
       </div>
-      <div clasName="mentors-lookup-container">
+      <div className="mentors-lookup-container">
         <MentorsLookup/>
       </div>
     </div>

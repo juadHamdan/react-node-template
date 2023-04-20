@@ -1,6 +1,19 @@
+<<<<<<< HEAD
 const Mentor = require("../models/Mentor");
 const Skill = require("../models/Skill");
 const User = require("../models/User");
+=======
+const Mentor = require("../models/Mentor")
+const Skill = require("../models/Skill")
+const User = require("../models/User")
+const Meeting = require("../models/Meeting")
+const mongoose = require('mongoose')
+const moment = require("moment")
+
+const getIdObject = (id) => {
+  return new mongoose.Types.ObjectId(id);
+};
+>>>>>>> master
 
 function getMentors() {
   return Mentor.find({}).populate([
@@ -40,11 +53,16 @@ async function createMentor(userId, skills, workExperience, contactDetails) {
 }
 
 function getMentorByID(mentorID) {
+<<<<<<< HEAD
   return Mentor.findById(mentorID).populate([
     { path: "skills" },
     // we use select because we don't want to return the password.
     { path: "user", select: "firstName lastName picture email position" },
   ]);
+=======
+  return Mentor.findById(mentorID).populate([{ path: 'skills' },
+  { path: 'user', select: 'firstName lastName picture email position' }]);
+>>>>>>> master
 }
 
 function getMentorsNames() {
@@ -54,6 +72,7 @@ function getMentorsNames() {
   });
 }
 
+<<<<<<< HEAD
 function getMentorByID(mentorID) {
   return Mentor.findById(mentorID).populate([
     { path: "skills" },
@@ -106,3 +125,66 @@ module.exports = {
   getUserByID,
   getMentorByUserId,
 };
+=======
+function getMentorByUserId(userId){
+  return Mentor.findOne({user : userId}).populate('skills user')
+}
+
+
+async function updateMentor(userId, updatedMentor) {
+  const mentor = await getMentorByUserId(userId);
+  return Mentor.findByIdAndUpdate(mentor._id, updatedMentor, { new: true });
+}
+
+
+
+
+
+
+
+function getUserByID(userID) {
+  return User.findById(userID);
+}
+
+async function addMeeting(userID, title, startDate, endDate) {
+  let userIdObject = getIdObject(userID)
+  startDate = new Date(startDate)
+  endDate = new Date(endDate)
+  let meeting = new Meeting({ title, startDate, endDate, mentor: userIdObject })
+  meeting = await meeting.save()
+  return meeting._id
+}
+
+function deleteMeeting(meetingID) {
+  return Meeting.findByIdAndDelete(meetingID);
+}
+
+function updateMeeting(meetingID, title, startDate, endDate) {
+  startDate = new Date(startDate)
+  endDate = new Date(endDate)
+  return Meeting.findByIdAndUpdate(meetingID, { title, startDate, endDate });
+}
+
+function getMentorMeetings(userID) {
+  let userIdObject = getIdObject(userID)
+  return Meeting.find({ mentor: userIdObject })
+}
+
+function getMenteeMeetings(userID) {
+  let userIdObject = getIdObject(userID)
+  return Meeting.find({ mentee: userIdObject })
+}
+
+async function bookMeeting(meetingID, menteeID) {
+  let menteeIdObject = getIdObject(menteeID)
+  await Meeting.findByIdAndUpdate(meetingID, { mentee: menteeIdObject })
+}
+
+
+module.exports = {
+  getMentors, getMentorsBySkill, createMentor, getMentorByID, getMentorsNames,
+  addMeeting, getUserByID, deleteMeeting, updateMeeting, getMentorMeetings, getMenteeMeetings,
+  bookMeeting, getMentorByUserId , updateMentor
+}
+
+>>>>>>> master
