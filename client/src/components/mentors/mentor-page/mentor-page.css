@@ -1,0 +1,21 @@
+
+
+#mentor-page-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin: 20px;
+}
+
+#mentor-page-container .mentor-info-container{
+    height: 100%;
+    background: linear-gradient(-45deg, #565BC1ff, #7795F8ff);
+    border-radius: 10px;
+}
+#mentor-page-container .mentor-info-container hr{
+    width: 100%;
+    background-color: gray;
+}
+
+#mentor-page-container .scheduler-container{
+    width: min(600px, 100%);
+}

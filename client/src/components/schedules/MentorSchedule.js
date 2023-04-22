@@ -80,9 +80,9 @@ export default class MentorSchedule extends React.PureComponent {
 
     return (
       <Paper>
-        <div style={{ height: '80vh', width: '90vw' }}>
           <Scheduler
             data={data}
+            height={800}
           >
             <ViewState
               currentDate={currentDate}
@@ -104,7 +104,6 @@ export default class MentorSchedule extends React.PureComponent {
             <DateNavigator />
             <ViewSwitcher />
           </Scheduler>
-        </div>
       </Paper>
     );
   }

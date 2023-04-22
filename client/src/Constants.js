@@ -1,6 +1,6 @@
-const SERVER_URL = "http://localhost:5000"
+import DEFAULT_USER_PICTURE from './assets/default-user-picture.png'
 
-const PROFILE_IMG = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkrIN_phrkQozJkBJi9v7jqOEazcPIad5SYA&usqp=CAU"
+const SERVER_URL = "http://localhost:5000"
 const FEATURED_MENTORS_NUMBER = 3;
 
-export { SERVER_URL, PROFILE_IMG ,FEATURED_MENTORS_NUMBER}
+export { SERVER_URL, DEFAULT_USER_PICTURE ,FEATURED_MENTORS_NUMBER}

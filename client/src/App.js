@@ -11,11 +11,10 @@ import "react-toastify/dist/ReactToastify.css";
 import Landing from "./components/landing/Landing";
 import NavigationBar from "./components/navigation-bar/NavigationBar";
 import { fetchUser } from "./AuthApi";
-import MentorPage from "./components/mentors/MentorPage";
+import MentorPage from "./components/mentors/mentor-page/MentorPage";
 import MentorForm from "./components/mentor-form/MentorForm";
 import AlertShouldLogin from "./components/alerts/AlertShouldLogin";
-import EditMentorPage from "./components/mentors/EditMentorPage";
-
+import EditMentorPage from "./components/mentors/mentor-profile/MentorProfile";
 import { googleLogout } from "@react-oauth/google";
 
 function App() {
@@ -54,7 +53,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="app-container">
       <Router>
         <ToastContainer />
         <NavigationBar

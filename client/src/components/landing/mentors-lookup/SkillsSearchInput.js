@@ -23,7 +23,7 @@ const SkillsSearchInput = ({ onAddSkillName }) => {
     return (
         <div id="skills-search-form-container">
             <div className="search-skills">
-                <TextField value={skillNameInput} fullWidth className="input" id="outlined-basic" label="Type Skill" variant="outlined" onChange={handleChange} />
+                <TextField value={skillNameInput} fullWidth className="input" label="Type Skill" variant="outlined" onChange={handleChange} />
                 {searchedSkills.length === 0 ? null :
                     <div className="menu">
                         {searchedSkills.map(skill =>

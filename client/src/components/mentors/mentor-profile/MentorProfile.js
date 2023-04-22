@@ -1,11 +1,11 @@
+import "./mentor-profile.css"
 import { useEffect, useState , useRef } from "react";
 import { useParams } from "react-router-dom";
-import { PROFILE_IMG } from "../../Constants"
-import "./EditMentorPage.css"
+import { DEFAULT_USER_PICTURE } from "../../../Constants"
 import Rating from '@mui/material/Rating';
-import { fetchMentorByUserId, updateMentor } from '../../MentorsApi'
+import { fetchMentorByUserId, updateMentor } from '../../../MentorsApi'
 
-function EditMentorPage() {
+function MentorProfile() {
     let { userID } = useParams();
     const [mentor, setMentor] = useState(null);
     const [firstName, setFirstName] = useState("");
@@ -112,7 +112,7 @@ function EditMentorPage() {
       mentor && <div className="mentor-container">
       <div>
         <div className="picture">
-          {<img className="mentor-profile" src={mentor.user.picture || PROFILE_IMG}></img>}
+          {<img className="mentor-profile" src={mentor.user.picture || DEFAULT_USER_PICTURE}></img>}
         </div>
         <div className="mentor-info">
           <div className="full-name">{`${mentor.user.firstName} ${mentor.user.lastName}`}</div>         
@@ -193,4 +193,4 @@ function EditMentorPage() {
   );  
   
             }
-export default  EditMentorPage
+export default  MentorProfile

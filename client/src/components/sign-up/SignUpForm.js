@@ -20,12 +20,12 @@ const SignUpForm = ({ onSubmit }) => {
         <div id="form-container">
             <form onSubmit={handleSubmit}>
                 <div className="row">
-                    <TextField required name="firstName" value={formData.firstName} id="outlined-basic" label="First Name" variant="outlined" onChange={handleChange} />
-                    <TextField required name="lastName" value={formData.lastName} id="outlined-basic" label="Last Name" variant="outlined" onChange={handleChange} />
+                    <TextField required name="firstName" value={formData.firstName}  label="First Name" variant="outlined" onChange={handleChange} />
+                    <TextField required name="lastName" value={formData.lastName} label="Last Name" variant="outlined" onChange={handleChange} />
                 </div>
 
-                <TextField required name="email" value={formData.email} id="outlined-basic" label="Email" variant="outlined" onChange={handleChange} />
-                <TextField required name="password" value={formData.password} type="password" id="outlined-basic" label="Password" variant="outlined" onChange={handleChange} />
+                <TextField required name="email" value={formData.email} label="Email" variant="outlined" onChange={handleChange} />
+                <TextField required name="password" value={formData.password} type="password" label="Password" variant="outlined" onChange={handleChange} />
 
                 <button type="submit" className="email-btn">
                     <img className="logo" src={EmailIcon} />

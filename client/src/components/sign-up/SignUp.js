@@ -69,7 +69,7 @@ const SignUp = ({ onSubmitClick, onAuthorization }) => {
                 <p style={{textDecoration: "underline"}}>Continue With Google:</p>
             </div>
 
-            <div className="google-btn-container" onMouseEnter={() => console.log("click")}>
+            <div className="google-btn-container">
                 <GoogleLogin
                     onSuccess={res => onGoogleLoginSuccess(res.credential)}
                     onError={() => toast('Login Failed')}

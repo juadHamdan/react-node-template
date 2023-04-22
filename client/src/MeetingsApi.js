@@ -12,9 +12,8 @@ async function addMeeting(userID, meeting) {
 
 async function deleteMeeting(meetingID) {
     try {
-        console.log("")
         const response = await axios.delete(`/meetings/${meetingID}/`);
-        console.log(response.data);
+        return response.data
     } catch (error) {
         console.error(error);
         return null
@@ -24,7 +23,7 @@ async function deleteMeeting(meetingID) {
 async function updateMeeting(meetingID, updatedData) { // updatedData is object of {title , startDate, endDate}
     try {
         const response = await axios.patch(`/meetings/${meetingID}/`, updatedData);
-        console.log(response.data);
+        return response.data
     } catch (error) {
         console.error(error);
         return null
@@ -45,7 +44,7 @@ async function fetchMeetings(userID) {
 async function bookMeeting (meetingID, menteeID) {
     try {
         const response = await axios.patch(`/book-meeting/${meetingID}/${menteeID}`);
-        console.log(response.data);
+        return response.data
     } catch (error) {
         console.error(error);
         return null
