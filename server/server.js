@@ -4,6 +4,7 @@ dotenv.config();
 const express = require('express');
 require('mongoose').connect(process.env.DB_URL, { useNewUrlParser: true }).then(() => console.log("Database connected")).catch((err) => console.log(err));
 const app = express();
+const path = require('path');
 
 // set encoding middleware
 app.use(express.json());
@@ -12,7 +13,8 @@ app.use(express.urlencoded({ extended: false }));
 const authRoute = require("./routes/auth");
 app.use("/auth", authRoute);
 const mentoringRoute = require("./routes/mentoring");
-app.use("/",mentoringRoute);
+app.use("/", mentoringRoute);
+app.use("/images", express.static(path.join(__dirname, 'images')))
 
 const isLoggedIn = require("./auth-route-handlers");
 

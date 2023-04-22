@@ -151,3 +151,8 @@ textarea, input {
   transform: translateY(-2px);
 }
 */
+
+.mentor-profile-img {
+  width: 400px;
+  height: 400px;
+}

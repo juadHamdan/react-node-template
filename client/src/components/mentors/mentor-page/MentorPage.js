@@ -17,7 +17,6 @@ function MentorPage({ user }) {
         }
         getMentor()
     }, []);
-
     return (
         mentor &&
         <div id="mentor-page-container">

@@ -6,6 +6,8 @@ const {
   compareSkillRating,
 } = require("../utils/compare-ratings");
 
+const { upload } = require("../middlewares/mutler");
+
 router.get("/mentors", async (req, res) => {
   let skill = req.query.skill;
   let limit = req.query.limit;
@@ -108,7 +110,7 @@ router.put("/mentor/:id", async (req, res) => {
   try {
     const userID = req.params.id;
     const updatedMentor = req.body;
-    const mentor = await databaseQueries.updateMentor( userID , updatedMentor)
+    const mentor = await databaseQueries.updateMentor(userID, updatedMentor)
     res.status(200).send({ mentor });
   } catch (err) {
     console.error(err);
@@ -158,6 +160,7 @@ router.get('/meetings/:userID', async (req, res) => {
       mentorMeetings = mentorMeetings.map(meeting => {
         return {
           _id: meeting._id,
+          title: meeting.title,
           startDate: meeting.startDate,
           endDate: meeting.endDate,
           mentor: meeting.mentor,
@@ -184,6 +187,21 @@ router.patch('/book-meeting/:meetingID/:menteeID', async (req, res) => {
     res.send(error)
   }
 })
+
+router.put("/images/:userID", upload.single('profileImg'), async (req, res) => {
+  let userID = req.params.userID
+  try {
+    const url = req.protocol + '://' + req.get('host')
+    let pictureURL = url + '/images/' + req.file.filename
+    await databaseQueries.deletePreviousPicture(userID);
+    await databaseQueries.updatesUserPicture(userID, pictureURL)
+    res.send("image uploaded successfully.")
+  } catch (error) {
+    res.send(error)
+    console.log(error);
+  }
+})
+
 
 module.exports = router;
 

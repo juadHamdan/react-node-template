@@ -3,6 +3,9 @@ const Skill = require("../models/Skill")
 const User = require("../models/User")
 const Meeting = require("../models/Meeting")
 const mongoose = require('mongoose')
+const fs = require('fs')
+const { promisify } = require('util')
+const unlinkAsync = promisify(fs.unlink)
 
 const getIdObject = (id) => {
   return new mongoose.Types.ObjectId(id);
@@ -79,8 +82,8 @@ function deleteUserByID(userID) {
 }
 
 
-function getMentorByUserId(userId){
-  return Mentor.findOne({user : userId}).populate('skills user')
+function getMentorByUserId(userId) {
+  return Mentor.findOne({ user: userId }).populate('skills user')
 }
 
 
@@ -88,12 +91,6 @@ async function updateMentor(userId, updatedMentor) {
   const mentor = await getMentorByUserId(userId);
   return Mentor.findByIdAndUpdate(mentor._id, updatedMentor, { new: true });
 }
-
-
-
-
-
-
 
 function getUserByID(userID) {
   return User.findById(userID);
@@ -133,10 +130,26 @@ async function bookMeeting(meetingID, menteeID) {
   await Meeting.findByIdAndUpdate(meetingID, { mentee: menteeIdObject })
 }
 
+function updatesUserPicture(userID, pictureURL) {
+  return User.findOneAndUpdate({ _id: userID }, { picture: pictureURL })
+}
+
+async function deletePreviousPicture(userID) {
+  const user = await User.findById(userID);
+  try {
+    let userCurrentProfilePicture = user.picture;
+    let userCurrentProfilePicturePath = userCurrentProfilePicture.split('/images/')[1];
+    let deleted = await unlinkAsync('images/' + userCurrentProfilePicturePath);
+    return deleted;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 module.exports = {
   getMentors, getMentorsBySkill, createMentor, getMentorByID, getMentorsNames,
   addMeeting, getUserByID, deleteMeeting, updateMeeting, getMentorMeetings, getMenteeMeetings,
-  bookMeeting, getMentorByUserId , updateMentor, deleteMentorByID, deleteUserByID
+  bookMeeting, getMentorByUserId, updateMentor, deleteMentorByID, deleteUserByID, updatesUserPicture,
+  deletePreviousPicture
 }
 

@@ -11,7 +11,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
 import MyScheduler from '../schedules/MyScheduler'
 import { toast } from "react-toastify";
-import {DEFAULT_USER_PICTURE} from '../../Constants'
+import { DEFAULT_USER_PICTURE } from '../../Constants'
 
 const NavBar = ({ user, onLogout, onAuthorization }) => {
   const [showNavMenu, setShowNavMenu] = useState(false);
@@ -19,6 +19,7 @@ const NavBar = ({ user, onLogout, onAuthorization }) => {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showMyAccountModal, setShowMyAccountModal] = useState(false);
   const [showScheduler, setShowScheduler] = useState(false)
+  const [UpdatedUserPicture, setUpdatedUserPicture] = useState(null);
 
   const navigate = useNavigate();
 
@@ -55,7 +56,7 @@ const NavBar = ({ user, onLogout, onAuthorization }) => {
           />
         </Modal>
         <Modal show={showMyAccountModal} onClose={onCloseMyAccountModal}>
-          <MyAccount user={user} onDelete={onLogout} />
+          <MyAccount user={user} onDelete={onLogout} setUpdatedUserPicture={setUpdatedUserPicture} UpdatedUserPicture={UpdatedUserPicture} />
         </Modal>
         <Modal show={showScheduler} onClose={onCloseSchedulerModal}>
           {user && <MyScheduler user={user} />}
@@ -135,16 +136,16 @@ const NavBar = ({ user, onLogout, onAuthorization }) => {
               <div className="menu">
                 <Tooltip title="Open User Menu">
                   <IconButton onClick={handleToggleUserMenu} sx={{ p: 0 }}>
-                    <img className="profile-picture" src={user.picture || DEFAULT_USER_PICTURE} alt="User Picture"  />
+                    <img className="profile-picture" src={UpdatedUserPicture || user.picture || DEFAULT_USER_PICTURE} alt="User Picture" />
                   </IconButton>
                 </Tooltip>
 
                 {showUserMenu &&
-                    <div className="menu-items user-menu-items">
-                      {user.isMentor && <div className="menu-item" onClick={navigateToMentorPage}>My Page</div>}
-                      <div className="menu-item" onClick={onOpenMyAccount}>My Account</div>
-                      <div className="menu-item" onClick={onLogout}>Logout</div>
-                    </div>
+                  <div className="menu-items user-menu-items">
+                    {user.isMentor && <div className="menu-item" onClick={navigateToMentorPage}>My Page</div>}
+                    <div className="menu-item" onClick={onOpenMyAccount}>My Account</div>
+                    <div className="menu-item" onClick={onLogout}>Logout</div>
+                  </div>
                 }
               </div>
             ) : (
