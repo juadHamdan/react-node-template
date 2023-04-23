@@ -202,6 +202,18 @@ router.put("/images/:userID", upload.single('profileImg'), async (req, res) => {
   }
 })
 
+router.put("/users/:userID", async (req, res) => {
+  let userID = req.params.userID;
+  let newFirstName = req.query.filename;
+  let newLastName = req.query.lastName;
+  try {
+    await databaseQueries.changeUserName(userID, newFirstName, newLastName);
+    res.send("user name changed successfully.")
+  } catch (error) {
+    res.send(error);
+  }
+})
+
 
 module.exports = router;
 

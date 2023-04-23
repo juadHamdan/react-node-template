@@ -146,10 +146,15 @@ async function deletePreviousPicture(userID) {
   }
 }
 
+async function changeUserName(userID, newFirstName, newLastName) {
+  let updated = await User.findByIdAndUpdate(userID, { firstName: newFirstName, lastName: newLastName });
+  return updated;
+}
+
 module.exports = {
   getMentors, getMentorsBySkill, createMentor, getMentorByID, getMentorsNames,
   addMeeting, getUserByID, deleteMeeting, updateMeeting, getMentorMeetings, getMenteeMeetings,
   bookMeeting, getMentorByUserId, updateMentor, deleteMentorByID, deleteUserByID, updatesUserPicture,
-  deletePreviousPicture
+  deletePreviousPicture, changeUserName
 }
 

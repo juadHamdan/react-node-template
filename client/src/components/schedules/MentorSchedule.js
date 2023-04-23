@@ -13,7 +13,7 @@ import {
   Resources
 } from '@devexpress/dx-react-scheduler-material-ui';
 import Button from '@mui/material/Button';
-import {fetchMeetings, bookMeeting} from '../../MeetingsApi'
+import { fetchMeetings, bookMeeting } from '../../MeetingsApi'
 
 const resources = [{
   fieldName: 'isBooked',
@@ -34,33 +34,34 @@ export default class MentorSchedule extends React.PureComponent {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     console.log(this.props.mentorId)
     const getMeetings = async () => {
       const meetings = await fetchMeetings(this.props.mentorId)
       console.log(meetings)
-      this.setState({data: meetings})
+      this.setState({ data: meetings })
     }
     getMeetings()
   }
 
-  BookMeetingBtn = (({appointmentData, onHide}) => (
-    <Button 
-      sx={{margin: '5px'}} 
-      disabled={appointmentData.isBooked} 
+  BookMeetingBtn = (({ appointmentData, onHide }) => (
+    <Button
+      sx={{ margin: '5px' }}
+      disabled={appointmentData.isBooked}
       variant="contained"
       onClick={() => {
-      bookMeeting(appointmentData.id, this.props.user._id).then(response => {
-        this.setState((state) => {
-          const { data } = state;
-          const newData = [...data]
-          const appointmentIndex = newData.findIndex(appointment => appointment.id === appointmentData.id)
-          newData[appointmentIndex].isBooked = true
-          return { data: newData };
-        });
-        onHide()
-      })
-    }} 
+        this.props.user ?
+          bookMeeting(appointmentData.id, this.props.user._id).then(response => {
+            this.setState((state) => {
+              const { data } = state;
+              const newData = [...data]
+              const appointmentIndex = newData.findIndex(appointment => appointment.id === appointmentData.id)
+              newData[appointmentIndex].isBooked = true
+              return { data: newData };
+            });
+            onHide()
+          }) : alert("You have to be logged in to book a meeting.")
+      }}
     >
       Book This Meeting
     </Button>
@@ -80,30 +81,30 @@ export default class MentorSchedule extends React.PureComponent {
 
     return (
       <Paper>
-          <Scheduler
-            data={data}
-            height={800}
-          >
-            <ViewState
-              currentDate={currentDate}
-              onCurrentDateChange={this.currentDateChange}
-            />
-            <WeekView
-              startDayHour={startDayHour}
-              endDayHour={endDayHour}
-            />
-            <MonthView />
-            <Appointments />
-            <AppointmentTooltip
-              headerComponent={this.BookMeetingBtn}
-            />
-            <Resources
-              data={resources}
-            />
-            <Toolbar />
-            <DateNavigator />
-            <ViewSwitcher />
-          </Scheduler>
+        <Scheduler
+          data={data}
+          height={800}
+        >
+          <ViewState
+            currentDate={currentDate}
+            onCurrentDateChange={this.currentDateChange}
+          />
+          <WeekView
+            startDayHour={startDayHour}
+            endDayHour={endDayHour}
+          />
+          <MonthView />
+          <Appointments />
+          <AppointmentTooltip
+            headerComponent={this.BookMeetingBtn}
+          />
+          <Resources
+            data={resources}
+          />
+          <Toolbar />
+          <DateNavigator />
+          <ViewSwitcher />
+        </Scheduler>
       </Paper>
     );
   }
