@@ -33,7 +33,7 @@ import TextField from '@mui/material/TextField';
 import Close from '@mui/icons-material/Close';
 import { teal } from '@mui/material/colors';
 
-import {fetchMeetings, addMeeting, deleteMeeting, updateMeeting} from '../../MeetingsApi'
+import { fetchMeetings, addMeeting, deleteMeeting, updateMeeting } from '../../MeetingsApi'
 
 const PREFIX = 'Demo';
 // #FOLD_BLOCK
@@ -132,7 +132,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
     });
   }
 
-  
+
   commitAppointment(type) {
     const { commitChanges } = this.props;
     const appointment = {
@@ -150,7 +150,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       appointmentChanges: {},
     });
   }
-  
+
 
   render() {
     const {
@@ -208,7 +208,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
         visible={visible}
         target={target}
         fullSize={false}
-        sx={{height: "265px", margin: "25px"}}
+        sx={{ height: "265px", margin: "25px" }}
         onHide={onHide}
       >
         <StyledDiv>
@@ -217,7 +217,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
               <Close color="action" />
             </IconButton>
           </div>
-          <h3 style={{textDecoration: 'underline', marginTop: '25px', textAlign: 'center'}}>Add Your Meetings</h3>
+          <h3 style={{ textDecoration: 'underline', marginTop: '25px', textAlign: 'center' }}>Add Your Meetings</h3>
           <div className={classes.content}>
             <div className={classes.wrapper}>
               <TextField
@@ -342,17 +342,17 @@ export default class Demo extends React.PureComponent {
     });
   }
 
-  
-  componentDidMount(){
+
+  componentDidMount() {
     console.log("MOUNT")
     const getMeetings = async () => {
       const meetings = await fetchMeetings(this.props.user._id)
       console.log(meetings)
-      this.setState({data: meetings})
+      this.setState({ data: meetings })
     }
     getMeetings()
   }
-  
+
 
   componentDidUpdate() {
     this.appointmentForm.update();
@@ -395,22 +395,22 @@ export default class Demo extends React.PureComponent {
         const { data, deletedAppointmentId } = state;
         console.log("Deleted:", deletedAppointmentId)
         const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
-  
+
         return { data: nextData, deletedAppointmentId: null };
       });
       this.toggleConfirmationVisible();
-      })
+    })
 
   }
 
   commitChanges({ added, changed, deleted }) {
     if (added) {
       console.log("ADD MEETING FUNCTION")
-      
-      const meeting = {title: added.title, startDate: new Date(added.startDate), endDate: new Date(added.endDate)}
+
+      const meeting = { title: added.title, startDate: new Date(added.startDate), endDate: new Date(added.endDate) }
       addMeeting(this.props.user._id, meeting).then(meetingId => {
         const newMeetings = [...this.state.data, { id: meetingId, ...added }]
-        this.setState({data: newMeetings})
+        this.setState({ data: newMeetings })
         console.log(meetingId)
       })
     }
@@ -420,14 +420,17 @@ export default class Demo extends React.PureComponent {
     }
     if (changed) {
       const meetingId = Object.entries(changed)[0][0]
-
       const newMeetings = [...this.state.data]
       const meetingIndex = newMeetings.findIndex(meeting => meeting.id == meetingId)
-      const changedMeeting = {...newMeetings[meetingIndex], ...changed[meetingId]}
+      const changedMeeting = { ...newMeetings[meetingIndex], ...changed[meetingId] }
       newMeetings[meetingIndex] = changedMeeting
-
-      updateMeeting(meetingId, {title: changedMeeting.title, startDate: changedMeeting.startDate, endDate: changedMeeting.endDate}).then(response => {
-        this.setState({data: newMeetings})
+      updateMeeting(meetingId, this.props.user._id, { title: changedMeeting.title, startDate: changedMeeting.startDate, endDate: changedMeeting.endDate }).then(response => {
+        if (response) {
+          this.setState({ data: newMeetings })
+        }
+        else {
+          alert("you can not change mentor schedule.")
+        }
       })
     }
   }
@@ -451,86 +454,86 @@ export default class Demo extends React.PureComponent {
 
     return (
       <Paper>
-        <div style={{height: '80vh', width: '90vw'}}>
+        <div style={{ height: '80vh', width: '90vw' }}>
 
 
-        <Scheduler
-          data={data}
-        >
+          <Scheduler
+            data={data}
+          >
 
-          <ViewState
-            currentDate={currentDate}
-            onCurrentDateChange={this.currentDateChange}
-          />
-          <EditingState
-            onCommitChanges={this.commitChanges}
-            onEditingAppointmentChange={this.onEditingAppointmentChange}
-            onAddedAppointmentChange={this.onAddedAppointmentChange}
-          />
-          <WeekView
-            startDayHour={startDayHour}
-            endDayHour={endDayHour}
-          />
-          <MonthView />
-          <EditRecurrenceMenu />
-          <Appointments />
-          <AppointmentTooltip
-            showOpenButton
-            showCloseButton
-            showDeleteButton
-          />
-          <Toolbar />
-          <DateNavigator />
-          <ViewSwitcher />
-          <AppointmentForm
-            overlayComponent={this.appointmentForm}
-            visible={editingFormVisible}
-            onVisibilityChange={this.toggleEditingFormVisibility}
-          />
-          <DragDropProvider />
-          <Resources
+            <ViewState
+              currentDate={currentDate}
+              onCurrentDateChange={this.currentDateChange}
+            />
+            <EditingState
+              onCommitChanges={this.commitChanges}
+              onEditingAppointmentChange={this.onEditingAppointmentChange}
+              onAddedAppointmentChange={this.onAddedAppointmentChange}
+            />
+            <WeekView
+              startDayHour={startDayHour}
+              endDayHour={endDayHour}
+            />
+            <MonthView />
+            <EditRecurrenceMenu />
+            <Appointments />
+            <AppointmentTooltip
+              showOpenButton
+              showCloseButton
+              showDeleteButton
+            />
+            <Toolbar />
+            <DateNavigator />
+            <ViewSwitcher />
+            <AppointmentForm
+              overlayComponent={this.appointmentForm}
+              visible={editingFormVisible}
+              onVisibilityChange={this.toggleEditingFormVisibility}
+            />
+            <DragDropProvider />
+            <Resources
               data={resources}
             />
-        </Scheduler>
+          </Scheduler>
 
-        <Dialog
-          open={confirmationVisible}
-          onClose={this.cancelDelete}
-        >
-          <DialogTitle>
-            Delete Appointment
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Are you sure you want to delete this appointment?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.toggleConfirmationVisible} color="primary" variant="outlined">
-              Cancel
-            </Button>
-            <Button onClick={this.commitDeletedAppointment} color="secondary" variant="outlined">
-              Delete
-            </Button>
-          </DialogActions>
-        </Dialog>
+          <Dialog
+            open={confirmationVisible}
+            onClose={this.cancelDelete}
+          >
+            <DialogTitle>
+              Delete Appointment
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Are you sure you want to delete this appointment?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.toggleConfirmationVisible} color="primary" variant="outlined">
+                Cancel
+              </Button>
+              <Button onClick={this.commitDeletedAppointment} color="secondary" variant="outlined">
+                Delete
+              </Button>
+            </DialogActions>
+          </Dialog>
 
-        {this.props.user.isMentor &&
-        <StyledFab
-          color="secondary"
-          className={classes.addButton}
-          onClick={() => {
-            this.setState({ editingFormVisible: true });
-            this.onEditingAppointmentChange(undefined);
-            this.onAddedAppointmentChange({
-              startDate: new Date(currentDate).setHours(startDayHour),
-              endDate: new Date(currentDate).setHours(startDayHour + 1),
-            });
-          }}
-        >
-          <AddIcon />
-        </StyledFab>
-        }
+          {this.props.user.isMentor &&
+            <StyledFab
+              color="secondary"
+              className={classes.addButton}
+              onClick={() => {
+                this.setState({ editingFormVisible: true });
+                this.onEditingAppointmentChange(undefined);
+                this.onAddedAppointmentChange({
+                  startDate: new Date(currentDate).setHours(startDayHour),
+                  endDate: new Date(currentDate).setHours(startDayHour + 1),
+                });
+              }}
+            >
+              <AddIcon />
+            </StyledFab>
+          }
         </div>
       </Paper>
     );

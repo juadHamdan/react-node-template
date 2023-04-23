@@ -20,9 +20,9 @@ async function deleteMeeting(meetingID) {
     }
 }
 
-async function updateMeeting(meetingID, updatedData) { // updatedData is object of {title , startDate, endDate}
+async function updateMeeting(meetingID, userID, updatedData) { // updatedData is object of {title , startDate, endDate}
     try {
-        const response = await axios.patch(`/meetings/${meetingID}/`, updatedData);
+        const response = await axios.patch(`/meetings/${meetingID}/${userID}`, updatedData);
         return response.data
     } catch (error) {
         console.error(error);

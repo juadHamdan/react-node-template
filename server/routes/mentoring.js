@@ -141,8 +141,13 @@ router.delete("/meetings/:meetingID", async (req, res) => {
   }
 })
 
-router.patch("/meetings/:meetingID", async (req, res) => {
+router.patch("/meetings/:meetingID/:userID", async (req, res) => {
   try {
+    let isMentee = await databaseQueries.checkIfMentee(req.params.meetingID, req.params.userID);
+    if (isMentee) {
+      res.status(403).send("You are not allowed to change the mentor schedule");
+      return;
+    }
     await databaseQueries.updateMeeting(req.params.meetingID, req.body.title, req.body.startDate, req.body.endDate)
     res.send("Meeting updated successfully.")
   } catch (error) {
