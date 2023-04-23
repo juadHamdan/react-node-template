@@ -31,6 +31,7 @@
     flex-wrap: wrap;
     gap: 10px;
     height: 100px;
+    width: 120px;
     overflow-y: scroll;
 }
 #mentor-card .mentor-data .skills .skill{
@@ -52,6 +53,7 @@
 
 
 #mentor-card-horizontal{
+    box-shadow: 0 10px 5px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     gap: 10px;
@@ -86,6 +88,9 @@
     align-items: flex-start;
     gap: 10px;
 }
+#mentor-card-horizontal .mentor-data .skills{
+    height: 80px;
+}
 
 
 
@@ -96,6 +101,7 @@
 
 
 #mentor-card-vertical{
+    box-shadow: 0 10px 5px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -122,6 +128,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 0;
+}
+#mentor-card-vertical .mentor-data .name{
+    margin-top: 0;
 }
 #mentor-card-vertical .links{
     height: 40px;

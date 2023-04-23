@@ -8,29 +8,28 @@
 
 
 
-
-
+#mentors-lookup-container .form-container{
+    text-align: center;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin: 0 20px;
+}
+#mentors-lookup-container .form{
+    display: flex;
+    padding: 10px 50px 20px 50px;
+    justify-content: space-evenly;
+}
 
 
 #mentors-lookup-container .skill-form-container{
-    display: flex;
-    gap: 5px;
-    width: 50%;
-    padding: 0 20px;
 }
 #mentors-lookup-container .skill-form-container .input{
-    width: 100%;
 }
 
 
 #mentors-lookup-container .name-form-container{
-    display: flex;
-    gap: 5px;
-    width: 50%;
-    padding: 0 20px;
 }
 #mentors-lookup-container .name-form-container .input{
-    width: 100%;
 }
 
 
@@ -39,15 +38,21 @@
 #mentors-lookup-container .mentors-cards-container{
 }
 
-#mentors-lookup-container .mentors-cards-container .title-container{
-    height: 50px;
-    margin-top: 20px;
-    background: linear-gradient(white, #f5f5f5);
+#mentors-lookup-container .mentors-cards-container .title{
+    margin-top: 50px;
     margin-bottom: 0;
     text-align: center;
     font-size: 1.5rem;
     font-weight: bold;
     text-decoration: underline;
+}
+
+#mentors-lookup-container .mentors-cards-container .gradient-container{
+    height: 50px;
+
+    background: linear-gradient(white, #f5f5f5);
+    margin-bottom: 0;
+
 }
 
 #mentors-lookup-container .mentors-cards{

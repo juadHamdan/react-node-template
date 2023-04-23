@@ -25,27 +25,30 @@ const MentorsLookup = () => {
   const getSearchedMentorsBySkill = async (skill) => {
     setSkillNameInput(skill)
     const mentors = await fetchMentorsBySkill(skill);
-    console.log("")
     setSearchedMentors(mentors);
   };
 
   return (
     <div id="mentors-lookup-container">
-      <h3>Look For A Mentor:</h3>
-      <div className="skill-form-container">
-        <SkillsSearchInput onAddSkillName={getSearchedMentorsBySkill} />
+      <div className="form-container">
+        <h3>Look For A Mentor:</h3>
+        <div className="form">
+          <div className="skill-form-container">
+            <SkillsSearchInput onAddSkillName={getSearchedMentorsBySkill} />
+          </div>
+          <div className="name-form-container">
+            <NamesSearch />
+          </div>
+        </div>
       </div>
 
-
-      <div className="name-form-container">
-        <NamesSearch />
-      </div>
 
 
       <div className="mentors-cards-container">
         {searchedMentors.length === 0 ?
           <>
-            <div className="title-container">Our Featured Mentors:</div>
+            <p className="title">Our Featured Mentors:</p>
+            <div className="gradient-container"></div>
             <div className="mentors-cards">
               {featuredMentors && featuredMentors.map(featuredMentor =>
                 <MentorCard key={featuredMentor._id} mentor={featuredMentor} />
@@ -54,7 +57,8 @@ const MentorsLookup = () => {
           </>
           :
           <>
-            <div className="title-container">Our {skillNameInput} Mentors:</div>
+            <p className="title">Our {skillNameInput} Mentors:</p>
+            <div className="gradient-container"></div>
             <div className="mentors-cards">
               {searchedMentors.map((mentor) => (
                 <MentorCard key={mentor._id} mentor={mentor} isHorizontalView={true} />

@@ -22,7 +22,6 @@
 }
 
 #navigation-bar-container .navigation-bar {
-    border: 3px solid #f0f0f0;
     position: fixed;
     z-index: 2;
     left: calc(5% - 10px);
@@ -31,7 +30,7 @@
     height: 20px;
     padding: 20px 15px;
     border-radius: 2rem;
-    box-shadow: 0 5px 20px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     justify-content: space-between;

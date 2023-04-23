@@ -79,10 +79,12 @@ export default class MentorSchedule extends React.PureComponent {
     };
 
     return (
-      <Paper>
+        <div style={{width: 'min(800px, 100%)', backgroundColor: 'white', borderRadius: '5px'}}>
+
+
           <Scheduler
             data={data}
-            height={800}
+            height={600}
           >
             <ViewState
               currentDate={currentDate}
@@ -104,7 +106,7 @@ export default class MentorSchedule extends React.PureComponent {
             <DateNavigator />
             <ViewSwitcher />
           </Scheduler>
-      </Paper>
+          </div>
     );
   }
 }

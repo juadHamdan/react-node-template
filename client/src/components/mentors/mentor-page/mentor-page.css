@@ -1,21 +1,199 @@
 
 
-#mentor-page-container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    margin: 20px;
+#mentor-page-container {    
+    position: absolute;
+    top: 0;
+    width: calc(100% - 40px);
+    background: linear-gradient(-45deg, #565CC2ff, #86A1F9ff);
+    padding: 150px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#mentor-page-container .mentor-info-container{
-    height: 100%;
-    background: linear-gradient(-45deg, #565BC1ff, #7795F8ff);
+#mentor-page-container .mentor-data-container{
+    max-width: 1000px;
+    position: relative;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-around;
+    gap: 50px;
+    align-items: center;
+    padding: 120px 20px 50px 20px;
+}
+
+
+#mentor-page-container .mentor-data-container .contact-info-container{
+    width: 300px;
+}
+#mentor-page-container .mentor-data-container .image-container{
+    position: absolute;
+    top: -60px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 -2px 5px 5px rgba(0, 0, 0, 0.1);
+}
+#mentor-page-container .mentor-data-container .image-container img{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 5px;
+}
+#mentor-page-container .mentor-data-container .hrefs-right{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+#mentor-page-container .mentor-data-container .hrefs-left{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+#mentor-page-container .mentor-data-container .href-btn{
+    border: none;
     border-radius: 10px;
+    padding: 0 5px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    height: 30px;
+    width: 130px;
+    margin-bottom: 5px;
 }
-#mentor-page-container .mentor-info-container hr{
-    width: 100%;
-    background-color: gray;
+#mentor-page-container .mentor-data-container .href-btn:hover{
+    cursor: pointer;
+    transform: scale(1.025);
+    filter: brightness(85%);
 }
+#mentor-page-container .mentor-data-container .href-btn .logo{
+    width: 20px;
+
+}
+#mentor-page-container .mentor-data-container .linkedin-btn{
+    background-color: #4267B2;
+    color: white;
+}
+#mentor-page-container .mentor-data-container .github-btn{
+    background-color: rgb(29, 29, 29);
+    color: white;
+}
+#mentor-page-container .mentor-data-container .email-btn{
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid lightgray;
+}
+#mentor-page-container .mentor-data-container .schedule-btn{
+    background-color: #42a5f5;
+}
+
+
+#mentor-page-container .mentor-data-container .name{
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 5px 0;
+}
+
+#mentor-page-container .mentor-data-container .contact-info-title{
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: gray;
+}
+#mentor-page-container .mentor-data-container .phone-number-container,#mentor-page-container .mentor-data-container .email-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+
+
+
+
+
+#mentor-page-container .skills{
+    position: relative;
+    background-color: #fafafa;
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #f0f0f0;
+}
+#mentor-page-container .skills .title{
+    position: absolute;
+    left: 5px;
+    top: -25px;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+#mentor-page-container .skill{
+    margin: 1px 0;
+    padding: 0 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 0.9rem;
+    gap: 5px;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+#mentor-page-container .skill-name{
+    background-color: rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    border-radius: 20px;
+    height: 30px;
+    width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 5px 10px;
+    gap: 5px;
+}
+#mentor-page-container .skills .rating{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 #mentor-page-container .scheduler-container{
-    width: min(600px, 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+
+
+
+@media (max-width: 800px){
+    #mentor-page-container .mentor-data-container{
+        flex-direction: column;
+        gap: 80px;
+        padding-bottom: 20px;
+    }
+}
+
+@media (max-width: 400px){
+    #mentor-page-container .mentor-data-container .image-container{
+        top: -35px;
+    }
+    #mentor-page-container .mentor-data-container .image-container img{
+        width: 80px;
+        height: 80px;
+    }
+    #mentor-page-container .mentor-data-container .href-btn{
+        width: 115px;
+        height: 40px;
+    }
 }

@@ -23,8 +23,12 @@ const NavBar = ({ user, onLogout, onAuthorization }) => {
 
   const navigate = useNavigate();
 
-  const navigateToMentorPage = () => {
+  const navigateToMentorProfile = () => {
     navigate(`/mentor-profile/${user._id}`)
+    setShowUserMenu(false)
+  }
+  const navigateToMentorPage = () => {
+    navigate(`/mentors/${user._id}`)
     setShowUserMenu(false)
   }
   const onOpenMyAccount = () => {
@@ -142,7 +146,8 @@ const NavBar = ({ user, onLogout, onAuthorization }) => {
 
                 {showUserMenu &&
                   <div className="menu-items user-menu-items">
-                    {user.isMentor && <div className="menu-item" onClick={navigateToMentorPage}>My Page</div>}
+                    {user.isMentor && <div className="menu-item" onClick={navigateToMentorPage}>Show My Page</div>}
+                    {user.isMentor && <div className="menu-item" onClick={navigateToMentorProfile}>My Profile</div>}
                     <div className="menu-item" onClick={onOpenMyAccount}>My Account</div>
                     <div className="menu-item" onClick={onLogout}>Logout</div>
                   </div>
