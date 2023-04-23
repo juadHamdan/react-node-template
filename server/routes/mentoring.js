@@ -141,8 +141,13 @@ router.delete("/meetings/:meetingID", async (req, res) => {
   }
 })
 
-router.patch("/meetings/:meetingID", async (req, res) => {
+router.patch("/meetings/:meetingID/:userID", async (req, res) => {
   try {
+    let isMentee = await databaseQueries.checkIfMentee(req.params.meetingID, req.params.userID);
+    if (isMentee) {
+      res.status(403).send("You are not allowed to change the mentor schedule");
+      return;
+    }
     await databaseQueries.updateMeeting(req.params.meetingID, req.body.title, req.body.startDate, req.body.endDate)
     res.send("Meeting updated successfully.")
   } catch (error) {
@@ -199,6 +204,18 @@ router.put("/images/:userID", upload.single('profileImg'), async (req, res) => {
   } catch (error) {
     res.send(error)
     console.log(error);
+  }
+})
+
+router.put("/users/:userID", async (req, res) => {
+  let userID = req.params.userID;
+  let newFirstName = req.query.filename;
+  let newLastName = req.query.lastName;
+  try {
+    await databaseQueries.changeUserName(userID, newFirstName, newLastName);
+    res.send("user name changed successfully.")
+  } catch (error) {
+    res.send(error);
   }
 })
 

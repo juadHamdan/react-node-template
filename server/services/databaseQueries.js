@@ -146,10 +146,24 @@ async function deletePreviousPicture(userID) {
   }
 }
 
+async function changeUserName(userID, newFirstName, newLastName) {
+  let updated = await User.findByIdAndUpdate(userID, { firstName: newFirstName, lastName: newLastName });
+  return updated;
+}
+
+async function checkIfMentee(meetingID, userID) {
+  userID = getIdObject(userID);
+  let meeting = await Meeting.findOne({ $and: [{ _id: meetingID }, { mentee: userID }] });
+  if (meeting) {
+    return true;
+  }
+  return false;
+}
+
 module.exports = {
   getMentors, getMentorsBySkill, createMentor, getMentorByID, getMentorsNames,
   addMeeting, getUserByID, deleteMeeting, updateMeeting, getMentorMeetings, getMenteeMeetings,
   bookMeeting, getMentorByUserId, updateMentor, deleteMentorByID, deleteUserByID, updatesUserPicture,
-  deletePreviousPicture
+  deletePreviousPicture, changeUserName, checkIfMentee
 }
 
