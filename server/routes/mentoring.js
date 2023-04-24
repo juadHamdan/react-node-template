@@ -185,7 +185,7 @@ router.get('/meetings/:userID', async (req, res) => {
 
 router.patch('/book-meeting/:meetingID/:menteeID', async (req, res) => {
   try {
-    await databaseQueries.bookMeeting(req.params.meetingID, req.params.menteeID);
+    let meeting = await databaseQueries.bookMeeting(req.params.meetingID, req.params.menteeID);
     res.send("Meeting booked successfully.")
   } catch (error) {
     console.log(error);

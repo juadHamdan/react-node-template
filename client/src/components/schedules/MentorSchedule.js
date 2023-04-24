@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
+import  sendEmail  from './sendEmail'
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -35,10 +36,8 @@ export default class MentorSchedule extends React.PureComponent {
   }
 
   componentDidMount() {
-    console.log(this.props.mentorId)
     const getMeetings = async () => {
       const meetings = await fetchMeetings(this.props.mentorId)
-      console.log(meetings)
       this.setState({ data: meetings })
     }
     getMeetings()
@@ -57,6 +56,7 @@ export default class MentorSchedule extends React.PureComponent {
               const newData = [...data]
               const appointmentIndex = newData.findIndex(appointment => appointment.id === appointmentData.id)
               newData[appointmentIndex].isBooked = true
+              sendEmail(this.props.mentorId , this.props.user , appointmentData)
               return { data: newData };
             });
             onHide()
