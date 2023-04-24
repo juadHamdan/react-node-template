@@ -9,7 +9,6 @@
 
 #navigation-bar-container .btn {
     font-family: "Quicksand", sans-serif;
-    font-size: 0.8rem;
     font-weight: bold;
     background-color: none;
     border: none;
@@ -23,16 +22,15 @@
 }
 
 #navigation-bar-container .navigation-bar {
-    border: 3px solid #f0f0f0;
     position: fixed;
     z-index: 2;
-    left: 5%;
+    left: calc(5% - 10px);
     background-color: white;
     width: calc(90% - 20px);
     height: 20px;
     padding: 20px 15px;
     border-radius: 2rem;
-    box-shadow: 0 10px 50px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -51,6 +49,13 @@
     width: 40px;
     height: 40px;
     margin-right: 5px;
+}
+
+#navigation-bar-container .navigation-bar .profile-picture{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.05);
 }
 
 

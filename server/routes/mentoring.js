@@ -6,6 +6,8 @@ const {
   compareSkillRating,
 } = require("../utils/compare-ratings");
 
+const { upload } = require("../middlewares/mutler");
+
 router.get("/mentors", async (req, res) => {
   let skill = req.query.skill;
   let limit = req.query.limit;
@@ -143,6 +145,28 @@ router.delete("/meetings/:meetingID", async (req, res) => {
   }
 });
 
+router.patch("/meetings/:meetingID/:userID", async (req, res) => {
+  try {
+    let isMentee = await databaseQueries.checkIfMentee(
+      req.params.meetingID,
+      req.params.userID
+    );
+    if (isMentee) {
+      res.status(403).send("You are not allowed to change the mentor schedule");
+      return;
+    }
+    await databaseQueries.updateMeeting(
+      req.params.meetingID,
+      req.body.title,
+      req.body.startDate,
+      req.body.endDate
+    );
+    res.send("Meeting updated successfully.");
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 router.patch("/meetings/:meetingID", async (req, res) => {
   try {
     await databaseQueries.updateMeeting(
@@ -167,6 +191,7 @@ router.get("/meetings/:userID", async (req, res) => {
       mentorMeetings = mentorMeetings.map((meeting) => {
         return {
           _id: meeting._id,
+          title: meeting.title,
           startDate: meeting.startDate,
           endDate: meeting.endDate,
           mentor: meeting.mentor,
@@ -185,7 +210,7 @@ router.get("/meetings/:userID", async (req, res) => {
 
 router.patch("/book-meeting/:meetingID/:menteeID", async (req, res) => {
   try {
-    await databaseQueries.bookMeeting(
+    let meeting = await databaseQueries.bookMeeting(
       req.params.meetingID,
       req.params.menteeID
     );
@@ -209,6 +234,32 @@ router.delete("/mentor-Page/:userId", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send({ message: "Internal server error" });
+  }
+});
+
+router.put("/images/:userID", upload.single("profileImg"), async (req, res) => {
+  let userID = req.params.userID;
+  try {
+    const url = req.protocol + "://" + req.get("host");
+    let pictureURL = url + "/images/" + req.file.filename;
+    await databaseQueries.deletePreviousPicture(userID);
+    await databaseQueries.updatesUserPicture(userID, pictureURL);
+    res.send("image uploaded successfully.");
+  } catch (error) {
+    res.send(error);
+    console.log(error);
+  }
+});
+
+router.put("/users/:userID", async (req, res) => {
+  let userID = req.params.userID;
+  let newFirstName = req.query.filename;
+  let newLastName = req.query.lastName;
+  try {
+    await databaseQueries.changeUserName(userID, newFirstName, newLastName);
+    res.send("user name changed successfully.");
+  } catch (error) {
+    res.send(error);
   }
 });
 

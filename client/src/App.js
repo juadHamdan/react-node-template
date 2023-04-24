@@ -11,13 +11,10 @@ import "react-toastify/dist/ReactToastify.css";
 import Landing from "./components/landing/Landing";
 import NavigationBar from "./components/navigation-bar/NavigationBar";
 import { fetchUser } from "./AuthApi";
-import { MENTOR_FORM_ROUTE, COMPENY_MENTORSHIP_ROUTE } from "./Constants";
-import MentorPage from "./components/Mentors/MentorPage";
+import MentorPage from "./components/mentors/mentor-page/MentorPage";
 import MentorForm from "./components/mentor-form/MentorForm";
 import AlertShouldLogin from "./components/alerts/AlertShouldLogin";
-import EditMentorPage from "./components/Mentors/EditMentorPage";
-import MySchedulerModal from "./components/schedules/MySchedulerModal";
-import MentorScheduleModal from "./components/schedules/MentorScheduleModal";
+import EditMentorPage from "./components/mentors/mentor-profile/MentorProfile";
 import { googleLogout } from "@react-oauth/google";
 
 function App() {
@@ -56,7 +53,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="app-container">
       <Router>
         <ToastContainer />
         <NavigationBar
@@ -65,20 +62,16 @@ function App() {
           onAuthorization={onAuthorization}
         />
 
-        <MySchedulerModal />
-        <MentorScheduleModal />
-
         <Routes>
           <Route path="/" exact element={<Landing />} />
-          <Route path="mentors/:mentorID" element={<MentorPage />} />
+          <Route
+            path="mentors/:mentorID"
+            element={<MentorPage user={user} />}
+          />
           <Route path="/mentor-profile/:userID" element={<EditMentorPage />} />
           <Route
-            path={MENTOR_FORM_ROUTE}
+            path="/mentor-form"
             element={user ? <MentorForm user={user} /> : <AlertShouldLogin />}
-          />
-          <Route
-            path={COMPENY_MENTORSHIP_ROUTE}
-            element={<div>Company Mentorship (only users)</div>}
           />
         </Routes>
       </Router>
@@ -87,3 +80,5 @@ function App() {
 }
 
 export default App;
+
+//        {user && <MyScheduler user={user} />}

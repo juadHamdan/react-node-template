@@ -41,11 +41,12 @@ async function fetchMentorsBySkill(skill) {
   }
 }
 
-async function fetchMentors() {
+async function fetchFeaturedMentors() {
   try {
     const response = await axios.get(
       "/mentors?limit=" + FEATURED_MENTORS_NUMBER
     );
+    console.log("featured mentors:", response.data)
     return response.data;
   } catch (error) {
     console.log(error);
@@ -96,7 +97,7 @@ export {
   fetchMentorById,
   postMentorById,
   fetchMentorsBySkill,
-  fetchMentors,
+  fetchFeaturedMentors,
   fetchMentorsNames,
   fetchMentorByUserId,
   updateMentor,

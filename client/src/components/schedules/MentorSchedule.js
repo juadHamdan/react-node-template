@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
+import  sendEmail  from './sendEmail'
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -13,9 +14,7 @@ import {
   Resources
 } from '@devexpress/dx-react-scheduler-material-ui';
 import Button from '@mui/material/Button';
-
-
-
+import { fetchMeetings, bookMeeting } from '../../MeetingsApi'
 
 const resources = [{
   fieldName: 'isBooked',
@@ -29,31 +28,40 @@ export default class MentorSchedule extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      data: props.meetings,
+      data: [],
       currentDate: new Date().toISOString().slice(0, 10),
       startDayHour: 9,
       endDayHour: 19,
     };
   }
 
-  BookMeetingBtn = (({appointmentData, onHide}) => (
-    <Button 
-      sx={{margin: '5px'}} 
-      disabled={appointmentData.isBooked} 
+  componentDidMount() {
+    const getMeetings = async () => {
+      const meetings = await fetchMeetings(this.props.mentorId)
+      this.setState({ data: meetings })
+    }
+    getMeetings()
+  }
+
+  BookMeetingBtn = (({ appointmentData, onHide }) => (
+    <Button
+      sx={{ margin: '5px' }}
+      disabled={appointmentData.isBooked}
       variant="contained"
       onClick={() => {
-      console.log(appointmentData.id)
-
-      this.setState((state) => {
-        const { data } = state;
-        const newData = [...data]
-        const appointmentIndex = newData.findIndex(appointment => appointment.id === appointmentData.id)
-        newData[appointmentIndex].isBooked = true
-        return { data: newData };
-      });
-      //render or close the 
-      onHide()
-    }} 
+        this.props.user ?
+          bookMeeting(appointmentData.id, this.props.user._id).then(response => {
+            this.setState((state) => {
+              const { data } = state;
+              const newData = [...data]
+              const appointmentIndex = newData.findIndex(appointment => appointment.id === appointmentData.id)
+              newData[appointmentIndex].isBooked = true
+              sendEmail(this.props.mentorId , this.props.user , appointmentData)
+              return { data: newData };
+            });
+            onHide()
+          }) : alert("You have to be logged in to book a meeting.")
+      }}
     >
       Book This Meeting
     </Button>
@@ -72,10 +80,12 @@ export default class MentorSchedule extends React.PureComponent {
     };
 
     return (
-      <Paper>
-        <div style={{ height: '80vh', width: '90vw' }}>
+        <div style={{width: 'min(800px, 100%)', backgroundColor: 'white', borderRadius: '5px'}}>
+
+
           <Scheduler
             data={data}
+            height={600}
           >
             <ViewState
               currentDate={currentDate}
@@ -97,8 +107,7 @@ export default class MentorSchedule extends React.PureComponent {
             <DateNavigator />
             <ViewSwitcher />
           </Scheduler>
-        </div>
-      </Paper>
+          </div>
     );
   }
 }

@@ -7,8 +7,8 @@ import LoadingPage from '../loading-page/LoadingPage'
 import LogInForm from './LogInForm'
 import SignUpForm from './SignUpForm'
 import { googleLogin, emailSignUp, emailLogin } from '../../AuthApi'
-import SignUpIcon from './icons/sign-up.svg'
-import GoogleIcon from './icons/google.png'
+import SignUpIcon from '../../assets/icons/sign-up.svg'
+import GoogleIcon from '../../assets/icons/google.png'
 
 
 const SignUp = ({ onSubmitClick, onAuthorization }) => {
@@ -69,7 +69,7 @@ const SignUp = ({ onSubmitClick, onAuthorization }) => {
                 <p style={{textDecoration: "underline"}}>Continue With Google:</p>
             </div>
 
-            <div className="google-btn-container" onMouseEnter={() => console.log("click")}>
+            <div className="google-btn-container">
                 <GoogleLogin
                     onSuccess={res => onGoogleLoginSuccess(res.credential)}
                     onError={() => toast('Login Failed')}

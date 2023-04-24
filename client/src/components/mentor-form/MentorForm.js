@@ -89,14 +89,14 @@ const MentorForm = ({ user }) => {
                     <div className="inputs-container">
                         <h3>Share Your Proffessional Experience:</h3>
                         <div className="inputs">
-                            <TextField required name="workExperience" value={mentorData.workExperience} id="outlined-basic" label="Work Experience (Company Name, years, ...)" variant="outlined" onChange={handleChange} />
-                            <TextField required name="githubUrl" value={mentorData.githubUrl} id="outlined-basic" label="Github Link" variant="outlined" onChange={handleChange} />
+                            <TextField required name="workExperience" value={mentorData.workExperience} label="Work Experience (Company Name, years, ...)" variant="outlined" onChange={handleChange} />
+                            <TextField required name="githubUrl" value={mentorData.githubUrl} label="Github Link" variant="outlined" onChange={handleChange} />
                         </div>
                         <h3>Share Your Contact Info:</h3>
                         <div className="inputs">
-                            <TextField required disabled name="email" value={user.email} id="outlined-basic" label="Email" variant="outlined" />
-                            <TextField required name="phoneNumber" value={mentorData.phoneNumber} id="outlined-basic" label="Phone Number" variant="outlined" onChange={handleChange} />
-                            <TextField required name="linkedinUrl" value={mentorData.linkedinUrl} id="outlined-basic" label="LinkedIn Profile" variant="outlined" onChange={handleChange} />
+                            <TextField required disabled name="email" value={user.email} label="Email" variant="outlined" />
+                            <TextField required name="phoneNumber" value={mentorData.phoneNumber} label="Phone Number" variant="outlined" onChange={handleChange} />
+                            <TextField required name="linkedinUrl" value={mentorData.linkedinUrl} label="LinkedIn Profile" variant="outlined" onChange={handleChange} />
                         </div>
                     </div>}
 

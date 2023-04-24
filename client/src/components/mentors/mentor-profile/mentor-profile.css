@@ -1,3 +1,4 @@
+/*
 .mentor-container {
   display: b;
   padding: 2rem 6rem;
@@ -148,4 +149,10 @@ textarea, input {
 .mentor-container button:hover {
   background-color: #3e8e41;
   transform: translateY(-2px);
+}
+*/
+
+.mentor-profile-img {
+  width: 400px;
+  height: 400px;
 }

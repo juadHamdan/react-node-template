@@ -3,6 +3,9 @@ const Skill = require("../models/Skill");
 const User = require("../models/User");
 const Meeting = require("../models/Meeting");
 const mongoose = require("mongoose");
+const fs = require("fs");
+const { promisify } = require("util");
+const unlinkAsync = promisify(fs.unlink);
 
 const getIdObject = (id) => {
   return new mongoose.Types.ObjectId(id);
@@ -136,6 +139,42 @@ async function updateUser(userId) {
   return User.findByIdAndUpdate(userId, { new: false });
 }
 
+function updatesUserPicture(userID, pictureURL) {
+  return User.findOneAndUpdate({ _id: userID }, { picture: pictureURL });
+}
+
+async function deletePreviousPicture(userID) {
+  const user = await User.findById(userID);
+  try {
+    let userCurrentProfilePicture = user.picture;
+    let userCurrentProfilePicturePath =
+      userCurrentProfilePicture.split("/images/")[1];
+    let deleted = await unlinkAsync("images/" + userCurrentProfilePicturePath);
+    return deleted;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function changeUserName(userID, newFirstName, newLastName) {
+  let updated = await User.findByIdAndUpdate(userID, {
+    firstName: newFirstName,
+    lastName: newLastName,
+  });
+  return updated;
+}
+
+async function checkIfMentee(meetingID, userID) {
+  userID = getIdObject(userID);
+  let meeting = await Meeting.findOne({
+    $and: [{ _id: meetingID }, { mentee: userID }],
+  });
+  if (meeting) {
+    return true;
+  }
+  return false;
+}
+
 module.exports = {
   getMentors,
   getMentorsBySkill,
@@ -153,5 +192,9 @@ module.exports = {
   updateMentor,
   deleteMentorByID,
   deleteUserByID,
+  updatesUserPicture,
+  deletePreviousPicture,
+  changeUserName,
+  checkIfMentee,
   updateUser,
 };

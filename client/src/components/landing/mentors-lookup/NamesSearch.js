@@ -29,7 +29,7 @@ const NamesSearch = () => {
 
     return (<div id="skills-search-form-container">
         <div className="search-skills">
-            <TextField value={mentorName} fullWidth className="input" id="outlined-basic" label="Type Mentor Name" variant="outlined" onChange={handleChange} />
+            <TextField value={mentorName} className="input" label="Type Mentor Name" variant="outlined" onChange={handleChange} />
             {searchedMentors.length === 0 ? null :
                 <div className="menu">
                     {searchedMentors.map(mentor =>

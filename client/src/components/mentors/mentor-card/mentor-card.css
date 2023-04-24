@@ -1,0 +1,147 @@
+:root{
+    --mentor-card-horizontal-width: 400px;
+    --mentor-card-horizontal-height: 200px;
+
+    --mentor-card-vertical-width: 200px;
+    --mentor-card-vertical-height: 400px;
+}
+
+#mentor-card:hover{
+    cursor: pointer;
+    filter: brightness(90%);
+}
+
+#mentor-card .image-container img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    box-shadow: 0 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+#mentor-card .mentor-data .name{
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+#mentor-card .mentor-data .experience{
+    font-weight: bold;
+    margin-top: 0;
+}
+#mentor-card .mentor-data .skills{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    height: 100px;
+    width: 120px;
+    overflow-y: scroll;
+}
+#mentor-card .mentor-data .skills .skill{
+    background-color: rgba(0, 0, 0, 0.1);
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 20px;
+    height: 20px;
+    width: max-content;
+    display: flex;
+    align-items: center;
+    padding: 2px 7px;
+}
+#mentor-card .links .icon:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+
+
+#mentor-card-horizontal{
+    box-shadow: 0 10px 5px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: var(--mentor-card-horizontal-width);
+    height: var(--mentor-card-horizontal-height);
+    background-color: white;
+    border-radius: 50px;
+}
+#mentor-card-horizontal .image-container{
+    position: relative;
+    top: -15px;
+    width: 40%;
+    height: calc(var(--mentor-card-horizontal-height) + 20px);
+    background: linear-gradient(#D17081ff, #8B3652ff);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 5px solid #9D849Fff;
+    border-right: 5px solid #FCCB9Bff;
+    border-top: 5px solid #DB7266ff;
+    border-bottom: 5px solid #B34D6Dff;
+}
+#mentor-card-horizontal .mentor-data{
+    width: 50%;
+}
+#mentor-card-horizontal .links{
+    width: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+}
+#mentor-card-horizontal .mentor-data .skills{
+    height: 80px;
+}
+
+
+
+
+
+
+
+
+
+#mentor-card-vertical{
+    box-shadow: 0 10px 5px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 5px;
+    width: var(--mentor-card-vertical-width);
+    height: var(--mentor-card-vertical-height);
+    background-color: white;
+    border-radius: 50px;
+}
+#mentor-card-vertical .image-container{
+    height: 40%;
+    background: linear-gradient(#D17081ff, #8B3652ff);
+    border-radius: 50px 50px 0 0 ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 5px solid #9D849Fff;
+    border-right: 5px solid #FCCB9Bff;
+    border-top: 5px solid #DB7266ff;
+    border-bottom: 5px solid #B34D6Dff;
+}
+#mentor-card-vertical .mentor-data{
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+}
+#mentor-card-vertical .mentor-data .name{
+    margin-top: 0;
+}
+#mentor-card-vertical .links{
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+
+
+
+
