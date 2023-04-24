@@ -1,11 +1,11 @@
-const Mentor = require("../models/Mentor")
-const Skill = require("../models/Skill")
-const User = require("../models/User")
-const Meeting = require("../models/Meeting")
-const mongoose = require('mongoose')
-const fs = require('fs')
-const { promisify } = require('util')
-const unlinkAsync = promisify(fs.unlink)
+const Mentor = require("../models/Mentor");
+const Skill = require("../models/Skill");
+const User = require("../models/User");
+const Meeting = require("../models/Meeting");
+const mongoose = require("mongoose");
+const fs = require("fs");
+const { promisify } = require("util");
+const unlinkAsync = promisify(fs.unlink);
 
 const getIdObject = (id) => {
   return new mongoose.Types.ObjectId(id);
@@ -49,8 +49,10 @@ async function createMentor(userId, skills, workExperience, contactDetails) {
 }
 
 function getMentorByID(mentorID) {
-  return Mentor.findById(mentorID).populate([{ path: 'skills' },
-  { path: 'user', select: 'firstName lastName picture email position' }]);
+  return Mentor.findById(mentorID).populate([
+    { path: "skills" },
+    { path: "user", select: "firstName lastName picture email position" },
+  ]);
 }
 
 function getMentorsNames() {
@@ -81,11 +83,9 @@ function deleteUserByID(userID) {
   return User.findOneAndDelete(userID);
 }
 
-
 function getMentorByUserId(userId) {
-  return Mentor.findOne({ user: userId }).populate('skills user')
+  return Mentor.findOne({ user: userId }).populate("skills user");
 }
-
 
 async function updateMentor(userId, updatedMentor) {
   const mentor = await getMentorByUserId(userId);
@@ -97,12 +97,17 @@ function getUserByID(userID) {
 }
 
 async function addMeeting(userID, title, startDate, endDate) {
-  let userIdObject = getIdObject(userID)
-  startDate = new Date(startDate)
-  endDate = new Date(endDate)
-  let meeting = new Meeting({ title, startDate, endDate, mentor: userIdObject })
-  meeting = await meeting.save()
-  return meeting._id
+  let userIdObject = getIdObject(userID);
+  startDate = new Date(startDate);
+  endDate = new Date(endDate);
+  let meeting = new Meeting({
+    title,
+    startDate,
+    endDate,
+    mentor: userIdObject,
+  });
+  meeting = await meeting.save();
+  return meeting._id;
 }
 
 function deleteMeeting(meetingID) {
@@ -110,36 +115,41 @@ function deleteMeeting(meetingID) {
 }
 
 function updateMeeting(meetingID, title, startDate, endDate) {
-  startDate = new Date(startDate)
-  endDate = new Date(endDate)
+  startDate = new Date(startDate);
+  endDate = new Date(endDate);
   return Meeting.findByIdAndUpdate(meetingID, { title, startDate, endDate });
 }
 
 function getMentorMeetings(userID) {
-  let userIdObject = getIdObject(userID)
-  return Meeting.find({ mentor: userIdObject })
+  let userIdObject = getIdObject(userID);
+  return Meeting.find({ mentor: userIdObject });
 }
 
 function getMenteeMeetings(userID) {
-  let userIdObject = getIdObject(userID)
-  return Meeting.find({ mentee: userIdObject })
+  let userIdObject = getIdObject(userID);
+  return Meeting.find({ mentee: userIdObject });
 }
 
 async function bookMeeting(meetingID, menteeID) {
-  let menteeIdObject = getIdObject(menteeID)
-  await Meeting.findByIdAndUpdate(meetingID, { mentee: menteeIdObject })
+  let menteeIdObject = getIdObject(menteeID);
+  await Meeting.findByIdAndUpdate(meetingID, { mentee: menteeIdObject });
+}
+
+async function updateUser(userId) {
+  return User.findByIdAndUpdate(userId, { new: false });
 }
 
 function updatesUserPicture(userID, pictureURL) {
-  return User.findOneAndUpdate({ _id: userID }, { picture: pictureURL })
+  return User.findOneAndUpdate({ _id: userID }, { picture: pictureURL });
 }
 
 async function deletePreviousPicture(userID) {
   const user = await User.findById(userID);
   try {
     let userCurrentProfilePicture = user.picture;
-    let userCurrentProfilePicturePath = userCurrentProfilePicture.split('/images/')[1];
-    let deleted = await unlinkAsync('images/' + userCurrentProfilePicturePath);
+    let userCurrentProfilePicturePath =
+      userCurrentProfilePicture.split("/images/")[1];
+    let deleted = await unlinkAsync("images/" + userCurrentProfilePicturePath);
     return deleted;
   } catch (error) {
     console.log(error);
@@ -147,13 +157,18 @@ async function deletePreviousPicture(userID) {
 }
 
 async function changeUserName(userID, newFirstName, newLastName) {
-  let updated = await User.findByIdAndUpdate(userID, { firstName: newFirstName, lastName: newLastName });
+  let updated = await User.findByIdAndUpdate(userID, {
+    firstName: newFirstName,
+    lastName: newLastName,
+  });
   return updated;
 }
 
 async function checkIfMentee(meetingID, userID) {
   userID = getIdObject(userID);
-  let meeting = await Meeting.findOne({ $and: [{ _id: meetingID }, { mentee: userID }] });
+  let meeting = await Meeting.findOne({
+    $and: [{ _id: meetingID }, { mentee: userID }],
+  });
   if (meeting) {
     return true;
   }
@@ -161,9 +176,25 @@ async function checkIfMentee(meetingID, userID) {
 }
 
 module.exports = {
-  getMentors, getMentorsBySkill, createMentor, getMentorByID, getMentorsNames,
-  addMeeting, getUserByID, deleteMeeting, updateMeeting, getMentorMeetings, getMenteeMeetings,
-  bookMeeting, getMentorByUserId, updateMentor, deleteMentorByID, deleteUserByID, updatesUserPicture,
-  deletePreviousPicture, changeUserName, checkIfMentee
-}
-
+  getMentors,
+  getMentorsBySkill,
+  createMentor,
+  getMentorByID,
+  getMentorsNames,
+  addMeeting,
+  getUserByID,
+  deleteMeeting,
+  updateMeeting,
+  getMentorMeetings,
+  getMenteeMeetings,
+  bookMeeting,
+  getMentorByUserId,
+  updateMentor,
+  deleteMentorByID,
+  deleteUserByID,
+  updatesUserPicture,
+  deletePreviousPicture,
+  changeUserName,
+  checkIfMentee,
+  updateUser,
+};
