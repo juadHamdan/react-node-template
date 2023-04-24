@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import './sign-up.css'
 import TextField from '@mui/material/TextField';
-import EmailIcon from './icons/email.svg'
+import EmailIcon from '../../assets/icons/email.svg'
 
 const SignUpForm = ({ onSubmit }) => {
     const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", password: "" });

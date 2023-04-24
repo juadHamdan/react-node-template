@@ -7,8 +7,8 @@ import LoadingPage from '../loading-page/LoadingPage'
 import LogInForm from './LogInForm'
 import SignUpForm from './SignUpForm'
 import { googleLogin, emailSignUp, emailLogin } from '../../AuthApi'
-import SignUpIcon from './icons/sign-up.svg'
-import GoogleIcon from './icons/google.png'
+import SignUpIcon from '../../assets/icons/sign-up.svg'
+import GoogleIcon from '../../assets/icons/google.png'
 
 
 const SignUp = ({ onSubmitClick, onAuthorization }) => {
