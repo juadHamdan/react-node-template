@@ -106,7 +106,7 @@ const NavBar = ({ user, onLogout, onAuthorization }) => {
               className="app-icon"
               src="https://icons.iconarchive.com/icons/fa-team/fontawesome/256/FontAwesome-Laptop-Code-icon.png"
             />
-            <h3>Hook A Mentor</h3>
+            <h3>Book A Mentor</h3>
           </div>
 
 
@@ -146,8 +146,6 @@ const NavBar = ({ user, onLogout, onAuthorization }) => {
 
                 {showUserMenu &&
                   <div className="menu-items user-menu-items">
-                    {user.isMentor && <div className="menu-item" onClick={navigateToMentorPage}>Show My Page</div>}
-                    {user.isMentor && <div className="menu-item" onClick={navigateToMentorProfile}>My Profile</div>}
                     <div className="menu-item" onClick={onOpenMyAccount}>My Account</div>
                     <div className="menu-item" onClick={onLogout}>Logout</div>
                   </div>
