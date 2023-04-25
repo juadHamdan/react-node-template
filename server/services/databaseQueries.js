@@ -125,9 +125,9 @@ function getMenteeMeetings(userID) {
   return Meeting.find({ mentee: userIdObject })
 }
 
-async function bookMeeting(meetingID, menteeID) {
+async function bookMeeting(meetingID, menteeID, zoomLink) {
   let menteeIdObject = getIdObject(menteeID)
-  await Meeting.findByIdAndUpdate(meetingID, { mentee: menteeIdObject })
+  await Meeting.findByIdAndUpdate(meetingID, { mentee: menteeIdObject, zoomLink: zoomLink })
 }
 
 function updatesUserPicture(userID, pictureURL) {
@@ -151,19 +151,14 @@ async function changeUserName(userID, newFirstName, newLastName) {
   return updated;
 }
 
-async function checkIfMentee(meetingID, userID) {
-  userID = getIdObject(userID);
-  let meeting = await Meeting.findOne({ $and: [{ _id: meetingID }, { mentee: userID }] });
-  if (meeting) {
-    return true;
-  }
-  return false;
+function getMeetingById(meetingID) {
+  return Meeting.findById(meetingID).populate("mentor");
 }
 
 module.exports = {
   getMentors, getMentorsBySkill, createMentor, getMentorByID, getMentorsNames,
   addMeeting, getUserByID, deleteMeeting, updateMeeting, getMentorMeetings, getMenteeMeetings,
   bookMeeting, getMentorByUserId, updateMentor, deleteMentorByID, deleteUserByID, updatesUserPicture,
-  deletePreviousPicture, changeUserName, checkIfMentee
+  deletePreviousPicture, changeUserName, getMeetingById
 }
 

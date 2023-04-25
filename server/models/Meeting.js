@@ -7,6 +7,7 @@ const meetingSchema = new Schema({
     endDate: Date,
     mentor: { type: Schema.Types.ObjectId, ref: "user" },
     mentee: { type: Schema.Types.ObjectId, ref: "user" },
+    zoomLink: String
 })
 
 const Meeting = mongoose.model("meeting", meetingSchema)

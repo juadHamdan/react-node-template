@@ -65,7 +65,9 @@ export default class MentorSchedule extends React.PureComponent {
     >
       Book This Meeting
     </Button>
-  ));
+    ));
+
+    
 
   render() {
     const {
@@ -99,6 +101,7 @@ export default class MentorSchedule extends React.PureComponent {
             <Appointments />
             <AppointmentTooltip
               headerComponent={this.BookMeetingBtn}
+             
             />
             <Resources
               data={resources}

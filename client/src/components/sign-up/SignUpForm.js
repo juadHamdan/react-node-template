@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import './sign-up.css'
 import TextField from '@mui/material/TextField';
-import EmailIcon from './icons/email.svg'
+import EmailIcon from '../../assets/icons/email.svg'
 
 const SignUpForm = ({ onSubmit }) => {
     const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", password: "" });
@@ -20,7 +20,7 @@ const SignUpForm = ({ onSubmit }) => {
         <div id="form-container">
             <form onSubmit={handleSubmit}>
                 <div className="row">
-                    <TextField required name="firstName" value={formData.firstName}  label="First Name" variant="outlined" onChange={handleChange} />
+                    <TextField required name="firstName" value={formData.firstName} label="First Name" variant="outlined" onChange={handleChange} />
                     <TextField required name="lastName" value={formData.lastName} label="Last Name" variant="outlined" onChange={handleChange} />
                 </div>
 

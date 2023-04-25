@@ -439,6 +439,14 @@ export default class Demo extends React.PureComponent {
     this.setState({ currentDate });
   };
 
+  AppointmentTooltipContent = (({
+    children, appointmentData, ...restProps
+  }) => (
+    <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
+    {appointmentData.zoomLink && <a href={appointmentData?.zoomLink}>Join Zoom Meeting</a> }
+    </AppointmentTooltip.Content>
+  ));
+
   render() {
     const {
       currentDate,
@@ -481,6 +489,7 @@ export default class Demo extends React.PureComponent {
               showOpenButton
               showCloseButton
               showDeleteButton
+              contentComponent={this.AppointmentTooltipContent}
             />
             <Toolbar />
             <DateNavigator />
@@ -494,6 +503,7 @@ export default class Demo extends React.PureComponent {
             <Resources
               data={resources}
             />
+
           </Scheduler>
 
           <Dialog

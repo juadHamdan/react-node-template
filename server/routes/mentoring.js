@@ -7,6 +7,9 @@ const {
 } = require("../utils/compare-ratings");
 
 const { upload } = require("../middlewares/mutler");
+const { createZoomMeeting } = require("../services/zoom-meeting")
+
+
 
 router.get("/mentors", async (req, res) => {
   let skill = req.query.skill;
@@ -170,7 +173,8 @@ router.get('/meetings/:userID', async (req, res) => {
           endDate: meeting.endDate,
           mentor: meeting.mentor,
           mentee: meeting.mentee,
-          isBooked: meeting.mentee ? true : false
+          isBooked: meeting.mentee ? true : false,
+          zoomLink: meeting.zoomLink
         }
       })
     }
@@ -185,7 +189,10 @@ router.get('/meetings/:userID', async (req, res) => {
 
 router.patch('/book-meeting/:meetingID/:menteeID', async (req, res) => {
   try {
-    await databaseQueries.bookMeeting(req.params.meetingID, req.params.menteeID);
+    let meeting = await databaseQueries.getMeetingById(req.params.meetingID);
+    let duration = (meeting.endDate - meeting.startDate) / 60000;
+    let zoomLink = await createZoomMeeting(meeting.startDate, duration, meeting.title, meeting.mentor.email);
+    await databaseQueries.bookMeeting(req.params.meetingID, req.params.menteeID, zoomLink);
     res.send("Meeting booked successfully.")
   } catch (error) {
     console.log(error);
@@ -218,7 +225,6 @@ router.put("/users/:userID", async (req, res) => {
     res.send(error);
   }
 })
-
 
 module.exports = router;
 

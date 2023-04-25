@@ -7,8 +7,8 @@ import LoadingPage from '../loading-page/LoadingPage'
 import LogInForm from './LogInForm'
 import SignUpForm from './SignUpForm'
 import { googleLogin, emailSignUp, emailLogin } from '../../AuthApi'
-import SignUpIcon from './icons/sign-up.svg'
-import GoogleIcon from './icons/google.png'
+import SignUpIcon from '../../assets/icons/sign-up.svg'
+import GoogleIcon from '../../assets/icons/google.png'
 
 
 const SignUp = ({ onSubmitClick, onAuthorization }) => {
@@ -18,11 +18,11 @@ const SignUp = ({ onSubmitClick, onAuthorization }) => {
     const onEmailLogin = async (formData) => {
         onSubmitClick()
         console.log(formData)
-        try{
+        try {
             const token = await emailLogin(formData)
             onAuthorization(token)
         }
-        catch(err){
+        catch (err) {
             toast(err.message)
         }
     }
@@ -30,11 +30,11 @@ const SignUp = ({ onSubmitClick, onAuthorization }) => {
     const onEmailSignUp = async (formData) => {
         onSubmitClick()
         console.log(formData)
-        try{
+        try {
             const token = await emailSignUp(formData)
             onAuthorization(token)
         }
-        catch(err){
+        catch (err) {
             toast(err.message)
         }
     }
@@ -54,7 +54,7 @@ const SignUp = ({ onSubmitClick, onAuthorization }) => {
 
     return (
         <div id="sign-up-container">
-            <ToastContainer/>
+            <ToastContainer />
             <LoadingPage show={showLoadingPage} text={"Logging You In ..."} />
 
             <div className="title-container">
@@ -66,7 +66,7 @@ const SignUp = ({ onSubmitClick, onAuthorization }) => {
 
             <div className="google-title-container">
                 <img className="logo" src={GoogleIcon} />
-                <p style={{textDecoration: "underline"}}>Continue With Google:</p>
+                <p style={{ textDecoration: "underline" }}>Continue With Google:</p>
             </div>
 
             <div className="google-btn-container">
@@ -76,14 +76,14 @@ const SignUp = ({ onSubmitClick, onAuthorization }) => {
                 />
             </div>
 
-            <p style={{textDecoration: "underline"}}>OR</p>
+            <p style={{ textDecoration: "underline" }}>OR</p>
 
             {isSignedUp ? <LogInForm onSubmit={onEmailLogin} /> : <SignUpForm onSubmit={onEmailSignUp} />}
 
             <div className="auth-toggle">
                 {isSignedUp ?
                     <button onClick={() => setIsSignedUp(false)}>Sign Up</button>
-                :
+                    :
                     <>
                         <p>Already Signed Up? {' '}</p>
                         <button onClick={() => setIsSignedUp(true)}>Log In</button>
