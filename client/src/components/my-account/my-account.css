@@ -1,39 +1,48 @@
-#my-account-container{
-
+#my-account-container {
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
+  padding-bottom: 20px;
 }
 
-#my-account .btn{
+#my-account-container .my-account {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#my-account-container .sub-title{
+  text-decoration: underline;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+#my-account-container .btn {
   font-weight: bold;
   border: none;
   border-radius: 5px;
-}
-#my-account .btn:hover{
-  cursor: pointer;
-  filter: brightness(85%);
-}
-
-
-
-
-#my-account{
-  position: relative;
-  width: 500px;
-  background-color: var(--profile-background-color);
-  border-radius: 10px;
-  padding: 20px 0 20px 20px;
+  font-size: 1.1rem;
+  height: 25px;
+  font-weight: bold;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-#my-account .delete-btn{
+#my-account-container .btn:hover {
+  cursor: pointer;
+  filter: brightness(85%);
+  transform: scale(1);
+}
+
+#my-account-container .delete-btn {
   position: absolute;
   top: 10px;
   right: 10px;
   background-color: #ef5350;
 }
-#my-account .choose-picture-btn{
+
+#my-account-container .choose-picture-btn {
   position: absolute;
   top: 10px;
   left: 10px;
@@ -42,18 +51,79 @@
 
 
 
-#my-account img{
+#my-account-container img {
   position: absolute;
-  top: -25px;
-  border-radius: 50%;
+  top: -50px;
+
   width: 100px;
   height: 100px;
 }
 
-#my-account .name{
+#my-account-container .name {
   margin-top: 75px;
   margin-bottom: 0;
 }
 
-#my-account .email{
+#my-account-container .email {}
+
+
+#my-account-container .user-account {
+  width: min(500px, 90vw);
+}
+
+
+#my-account-container .mentor-account{
+  width: 90vw;
+  max-height: 650px;
+  overflow-y: scroll;
+}
+
+
+#my-account-container .mentor-account .mentor-info-form-container {
+  width: min(500px, 90%);
+}
+
+#my-account-container .mentor-account .mentor-info-form-container .text-input {
+  margin-bottom: 7px;
+}
+
+#my-account-container .mentor-account .skill-form {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px 20px;
+  border-radius: 2px;
+}
+
+#my-account-container .mentor-account .delete-btn {
+  top: -30px;
+}
+
+#my-account-container .mentor-account .choose-picture-btn {
+  top: -30px;
+}
+
+#my-account-container .mentor-account .add-skill-btn{
+  width: 300px;
+  margin-bottom: 20px;
+  color: white;
+  background-color: gray;
+}
+
+
+#my-account-container .mentor-account .save-btn{
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+#my-account-container .mentor-account .delete-icon{
+
+}
+#my-account-container .mentor-account .delete-icon:hover{
+  opacity: 0.5;
+  cursor: pointer;
 }

@@ -2,6 +2,11 @@ import "./mentors-lookup.css";
 import { useEffect, useState } from "react";
 import { fetchFeaturedMentors, fetchMentorsBySkill } from "../../../MentorsApi";
 import SkillsSearchInput from "./SkillsSearchInput";
+<<<<<<< HEAD
+import Mentors from "../../Mentors/Mentors";
+import LaunchIcon from "@mui/icons-material/Launch";
+=======
+>>>>>>> master
 import NamesSearch from "./NamesSearch";
 import MentorCard from '../../mentors/mentor-card/MentorCard'
 import Autocomplete from '@mui/material/Autocomplete';
