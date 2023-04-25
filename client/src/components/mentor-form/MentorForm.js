@@ -42,15 +42,21 @@ const MentorForm = ({ user }) => {
     }
 
     const [step, setStep] = useState(0)
-    const handlePrev = () => setStep(step => step - 1)
-    const handleNext = () => setStep(step => step + 1)
+    const handlePrev = (event) => {
+        event.preventDefault();
+        setStep(step => step - 1)
+    }
+    const handleNext = (event) => {
+        event.preventDefault();
+        setStep(step => step + 1)
+    }
 
     const handleChange = (event) => setMentorData({ ...mentorData, [event.target.name]: event.target.value })
 
     const handleSubmit = async (event) => {
-        event.preventDefault()
+        event.preventDefault();
 
-        if(skills.length === 0){
+        if (skills.length === 0) {
             toast("You Must Add At Least One Skill")
             setStep(0)
             return
@@ -70,7 +76,7 @@ const MentorForm = ({ user }) => {
 
     return (
         <div id="mentor-form-container">
-            <ToastContainer/>
+            <ToastContainer />
 
             <Stack sx={{ width: '100%', marginBottom: '50px' }} spacing={4}>
                 <Stepper alternativeLabel activeStep={step} connector={<ColorlibConnector />}>
@@ -101,7 +107,7 @@ const MentorForm = ({ user }) => {
                     </div>}
 
                 <div className="controllers">
-                    <button disabled={step === 0} onClick={handlePrev}>Previous</button>
+                    <button disabled={step === 0} type="button" onClick={handlePrev}>Previous</button>
                     {step === 2 ? <button type="submit">Done</button> : <button type="button" onClick={handleNext}>Next</button>}
                 </div>
             </form>
