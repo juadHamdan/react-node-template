@@ -185,13 +185,25 @@ router.get('/meetings/:userID', async (req, res) => {
 
 router.patch('/book-meeting/:meetingID/:menteeID', async (req, res) => {
   try {
-    let meeting = await databaseQueries.bookMeeting(req.params.meetingID, req.params.menteeID);
-    res.send("Meeting booked successfully.")
+    const meetingId = req.params.meetingID;
+    const menteeId = req.params.menteeID;
+    const action = req.body.action;
+
+    if (action === 'book') {
+      await databaseQueries.bookMeeting(meetingId, menteeId);
+      res.send("Meeting booked successfully.");
+    } else if (action === 'cancel') {
+      await databaseQueries.cancelMeeting(meetingId, menteeId);
+      res.send("Meeting cancelled successfully.");
+    } else {
+      throw new Error('Invalid action.');
+    }
   } catch (error) {
     console.log(error);
-    res.send(error)
+    res.send(error);
   }
-})
+});
+
 
 router.put("/images/:userID", upload.single('profileImg'), async (req, res) => {
   let userID = req.params.userID

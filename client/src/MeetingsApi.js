@@ -41,14 +41,28 @@ async function fetchMeetings(userID) {
     }
 }
 
-async function bookMeeting (meetingID, menteeID) {
+async function bookMeeting(meetingID, menteeID) {
     try {
-        const response = await axios.patch(`/book-meeting/${meetingID}/${menteeID}`);
-        return response.data
+      const response = await axios.patch(`/book-meeting/${meetingID}/${menteeID}`, {
+        action: "book"
+      });
+      return response.data;
     } catch (error) {
-        console.error(error);
-        return null
+      console.error(error);
+      return null;
     }
-}
+  }
 
-export { addMeeting, deleteMeeting, updateMeeting, fetchMeetings,bookMeeting }
+async function cancelMeeting(meetingID, menteeID) {
+    try {
+      const response = await axios.patch(`/book-meeting/${meetingID}/${menteeID}`, {
+        action: "cancel"
+      });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+export { addMeeting, deleteMeeting, updateMeeting, fetchMeetings,bookMeeting , cancelMeeting}

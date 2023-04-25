@@ -130,6 +130,17 @@ async function bookMeeting(meetingID, menteeID) {
   await Meeting.findByIdAndUpdate(meetingID, { mentee: menteeIdObject })
 }
 
+async function cancelMeeting(meetingID , menteeID) {
+  let menteeIdObject = getIdObject(menteeID);
+  let meeting = await Meeting.findById(meetingID);
+  if (meeting.mentee.equals(menteeIdObject)) {
+    meeting.mentee = null;
+    await meeting.save();
+  } else {
+    throw new Error('The provided mentee ID does not match the mentee for this meeting');
+  }
+}
+
 function updatesUserPicture(userID, pictureURL) {
   return User.findOneAndUpdate({ _id: userID }, { picture: pictureURL })
 }
@@ -164,6 +175,6 @@ module.exports = {
   getMentors, getMentorsBySkill, createMentor, getMentorByID, getMentorsNames,
   addMeeting, getUserByID, deleteMeeting, updateMeeting, getMentorMeetings, getMenteeMeetings,
   bookMeeting, getMentorByUserId, updateMentor, deleteMentorByID, deleteUserByID, updatesUserPicture,
-  deletePreviousPicture, changeUserName, checkIfMentee
+  deletePreviousPicture, changeUserName, checkIfMentee , cancelMeeting
 }
 
