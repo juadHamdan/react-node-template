@@ -83,6 +83,16 @@ async function updateMentor(userID, updatedMentor) {
   }
 }
 
+async function deleteMentor(userID) {
+  try {
+    const response = await axios.delete("/mentor-Page/" + userID);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
+
 export {
   fetchMentorById,
   postMentorById,
@@ -92,4 +102,5 @@ export {
   fetchMentorByUserId,
   updateMentor,
   deleteUserById,
+  deleteMentor,
 };

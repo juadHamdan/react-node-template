@@ -395,7 +395,6 @@ export default class Demo extends React.PureComponent {
         const { data, deletedAppointmentId } = state;
         console.log("Deleted:", deletedAppointmentId)
         const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
-
         return { data: nextData, deletedAppointmentId: null };
       });
       this.toggleConfirmationVisible();

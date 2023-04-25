@@ -57,7 +57,7 @@ router.get("/mentor/:userId", async (req, res) => {
   let userId = req.params.userId;
   try {
     let mentor = await databaseQueries.getMentorByUserId(userId);
-    res.send(mentor)
+    res.send(mentor);
   } catch (error) {
     res.send(error);
   }
@@ -113,7 +113,7 @@ router.put("/mentor/:id", async (req, res) => {
   try {
     const userID = req.params.id;
     const updatedMentor = req.body;
-    const mentor = await databaseQueries.updateMentor(userID, updatedMentor)
+    const mentor = await databaseQueries.updateMentor(userID, updatedMentor);
     res.status(200).send({ mentor });
   } catch (err) {
     console.error(err);
@@ -122,50 +122,76 @@ router.put("/mentor/:id", async (req, res) => {
 });
 router.post("/meetings/:userID", async (req, res) => {
   try {
-    const user = await databaseQueries.getUserByID(req.params.userID)
+    const user = await databaseQueries.getUserByID(req.params.userID);
     if (user.isMentor) {
-      let meetingID = await databaseQueries.addMeeting(req.params.userID, req.body.title, req.body.startDate, req.body.endDate)
-      res.send(meetingID.toString())
-    }
-    else {
+      let meetingID = await databaseQueries.addMeeting(
+        req.params.userID,
+        req.body.title,
+        req.body.startDate,
+        req.body.endDate
+      );
+      res.send(meetingID.toString());
+    } else {
       res.send("This user is not a mentor");
     }
   } catch (error) {
-    res.send(error)
+    res.send(error);
   }
-})
+});
 
 router.delete("/meetings/:meetingID", async (req, res) => {
   try {
-    await databaseQueries.deleteMeeting(req.params.meetingID)
-    res.send({ msg: "The meeting deleted successfully" })
+    await databaseQueries.deleteMeeting(req.params.meetingID);
+    res.send({ msg: "The meeting deleted successfully" });
   } catch (error) {
-    res.send(error)
+    res.send(error);
   }
-})
+});
 
 router.patch("/meetings/:meetingID/:userID", async (req, res) => {
   try {
-    let isMentee = await databaseQueries.checkIfMentee(req.params.meetingID, req.params.userID);
+    let isMentee = await databaseQueries.checkIfMentee(
+      req.params.meetingID,
+      req.params.userID
+    );
     if (isMentee) {
       res.status(403).send("You are not allowed to change the mentor schedule");
       return;
     }
-    await databaseQueries.updateMeeting(req.params.meetingID, req.body.title, req.body.startDate, req.body.endDate)
-    res.send("Meeting updated successfully.")
+    await databaseQueries.updateMeeting(
+      req.params.meetingID,
+      req.body.title,
+      req.body.startDate,
+      req.body.endDate
+    );
+    res.send("Meeting updated successfully.");
   } catch (error) {
     res.send(error);
   }
-})
+});
 
-router.get('/meetings/:userID', async (req, res) => {
+router.patch("/meetings/:meetingID", async (req, res) => {
   try {
-    let userID = req.params.userID
+    await databaseQueries.updateMeeting(
+      req.params.meetingID,
+      req.body.title,
+      req.body.startDate,
+      req.body.endDate
+    );
+    res.send("Meeting updated successfully.");
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+router.get("/meetings/:userID", async (req, res) => {
+  try {
+    let userID = req.params.userID;
     let user = await databaseQueries.getUserByID(userID);
-    let mentorMeetings = []
+    let mentorMeetings = [];
     if (user.isMentor) {
-      mentorMeetings = await databaseQueries.getMentorMeetings(userID)
-      mentorMeetings = mentorMeetings.map(meeting => {
+      mentorMeetings = await databaseQueries.getMentorMeetings(userID);
+      mentorMeetings = mentorMeetings.map((meeting) => {
         return {
           _id: meeting._id,
           title: meeting.title,
@@ -177,42 +203,68 @@ router.get('/meetings/:userID', async (req, res) => {
           zoomLink: meeting.zoomLink
         }
       })
+    } else {
+      mentorMeetings = await databaseQueries.getMenteeMeetings(userID);
     }
-    else {
-      mentorMeetings = await databaseQueries.getMenteeMeetings(userID)
-    }
-    res.send(mentorMeetings)
+    res.send(mentorMeetings);
   } catch (error) {
     res.send(error);
   }
-})
+});
 
-router.patch('/book-meeting/:meetingID/:menteeID', async (req, res) => {
+router.patch("/book-meeting/:meetingID/:menteeID", async (req, res) => {
   try {
-    let meeting = await databaseQueries.getMeetingById(req.params.meetingID);
-    let duration = (meeting.endDate - meeting.startDate) / 60000;
-    let zoomLink = await createZoomMeeting(meeting.startDate, duration, meeting.title, meeting.mentor.email);
-    await databaseQueries.bookMeeting(req.params.meetingID, req.params.menteeID, zoomLink);
-    res.send("Meeting booked successfully.")
+    const meetingId = req.params.meetingID;
+    const menteeId = req.params.menteeID;
+    const action = req.body.action;
+    if (action === 'book') {
+      let meeting = await databaseQueries.getMeetingById(meetingId);
+      let duration = (meeting.endDate - meeting.startDate) / 60000;
+      let zoomLink = await createZoomMeeting(meeting.startDate, duration, meeting.title, meeting.mentor.email);
+      await databaseQueries.bookMeeting(req.params.meetingID, req.params.menteeID, zoomLink);
+      res.send("Meeting booked successfully.");
+    } else if (action === 'cancel') {
+      await databaseQueries.cancelMeeting(meetingId, menteeId);
+      res.send("Meeting cancelled successfully.");
+    } else {
+      throw new Error('Invalid action.');
+    }
   } catch (error) {
     console.log(error);
-    res.send(error)
+    res.send(error);
   }
-})
+});
 
-router.put("/images/:userID", upload.single('profileImg'), async (req, res) => {
-  let userID = req.params.userID
+
+router.delete("/mentor-Page/:userId", async (req, res) => {
   try {
-    const url = req.protocol + '://' + req.get('host')
-    let pictureURL = url + '/images/' + req.file.filename
+    const userId = req.params.userId;
+    const result = await databaseQueries.getUserByID(userId);
+    if (result) {
+      const mentor = await databaseQueries.getMentorByUserId(userId);
+      await databaseQueries.updateUser(userId);
+      await databaseQueries.deleteMentorByID(mentor._id);
+    }
+    res.send(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Internal server error" });
+  }
+});
+
+router.put("/images/:userID", upload.single("profileImg"), async (req, res) => {
+  let userID = req.params.userID;
+  try {
+    const url = req.protocol + "://" + req.get("host");
+    let pictureURL = url + "/images/" + req.file.filename;
     await databaseQueries.deletePreviousPicture(userID);
-    await databaseQueries.updatesUserPicture(userID, pictureURL)
-    res.send("image uploaded successfully.")
+    await databaseQueries.updatesUserPicture(userID, pictureURL);
+    res.send("image uploaded successfully.");
   } catch (error) {
-    res.send(error)
+    res.send(error);
     console.log(error);
   }
-})
+});
 
 router.put("/users/:userID", async (req, res) => {
   let userID = req.params.userID;
@@ -220,11 +272,10 @@ router.put("/users/:userID", async (req, res) => {
   let newLastName = req.query.lastName;
   try {
     await databaseQueries.changeUserName(userID, newFirstName, newLastName);
-    res.send("user name changed successfully.")
+    res.send("user name changed successfully.");
   } catch (error) {
     res.send(error);
   }
-})
+});
 
 module.exports = router;
-

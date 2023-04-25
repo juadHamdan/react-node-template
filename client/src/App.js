@@ -64,10 +64,13 @@ function App() {
 
         <Routes>
           <Route path="/" exact element={<Landing />} />
-          <Route path="mentors/:mentorID" element={<MentorPage user={user} />} />
+          <Route
+            path="mentors/:mentorID"
+            element={<MentorPage user={user} />}
+          />
           <Route path="/mentor-profile/:userID" element={<EditMentorPage />} />
           <Route
-            path='/mentor-form'
+            path="/mentor-form"
             element={user ? <MentorForm user={user} /> : <AlertShouldLogin />}
           />
         </Routes>
@@ -77,6 +80,5 @@ function App() {
 }
 
 export default App;
-
 
 //        {user && <MyScheduler user={user} />}

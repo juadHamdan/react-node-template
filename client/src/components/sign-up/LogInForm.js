@@ -1,6 +1,6 @@
 
-import { useState } from 'react';
 import './sign-up.css'
+import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import EmailIcon from '../../assets/icons/email.svg'
 
