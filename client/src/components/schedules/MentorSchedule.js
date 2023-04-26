@@ -75,7 +75,7 @@ export default class MentorSchedule extends React.PureComponent {
       >
         Book This Meeting
       </Button>
-      {appointmentData.mentee === this.props.user._id &&
+      {appointmentData.mentee === this.props.user?._id &&
       <Button
         sx={{ margin: "5px" }}
         disabled={!appointmentData.isBooked}
