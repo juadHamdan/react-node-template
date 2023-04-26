@@ -8,7 +8,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 
 const SkillDetailsForm = ({ skillName, onSkillChange }) => {
-  const [skillData, setSkillData] = useState({name: skillName , rating: 3 , experienceYears: "" , lastTimeUsed: 2023 ,});
+  const [skillData, setSkillData] = useState({ name: skillName, rating: 3, experienceYears: "", lastTimeUsed: 2023 });
 
   const handleChange = (event) => {
     const newSkillData = { ...skillData, [event.target.name]: event.target.value };
@@ -34,11 +34,11 @@ const SkillDetailsForm = ({ skillName, onSkillChange }) => {
       <FormControl variant="outlined" sx={{ width: 200 }}>
         <InputLabel>Last Time Used Skill</InputLabel>
         <Select labelId="last-time-used-skill-label" name="lastTimeUsed" value={skillData.lastTimeUsed} onChange={handleChange} label="Last Time Used Skill">
-            <MenuItem value="">Select Last Time Used Skill</MenuItem>
-            {Array.from({ length: new Date().getFullYear() - 1999 }, (_, i) => (
-            <MenuItem key={i} value={(2000 + i).toString()}>{2000 + i}</MenuItem>))}
+          <MenuItem value="">Last Time Used:</MenuItem>
+          {Array.from({ length: 10 }, (_, i) => (
+            <MenuItem key={i} value={(2023 - i).toString()}>{2023 - i}</MenuItem>))}
         </Select>
-       </FormControl>
+      </FormControl>
 
     </div>
   );

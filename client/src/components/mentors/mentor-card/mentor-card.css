@@ -2,8 +2,8 @@
     --mentor-card-horizontal-width: 400px;
     --mentor-card-horizontal-height: 200px;
 
-    --mentor-card-vertical-width: 200px;
-    --mentor-card-vertical-height: 400px;
+    --mentor-card-vertical-width: 220px;
+    --mentor-card-vertical-height: 410px;
 }
 
 #mentor-card:hover{
@@ -16,6 +16,7 @@
     height: 100px;
     border-radius: 50%;
     box-shadow: 0 5px 5px 5px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
 }
 #mentor-card .mentor-data .name{
     font-size: 1.2rem;
@@ -25,13 +26,19 @@
 #mentor-card .mentor-data .experience{
     font-weight: bold;
     margin-top: 0;
+    margin-bottom: 5px;
+}
+#mentor-card .mentor-data .skills-title{
+    margin: 0 0 5px 0;
+    text-decoration: underline;
+    font-weight: bold;
 }
 #mentor-card .mentor-data .skills{
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
-    height: 100px;
-    width: 120px;
+    width: 100%;
     overflow-y: scroll;
 }
 #mentor-card .mentor-data .skills .skill{
@@ -40,8 +47,8 @@
     font-weight: bold;
     border-radius: 20px;
     height: 20px;
-    width: max-content;
     display: flex;
+    gap: 10px;
     align-items: center;
     padding: 2px 7px;
 }

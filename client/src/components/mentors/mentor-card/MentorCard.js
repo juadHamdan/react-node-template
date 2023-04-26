@@ -4,6 +4,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { useNavigate } from 'react-router-dom';
 import {DEFAULT_USER_PICTURE} from '../../../Constants'
+import Rating from '@mui/material/Rating';
 
 const MentorCard = ({ mentor, isHorizontalView = false }) => {
     const navigate = useNavigate()
@@ -20,7 +21,10 @@ const MentorCard = ({ mentor, isHorizontalView = false }) => {
                         <p className="experience">{mentor.workExperience}</p>
                         <small><strong>Skills:</strong></small>
                         <p className="skills">
-                            {mentor.skills.map(skill => <div className="skill">{skill.name}</div>)}
+                            {mentor.skills.map(skill => <div className="skill">
+                                {skill.name}
+                                <Rating name="read-only" value={skill.rating} size="small" readOnly />
+                            </div>)}
                         </p>
                     </div>
                     <div className="links">
@@ -37,9 +41,13 @@ const MentorCard = ({ mentor, isHorizontalView = false }) => {
                 <div className="mentor-data">
                     <p className="name">{mentor.user.firstName} {mentor.user.lastName}</p>
                     <p className="experience">{mentor.workExperience}</p>
-                    <small><strong>Skills:</strong></small>
+                    <p className="skills-title">Skills:</p>
                     <div className="skills">
-                        {mentor.skills.map(skill => <div key={skill._id} className="skill">{skill.name}</div>)}
+                        {mentor.skills.map(skill => 
+                            <div key={skill._id} className="skill">
+                                {skill.name} 
+                                <Rating name="read-only" value={skill.rating} size="small" readOnly />
+                            </div>)}
                     </div>
                 </div>
                 <div className="links">
