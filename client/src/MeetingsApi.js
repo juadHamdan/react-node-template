@@ -82,7 +82,6 @@ async function getReviews(mentorID) {
     let reviews = response.data;
     return reviews;
   } catch (error) {
-    console.error("rrorrr");
     return null
   }
 }
