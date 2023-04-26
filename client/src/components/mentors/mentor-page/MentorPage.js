@@ -14,11 +14,8 @@ const scrollToRef = (ref) => ref.current.scrollIntoView({ behavior: 'smooth', bl
 
 function MentorPage({ user }) {
     const scheduleRef = useRef(null)
-
-
-    let { mentorID } = useParams();
-
     const [mentor, setMentor] = useState(null);
+    let { mentorID } = useParams();
 
     useEffect(() => {
         const getMentor = async () => {
@@ -31,6 +28,7 @@ function MentorPage({ user }) {
     return (
         mentor &&
         <div id="mentor-page-container">
+            <div className="container">
             <div className="mentor-data-container">
                 <div className="image-container"><img src={mentor.user.picture || DEFAULT_USER_PICTURE} /></div>
                 <div className="contact-info-container">
@@ -97,7 +95,7 @@ function MentorPage({ user }) {
                 <MentorSchedule user={user} mentorId={mentor.user._id} />
             </div>
 
-
+          </div>
         </div>
     );
 }

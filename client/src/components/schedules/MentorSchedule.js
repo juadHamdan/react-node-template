@@ -126,6 +126,7 @@ export default class MentorSchedule extends React.PureComponent {
           width: "min(800px, 100%)",
           backgroundColor: "white",
           borderRadius: "5px",
+          border: '1px solid gray'
         }}
       >
         <Scheduler data={data} height={600}>

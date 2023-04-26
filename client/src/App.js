@@ -14,7 +14,6 @@ import { fetchUser } from "./AuthApi";
 import MentorPage from "./components/mentors/mentor-page/MentorPage";
 import MentorForm from "./components/mentor-form/MentorForm";
 import AlertShouldLogin from "./components/alerts/AlertShouldLogin";
-import EditMentorPage from "./components/mentors/mentor-profile/MentorProfile";
 import { googleLogout } from "@react-oauth/google";
 
 function App() {
@@ -64,15 +63,8 @@ function App() {
 
         <Routes>
           <Route path="/" exact element={<Landing />} />
-          <Route
-            path="mentors/:mentorID"
-            element={<MentorPage user={user} />}
-          />
-          <Route path="/mentor-profile/:userID" element={<EditMentorPage />} />
-          <Route
-            path="/mentor-form"
-            element={user ? <MentorForm user={user} /> : <AlertShouldLogin />}
-          />
+          <Route path="mentors/:mentorID" element={<MentorPage user={user} />}/>
+          <Route path="/mentor-form" element={user ? <MentorForm user={user} /> : <AlertShouldLogin />}/>
         </Routes>
       </Router>
     </div>

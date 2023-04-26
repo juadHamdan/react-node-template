@@ -24,8 +24,8 @@ const SignUpForm = ({ onSubmit }) => {
                     <TextField required name="lastName" value={formData.lastName} label="Last Name" variant="outlined" onChange={handleChange} />
                 </div>
 
-                <TextField required name="email" value={formData.email} label="Email" variant="outlined" onChange={handleChange} />
-                <TextField required name="password" value={formData.password} type="password" label="Password" variant="outlined" onChange={handleChange} />
+                <TextField required type="email" name="email" value={formData.email} label="Email" variant="outlined" onChange={handleChange} />
+                <TextField required minlength={8} type="password" name="password" value={formData.password} type="password" label="Password" variant="outlined" onChange={handleChange} />
 
                 <button type="submit" className="email-btn">
                     <img className="logo" src={EmailIcon} />
