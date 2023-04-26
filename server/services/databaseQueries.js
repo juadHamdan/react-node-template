@@ -190,6 +190,15 @@ async function checkIfMentee(meetingID, userID) {
   return false;
 }
 
+async function getReviews(mentorID) {
+  let mentor = await Mentor.findById(mentorID);
+  let userID = mentor.user._id;
+  return Meeting.find({ $and: [{ mentor: userID }, { description: { $exists: true } }] }).populate("mentee");
+}
+
+function addReview(meetingID, rating, description) {
+  return Meeting.findByIdAndUpdate(meetingID, { rating: rating, description: description });
+}
 
 module.exports = {
   getMentors,
@@ -214,6 +223,8 @@ module.exports = {
   checkIfMentee,
   cancelMeeting,
   updateUser,
-  getMeetingById
+  getMeetingById,
+  getReviews,
+  addReview
 }
 

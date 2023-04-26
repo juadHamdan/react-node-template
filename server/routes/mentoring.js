@@ -278,4 +278,34 @@ router.put("/users/:userID", async (req, res) => {
   }
 });
 
+router.get("/reviews/:mentorID", async (req, res) => {
+  try {
+    let reviews = await databaseQueries.getReviews(req.params.mentorID);
+    reviews = reviews.map(review => {
+      return {
+        picture: review.mentee.picture,
+        fullName: review.mentee.firstName + " " + review.mentee.lastName,
+        rating: review.rating,
+        description: review.description
+      }
+    })
+    res.send(reviews)
+  } catch (error) {
+    console.log(error);
+    res.send(error)
+  }
+})
+
+router.post("/reviews/:meetingID", async (req, res) => {
+  let rating = req.body.rating;
+  let description = req.body.description;
+  try {
+    await databaseQueries.addReview(req.params.meetingID, rating, description);
+    res.send("review added successfully.")
+  } catch (error) {
+    console.log(error);
+    res.send(error)
+  }
+})
+
 module.exports = router;

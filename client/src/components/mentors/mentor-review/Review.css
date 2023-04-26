@@ -1,0 +1,36 @@
+.review-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+  }
+  
+  .profile-of-review-writer {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+  }
+  
+  .writer-name {
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .rating-icon {
+    color: #ffc107;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+  
+  .description {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 10px;
+    flex-basis: 100%;
+  }

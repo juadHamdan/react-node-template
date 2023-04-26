@@ -24,4 +24,6 @@ function compareSkillRating(mentor1, mentor2, skillName) {
     return 1;
 }
 
+
+
 module.exports = { compareSkillsRatings, compareSkillRating };

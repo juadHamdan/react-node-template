@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
+import ReviewForm from "./ReviewForm"
 import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -442,7 +443,8 @@ export default class Demo extends React.PureComponent {
     children, appointmentData, ...restProps
   }) => (
     <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
-    {appointmentData.zoomLink && <a href={appointmentData?.zoomLink}>Join Zoom Meeting</a> }
+      {appointmentData.zoomLink && <a href={appointmentData?.zoomLink}>Join Zoom Meeting</a>}
+      <ReviewForm meetingId={appointmentData._id} />
     </AppointmentTooltip.Content>
   ));
 

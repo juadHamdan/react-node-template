@@ -9,6 +9,8 @@ import EmailIcon from '../../../assets/icons/email.svg'
 import GithubIcon from '../../../assets/icons/github.svg'
 import LinkedinIcon from '../../../assets/icons/linkedin.svg'
 import ScheduleIcon from '../../../assets/icons/schedule.svg'
+import { getReviews } from "../../../MeetingsApi"
+import Review from "../mentor-review/Review";
 
 const scrollToRef = (ref) => ref.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
 
@@ -19,13 +21,20 @@ function MentorPage({ user }) {
     let { mentorID } = useParams();
 
     const [mentor, setMentor] = useState(null);
+    const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
         const getMentor = async () => {
             const mentor = await fetchMentorById(mentorID)
             setMentor(mentor)
         }
+        const getReviewsFromDB = async () => {
+            const reviews = await getReviews(mentorID);
+            console.log(reviews);
+            setReviews(reviews);
+        }
         getMentor()
+        getReviewsFromDB()
     }, []);
 
     return (
@@ -42,7 +51,7 @@ function MentorPage({ user }) {
                         <strong>Phone:</strong>
                         {mentor.contactDetails.phoneNumber}
                     </div>
-                    <br/>
+                    <br />
                     <div className="email-container">
                         <strong>Email:</strong>
                         {mentor.user.email}
@@ -97,6 +106,9 @@ function MentorPage({ user }) {
                 <MentorSchedule user={user} mentorId={mentor.user._id} />
             </div>
 
+            <div className="mentees-reviews">
+                {reviews && reviews.map(review => <Review review={review} />)}
+            </div>
 
         </div>
     );
