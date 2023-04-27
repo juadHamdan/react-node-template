@@ -308,4 +308,29 @@ router.post("/reviews/:meetingID", async (req, res) => {
   }
 })
 
+router.get("/users/:companyID", async (req, res) => {
+  const companyID = req.params.companyID;
+  try {
+    await databaseQueries.getUsersByCompany(companyID);
+    res.send("Users")
+  } catch (error) {
+    console.log(error);
+    res.send(error)
+  }
+})
+
+
+router.get("/users", async (req, res) => {
+  try {
+    let users = await databaseQueries.getUsers();
+    res.send(users)
+  } catch (error) {
+    console.log(error);
+    res.send(error)
+  }
+})
+
+
+
+
 module.exports = router;

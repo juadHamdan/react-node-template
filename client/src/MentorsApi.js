@@ -94,6 +94,16 @@ async function deleteMentor(userID) {
   }
 }
 
+async function fetchColleagues() {
+  try {
+    const response = await axios.get("/users");
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
+
 export {
   fetchMentorById,
   postMentorById,
@@ -104,4 +114,5 @@ export {
   updateMentor,
   deleteUserById,
   deleteMentor,
+  fetchColleagues,
 };
