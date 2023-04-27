@@ -47,34 +47,7 @@ export default class MentorSchedule extends React.PureComponent {
 
   MeetingControllers = ({ appointmentData, onHide }) => (
     <>
-      <Button
-        sx={{ margin: "5px" }}
-        disabled={appointmentData.isBooked}
-        variant="contained"
-        onClick={() => {
-          this.props.user
-            ? bookMeeting(appointmentData.id, this.props.user._id).then(
-                (response) => {
-                  const newData = [...this.state.data];
-                  const appointmentIndex = newData.findIndex(
-                    (appointment) => appointment.id === appointmentData.id
-                  );
-                  newData[appointmentIndex].isBooked = true;
-                  sendEmail(
-                    this.props.mentorId,
-                    this.props.user,
-                    appointmentData,
-                    'book'
-                  );
-                  this.setState({ data: newData });
-                  onHide();
-                }
-              )
-            : alert("You have to be logged in to book a meeting.");
-        }}
-      >
-        Book This Meeting
-      </Button>
+
       {appointmentData.mentee === this.props.user?._id &&
       <Button
         sx={{ margin: "5px" }}
@@ -147,3 +120,37 @@ export default class MentorSchedule extends React.PureComponent {
     );
   }
 }
+
+/*
+
+    /*
+      <Button
+        sx={{ margin: "5px" }}
+        disabled={appointmentData.isBooked}
+        variant="contained"
+        onClick={() => {
+          this.props.user
+            ? bookMeeting(appointmentData.id, this.props.user._id).then(
+                (response) => {
+                  const newData = [...this.state.data];
+                  const appointmentIndex = newData.findIndex(
+                    (appointment) => appointment.id === appointmentData.id
+                  );
+                  newData[appointmentIndex].isBooked = true;
+                  sendEmail(
+                    this.props.mentorId,
+                    this.props.user,
+                    appointmentData,
+                    'book'
+                  );
+                  this.setState({ data: newData });
+                  onHide();
+                }
+              )
+            : alert("You have to be logged in to book a meeting.");
+        }}
+      >
+        Book This Meeting
+      </Button>
+
+      */

@@ -1,7 +1,7 @@
 import './colleagues-form.css'
 import { useState, useEffect } from 'react'
 import TextField from '@mui/material/TextField';
-import {fetchFeaturedMentors} from '../../../MentorsApi'
+import {fetchColleagues} from '../../../MentorsApi'
 
 const ColleaguesForm = ({ onAddColleague }) => {
     const [colleagueNameInput, setColleagueNameInput] = useState("")
@@ -10,7 +10,7 @@ const ColleaguesForm = ({ onAddColleague }) => {
 
     useEffect(() => {
         const getColleagues = async () => {
-            const mentors = await fetchFeaturedMentors();
+            const mentors = await fetchColleagues();
             setColleagues(mentors);
           };
         getColleagues();
@@ -18,15 +18,16 @@ const ColleaguesForm = ({ onAddColleague }) => {
 
 
 
-    const handleAddColleague = (id) => {
-        onAddColleague(id)
+    const handleAddColleague = (colleague) => {
+        setColleagueNameInput(`${colleague.firstName} ${colleague.lastName}`)
+        onAddColleague(colleague._id)
         setColleagues([])
     }
 
     const handleChange = (event) => {
         const input = event.target.value
         setColleagueNameInput(input)
-        setColleagues(colleagues.filter(colleague => colleague.user.firstName.toLowerCase().startsWith(input.toLowerCase())))
+        setColleagues(colleagues.filter(colleague => colleague.firstName.toLowerCase().startsWith(input.toLowerCase())))
     }
 
     return (
@@ -36,9 +37,9 @@ const ColleaguesForm = ({ onAddColleague }) => {
                 {colleagues.length > 0 && showColeaguesMenu && 
                     <div className="menu">
                         {colleagues.map(colleague =>
-                            <div key={colleague._id} className="menu-item" onClick={() => handleAddColleague(colleague._id)}>
-                                <img src={colleague.user.picture} />
-                                <p className="name">{colleague.user.firstName} {colleague.user.lastName}</p>
+                            <div key={colleague._id} className="menu-item" onClick={() => handleAddColleague(colleague)}>
+                                <img src={colleague.picture} />
+                                <p className="name">{colleague.firstName} {colleague.lastName}</p>
                             </div>
                         )}
                     </div>

@@ -209,7 +209,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
         visible={visible}
         target={target}
         fullSize={false}
-        sx={{ height: '80%', margin: "25px" }}
+        sx={{ height: '70%', margin: "25px" }}
         onHide={onHide}
       >
         <StyledDiv>
@@ -248,42 +248,46 @@ class AppointmentFormContainerBasic extends React.PureComponent {
 
 
 
+          </div>
+
+
+
+
+
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+
+            <ColleaguesForm onAddColleague={(id) => {
+              this.changeAppointment({
+                field: 'colleagueId', changes: id,
+              })}}
+              />
+
+            <div className={classes.buttonGroup}>
+              {!isNewAppointment && (
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  className={classes.button}
+                  onClick={() => {
+                    visibleChange();
+                    this.commitAppointment('deleted');
+                  }}
+                >
+                  Delete
+                </Button>
+              )}
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classes.button}
+                onClick={() => {
+                  visibleChange();
+                  applyChanges();
+                }}
+              >
+                {isNewAppointment ? 'Create' : 'Save'}
+              </Button>
             </div>
-
-
-
-
-
-          <div style={{display: 'flex', justifyContent: 'space-between'}}>
-
-          <ColleaguesForm onAddColleague={() => {}}/>
-
-<div className={classes.buttonGroup}>
-  {!isNewAppointment && (
-    <Button
-      variant="outlined"
-      color="secondary"
-      className={classes.button}
-      onClick={() => {
-        visibleChange();
-        this.commitAppointment('deleted');
-      }}
-    >
-      Delete
-    </Button>
-  )}
-  <Button
-    variant="outlined"
-    color="primary"
-    className={classes.button}
-    onClick={() => {
-      visibleChange();
-      applyChanges();
-    }}
-  >
-    {isNewAppointment ? 'Create' : 'Save'}
-  </Button>
-</div>
           </div>
 
         </StyledDiv>
@@ -420,13 +424,15 @@ export default class Demo extends React.PureComponent {
   commitChanges({ added, changed, deleted }) {
     if (added) {
       console.log("ADD MEETING FUNCTION")
-
-      const meeting = { title: added.title, startDate: new Date(added.startDate), endDate: new Date(added.endDate) }
-      addMeeting(this.props.user._id, meeting).then(meetingId => {
+  
+      const meeting = { title: added.title, startDate: new Date(added.startDate), endDate: new Date(added.endDate), colleagueId: added.colleagueId }
+      
+      /*addMeeting(this.props.user._id, meeting).then(meetingId => {
         const newMeetings = [...this.state.data, { id: meetingId, ...added }]
         this.setState({ data: newMeetings })
         console.log(meetingId)
       })
+      */
     }
     if (deleted !== undefined) {
       this.setDeletedAppointmentId(deleted);
