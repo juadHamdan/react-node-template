@@ -5,6 +5,7 @@ const Meeting = require("../models/Meeting");
 const mongoose = require("mongoose");
 const fs = require("fs");
 const { promisify } = require("util");
+const { get } = require("http");
 const unlinkAsync = promisify(fs.unlink);
 
 const getIdObject = (id) => {
@@ -96,8 +97,9 @@ function getUserByID(userID) {
   return User.findById(userID);
 }
 
-async function addMeeting(userID, title, startDate, endDate) {
+async function addMeeting(userID, title, startDate, endDate , colleagueId , zoomLink) {
   let userIdObject = getIdObject(userID);
+  let menteeIdObject = getIdObject(colleagueId)
   startDate = new Date(startDate);
   endDate = new Date(endDate);
   let meeting = new Meeting({
@@ -105,6 +107,8 @@ async function addMeeting(userID, title, startDate, endDate) {
     startDate,
     endDate,
     mentor: userIdObject,
+    mentee : menteeIdObject,
+    zoomLink : zoomLink
   });
   meeting = await meeting.save();
   return meeting._id;

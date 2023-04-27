@@ -424,15 +424,12 @@ export default class Demo extends React.PureComponent {
   commitChanges({ added, changed, deleted }) {
     if (added) {
       console.log("ADD MEETING FUNCTION")
-  
       const meeting = { title: added.title, startDate: new Date(added.startDate), endDate: new Date(added.endDate), colleagueId: added.colleagueId }
-      
-      /*addMeeting(this.props.user._id, meeting).then(meetingId => {
+      addMeeting(this.props.user._id, meeting).then(meetingId => {
         const newMeetings = [...this.state.data, { id: meetingId, ...added }]
         this.setState({ data: newMeetings })
-        console.log(meetingId)
       })
-      */
+  
     }
     if (deleted !== undefined) {
       this.setDeletedAppointmentId(deleted);

@@ -109,6 +109,7 @@ router.delete("/mentor/:userId", async (req, res) => {
     res.status(500).send({ message: "Internal server error" });
   }
 });
+
 router.put("/mentor/:id", async (req, res) => {
   try {
     const userID = req.params.id;
@@ -120,21 +121,35 @@ router.put("/mentor/:id", async (req, res) => {
     res.status(500).send({ message: "Internal Server Error" });
   }
 });
+
 router.post("/meetings/:userID", async (req, res) => {
+        const userID = req.params.userID
+        const title = req.body.title
+        const startDate = req.body.startDate
+        const endDate = req.body.endDate
+        const colleagueID = req.body.colleagueId
   try {
+    
+    const mentor = await databaseQueries.getMentorByUserId(userID);
+    console.log(mentor);
+    let duration = (endDate - startDate) / 60000;
+    const zoomLink = await createZoomMeeting(startDate, duration, title, mentor.email);
     const user = await databaseQueries.getUserByID(req.params.userID);
     if (user.isMentor) {
       let meetingID = await databaseQueries.addMeeting(
-        req.params.userID,
-        req.body.title,
-        req.body.startDate,
-        req.body.endDate
+        userID,
+        title,
+        startDate,
+        endDate,
+        colleagueID,
+        zoomLink
       );
       res.send(meetingID.toString());
     } else {
       res.send("This user is not a mentor");
     }
   } catch (error) {
+    console.log(error);
     res.send(error);
   }
 });
@@ -212,28 +227,6 @@ router.get("/meetings/:userID", async (req, res) => {
   }
 });
 
-router.patch("/book-meeting/:meetingID/:menteeID", async (req, res) => {
-  try {
-    const meetingId = req.params.meetingID;
-    const menteeId = req.params.menteeID;
-    const action = req.body.action;
-    if (action === 'book') {
-      let meeting = await databaseQueries.getMeetingById(meetingId);
-      let duration = (meeting.endDate - meeting.startDate) / 60000;
-      let zoomLink = await createZoomMeeting(meeting.startDate, duration, meeting.title, meeting.mentor.email);
-      await databaseQueries.bookMeeting(req.params.meetingID, req.params.menteeID, zoomLink);
-      res.send("Meeting booked successfully.");
-    } else if (action === 'cancel') {
-      await databaseQueries.cancelMeeting(meetingId, menteeId);
-      res.send("Meeting cancelled successfully.");
-    } else {
-      throw new Error('Invalid action.');
-    }
-  } catch (error) {
-    console.log(error);
-    res.send(error);
-  }
-});
 
 
 router.delete("/mentor-Page/:userId", async (req, res) => {

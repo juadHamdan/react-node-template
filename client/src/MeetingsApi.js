@@ -3,6 +3,7 @@ import axios from 'axios'
 async function addMeeting(userID, meeting) {
   try {
     const response = await axios.post(`/meetings/${userID}/`, meeting);
+    console.log(meeting);
     return response.data
   } catch (error) {
     console.error(error);
@@ -41,17 +42,7 @@ async function fetchMeetings(userID) {
   }
 }
 
-async function bookMeeting(meetingID, menteeID) {
-  try {
-    const response = await axios.patch(`/book-meeting/${meetingID}/${menteeID}`, {
-      action: "book"
-    });
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-}
+
 
 async function cancelMeeting(meetingID, menteeID) {
   try {
@@ -86,4 +77,4 @@ async function getReviews(mentorID) {
   }
 }
 
-export { addMeeting, deleteMeeting, updateMeeting, fetchMeetings, bookMeeting, cancelMeeting, addReview, getReviews }
+export { addMeeting, deleteMeeting, updateMeeting, fetchMeetings, cancelMeeting, addReview, getReviews }
