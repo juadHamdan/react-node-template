@@ -200,6 +200,14 @@ function addReview(meetingID, rating, description) {
   return Meeting.findByIdAndUpdate(meetingID, { rating: rating, description: description });
 }
 
+async function getUsersByCompany() {
+  return User.find({});
+}
+
+async function getUsers() {
+  return User.find({});
+}
+
 module.exports = {
   getMentors,
   getMentorsBySkill,
@@ -225,6 +233,7 @@ module.exports = {
   updateUser,
   getMeetingById,
   getReviews,
-  addReview
+  addReview,
+  getUsers
 }
 
