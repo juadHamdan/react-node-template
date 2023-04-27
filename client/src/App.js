@@ -15,6 +15,7 @@ import MentorPage from "./components/mentors/mentor-page/MentorPage";
 import MentorForm from "./components/mentor-form/MentorForm";
 import AlertShouldLogin from "./components/alerts/AlertShouldLogin";
 import { googleLogout } from "@react-oauth/google";
+import ColleaguesForm from './components/schedules/colleagues-form/ColleaguesForm'
 
 function App() {
   const [user, setUser] = useState(null);

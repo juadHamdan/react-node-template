@@ -32,7 +32,7 @@ import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import TextField from '@mui/material/TextField';
 import Close from '@mui/icons-material/Close';
-import { teal } from '@mui/material/colors';
+import ColleaguesForm from './colleagues-form/ColleaguesForm'
 
 import { fetchMeetings, addMeeting, deleteMeeting, updateMeeting } from '../../MeetingsApi'
 
@@ -209,7 +209,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
         visible={visible}
         target={target}
         fullSize={false}
-        sx={{ height: "265px", margin: "25px" }}
+        sx={{ height: '80%', margin: "25px" }}
         onHide={onHide}
       >
         <StyledDiv>
@@ -218,7 +218,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
               <Close color="action" />
             </IconButton>
           </div>
-          <h3 style={{ textDecoration: 'underline', marginTop: '25px', textAlign: 'center' }}>Add Your Meetings</h3>
+          <h3 style={{ textDecoration: 'underline', marginTop: '25px', textAlign: 'center' }}>Add A Meetings</h3>
           <div className={classes.content}>
             <div className={classes.wrapper}>
               <TextField
@@ -245,33 +245,47 @@ class AppointmentFormContainerBasic extends React.PureComponent {
               </LocalizationProvider>
             </div>
 
+
+
+
+            </div>
+
+
+
+
+
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+
+          <ColleaguesForm onAddColleague={() => {}}/>
+
+<div className={classes.buttonGroup}>
+  {!isNewAppointment && (
+    <Button
+      variant="outlined"
+      color="secondary"
+      className={classes.button}
+      onClick={() => {
+        visibleChange();
+        this.commitAppointment('deleted');
+      }}
+    >
+      Delete
+    </Button>
+  )}
+  <Button
+    variant="outlined"
+    color="primary"
+    className={classes.button}
+    onClick={() => {
+      visibleChange();
+      applyChanges();
+    }}
+  >
+    {isNewAppointment ? 'Create' : 'Save'}
+  </Button>
+</div>
           </div>
-          <div className={classes.buttonGroup}>
-            {!isNewAppointment && (
-              <Button
-                variant="outlined"
-                color="secondary"
-                className={classes.button}
-                onClick={() => {
-                  visibleChange();
-                  this.commitAppointment('deleted');
-                }}
-              >
-                Delete
-              </Button>
-            )}
-            <Button
-              variant="outlined"
-              color="primary"
-              className={classes.button}
-              onClick={() => {
-                visibleChange();
-                applyChanges();
-              }}
-            >
-              {isNewAppointment ? 'Create' : 'Save'}
-            </Button>
-          </div>
+
         </StyledDiv>
       </AppointmentForm.Overlay>
     );

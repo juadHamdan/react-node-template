@@ -1,0 +1,42 @@
+#colleagues-form-container .search-colleagues{
+    position: relative;
+    width: inherit;
+    margin: 0 17px;
+}
+
+#colleagues-form-container .search-colleagues .menu{
+    width: max-content;
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: scroll;
+    box-shadow: 0 5px 5px 2px rgba(0, 0, 0, 0.05);
+    border: 1px solid lightgray;
+
+}
+#colleagues-form-container .search-colleagues .menu .menu-item img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit:cover;
+}
+
+#colleagues-form-container .search-colleagues .menu .menu-item .name{
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+#colleagues-form-container .search-colleagues .menu .menu-item{
+    padding: 5px 10px;
+    border: 1px solid #f0f0f0;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+#colleagues-form-container .search-colleagues .menu .menu-item:hover{
+    background-color: rgba(0, 0, 0, 0.02);
+    cursor: pointer;
+}

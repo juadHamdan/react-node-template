@@ -39,6 +39,8 @@
     top: -60px;
     background-color: white;
     border-radius: 50%;
+    height: 130px;
+    width: 130px;
     box-shadow: 0 -2px 5px 5px rgba(0, 0, 0, 0.1);
 }
 #mentor-page-container .mentor-data-container .image-container img{
