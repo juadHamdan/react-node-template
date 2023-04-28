@@ -9,18 +9,20 @@ import SignUpForm from './SignUpForm'
 import { googleLogin, emailSignUp, emailLogin } from '../../AuthApi'
 import SignUpIcon from '../../assets/icons/sign-up.svg'
 import GoogleIcon from '../../assets/icons/google.png'
+import Checkbox from '@mui/material/Checkbox';
 
 
 const SignUp = ({ onSubmitClick, onAuthorization }) => {
     const [isSignedUp, setIsSignedUp] = useState(false)
     const [showLoadingPage, setShowLoadingPage] = useState(false)
+    const [isCompany, setIsCompany] = useState(false)
 
     const onEmailLogin = async (formData) => {
         onSubmitClick()
         console.log(formData)
         try {
-            const token = await emailLogin(formData)
-            onAuthorization(token)
+            const token = await emailLogin(formData, isCompany)
+            onAuthorization(token, isCompany)
         }
         catch (err) {
             toast(err.message)
@@ -31,8 +33,8 @@ const SignUp = ({ onSubmitClick, onAuthorization }) => {
         onSubmitClick()
         console.log(formData)
         try {
-            const token = await emailSignUp(formData)
-            onAuthorization(token)
+            const token = await emailSignUp(formData, isCompany)
+            onAuthorization(token, isCompany)
         }
         catch (err) {
             toast(err.message)
@@ -43,12 +45,12 @@ const SignUp = ({ onSubmitClick, onAuthorization }) => {
         setShowLoadingPage(true)
         onSubmitClick()
         try {
-            await googleLogin(token)
+            await googleLogin(token, isCompany)
         }
         catch (err) {
             toast(err.message)
         }
-        onAuthorization(token)
+        onAuthorization(token, isCompany)
         setShowLoadingPage(false)
     }
 
@@ -91,6 +93,17 @@ const SignUp = ({ onSubmitClick, onAuthorization }) => {
                 }
 
             </div>
+            <div className="checkbox-container">
+
+            <Checkbox
+                checked={isCompany}
+                onClick={() => setIsCompany(isCompany => !isCompany)}
+                sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
+                />
+
+                <p>Continue As Company</p>
+                </div>
+
         </div>
     )
 }

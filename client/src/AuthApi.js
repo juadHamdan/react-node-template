@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-async function googleLogin(token){
+async function googleLogin(token, isCompany){
     try{
-        const response = await axios.post('/auth/google-login', { authHeader: `Bearer ${token}`} )
+        const response = await axios.post('/auth/google-login?isCompany=' + isCompany, { authHeader: `Bearer ${token}`} )
         return response.data
     }
     catch(err){
@@ -11,9 +11,9 @@ async function googleLogin(token){
     }
 }   
 
-async function emailLogin(signUpData){
+async function emailLogin(signUpData, isCompany){
     try{
-        const result = await axios.post('/auth/login', signUpData)
+        const result = await axios.post('/auth/login?isCompany=' + isCompany, signUpData)
         return result.data.token
     }
     catch(err){
@@ -24,9 +24,9 @@ async function emailLogin(signUpData){
     }
 }
 
-async function emailSignUp(signUpData){
+async function emailSignUp(signUpData, isCompany){
     try{
-        const result = await axios.post('/auth/signup', signUpData)
+        const result = await axios.post('/auth/signup?isCompany=' + isCompany, signUpData)
         return result.data.token
     }
     catch(err){
@@ -47,4 +47,17 @@ async function fetchUser(token){
     }
 }
 
-export {fetchUser, googleLogin, emailSignUp, emailLogin}
+async function fetchCompany(token){
+    try {
+        const response = await axios.get('/auth/company', { headers: {"Authorization" : `Bearer ${token}`} })
+        console.log(response.data)
+        return response.data
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+}
+
+
+export {fetchUser, fetchCompany, googleLogin, emailSignUp, emailLogin}

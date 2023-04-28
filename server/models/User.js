@@ -9,7 +9,8 @@ const userSchema = new Schema({
     picture: String,
     position: String,
     companyID: { type: Schema.Types.ObjectId, ref: "company" },
-    isMentor : Boolean
+    isMentor : Boolean,
+    isPending: Boolean
 })
 
 const User = mongoose.model("user", userSchema)

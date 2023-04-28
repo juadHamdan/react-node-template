@@ -138,6 +138,12 @@
     gap: 7px;
 }
 
+
+#sign-up-container .checkbox-container{
+    display: flex;
+    align-items: center;
+}
+
 @media (max-width: 550px){
     #sign-up-container{
         padding: 0 20px 10px 20px;

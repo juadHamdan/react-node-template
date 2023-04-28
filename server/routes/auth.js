@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const { OAuth2Client } = require('google-auth-library');
 const isLoggedIn = require("../auth-route-handlers");
 const User = require('../models/User')
+const Company = require('../models/Company')
 
 
 const verifyGoogleLogin = async (token) => {
@@ -41,14 +42,51 @@ router.get("/user", isLoggedIn, async (req, res) => {
     }
 })
 
+router.get("/company", isLoggedIn, async (req, res) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (!token) return res.status(400).send({ message: "Token Is Missing" })
+
+    const isGoogleAuth = token.length > 500
+    if (isGoogleAuth) {
+        try {
+            const company = jwt.decode(token)
+            const companyDocument = await Company.findOne({ email: company.email });
+            res.send(companyDocument);
+        }
+        catch (err) {
+            return res.status(401)
+        }
+    }
+    else {
+        const decodedData = jwt.decode(token, process.env.JWT_SECRET)
+        const user = await Company.findById(decodedData.id)
+        res.send(user)
+    }
+})
+
 router.post('/login', async (req, res) => {
+    const isCompanyQuery = req.query.isCompany
     const { email, password } = req.body
     try {
-        const existingUser = await User.findOne({ email })
-        if (!existingUser) return res.status(404).send({ message: "User doesn't exist." })
-        const isPasswordCorrect = await bcrypt.compare(password, existingUser.password)
-        if (!isPasswordCorrect) return res.status(400).send({ message: "Invalid credentials" })
-        const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, process.env.JWT_SECRET, { expiresIn: "1h" })
+        let id = 0
+        if(isCompanyQuery === 'false'){
+            const existingUser = await User.findOne({ email })
+            if (!existingUser) return res.status(404).send({ message: "User doesn't exist." })
+            const isPasswordCorrect = await bcrypt.compare(password, existingUser.password)
+            if (!isPasswordCorrect) return res.status(400).send({ message: "Invalid credentials" })
+            id = existingUser._id
+        }
+        else{
+            const existingCompany = await Company.findOne({ email })
+            if (!existingCompany) return res.status(404).send({ message: "Company doesn't exist." })
+            const isPasswordCorrect = await bcrypt.compare(password, existingCompany.password)
+            if (!isPasswordCorrect) return res.status(400).send({ message: "Invalid credentials" })
+            id = existingCompany._id
+        }
+
+
+        const token = jwt.sign({ email: existingUser.email, id: id }, process.env.JWT_SECRET, { expiresIn: "1h" })
         res.send({ result: existingUser, token })
     }
     catch (err) {
@@ -58,13 +96,23 @@ router.post('/login', async (req, res) => {
 })
 
 router.post('/signup', async (req, res) => {
+    const isCompanyQuery = req.query.isCompany
     const { firstName, lastName, email, password } = req.body
     try {
-        const existingUser = await User.findOne({ email })
-        if (existingUser) return res.status(400).send({ message: "User already exist." })
-
         const hashedPassword = await bcrypt.hash(password, 12)
-        const result = await User.create({ firstName: firstName, lastName: lastName, email: email, password: hashedPassword })
+        let result = null
+
+        if(isCompanyQuery === 'false'){
+            const existingUser = await User.findOne({ email })
+            if (existingUser) return res.status(400).send({ message: "User already exist." })   
+            result = await User.create({ firstName: firstName, lastName: lastName, email: email, password: hashedPassword, isPending: true })
+ 
+        }
+        else{
+            const existingCompany = await Company.findOne({ email })
+            if (existingCompany) return res.status(400).send({ message: "Company already exist." })
+            result = await Company.create({ email: email, password: hashedPassword })
+        }
 
         const token = jwt.sign({ email: result.email, id: result._id }, process.env.JWT_SECRET, { expiresIn: "1h" })
         res.send({ result: result, token })
@@ -76,9 +124,8 @@ router.post('/signup', async (req, res) => {
 })
 
 
-
-//google-login
 router.post('/google-login', async (req, res) => {
+    const isCompanyQuery = req.query.isCompany
     const { authHeader } = req.body
     const token = authHeader && authHeader.split(' ')[1];
     if (!token) return res.status(400).send({ message: "Token Is Missing" })
@@ -86,14 +133,24 @@ router.post('/google-login', async (req, res) => {
     try {
         const payload = await verifyGoogleLogin(token)
         const email = payload.email
-        const existingUser = await User.findOne({ email })
-        if (existingUser) {
-            res.send({ message: "Logged In Successfully" })
+
+        if(isCompanyQuery === 'false'){
+            const existingUser = await User.findOne({ email })
+            if (existingUser) res.send({ message: "Logged In Successfully" })
+            else {
+                const result = await User.create({ firstName: payload.given_name, lastName: payload.family_name, email: payload.email, password: "", picture: payload.picture, isPending: true })
+                res.send({ result: result, token })
+            }
         }
-        else {
-            const result = await User.create({ firstName: payload.given_name, lastName: payload.family_name, email: payload.email, password: "", picture: payload.picture })
-            res.send({ result: result, token })
+        else{
+            const existingCompany = await Company.findOne({ email })
+            if (existingCompany) res.send({ message: "Logged In Successfully" })
+            else {
+                const result = await Company.create({ email: payload.email, password: "" })
+                res.send({ result: result, token })
+            }
         }
+
     }
     catch (err) {
         console.log(err)
