@@ -11,25 +11,9 @@ const getIdObject = (id) => {
   return new mongoose.Types.ObjectId(id);
 };
 
-async function getCompanyMentors(companyID) {
-  let companyIDObj = getIdObject(companyID);
-  let mentors = await Mentor.find({}).populate({
-    path: 'user',
-    match: { 'companyID': companyIDObj }
-  }).populate({ path: "skills", model: "skill" })
-  mentors = mentors.filter((mentor => mentor.user != null));
-  return mentors;
-}
 
-async function getMentorsCompanyBySkill(skillName, companyID) {
-  const mentors = await getCompanyMentors(companyID);
-  let mentorsWithSkill = mentors.filter((mentor) => {
-    return mentor.skills.some((skill) => {
-      return skill.name.toLowerCase() === skillName.toLocaleLowerCase();
-    });
-  });
-  return mentorsWithSkill;
-}
+
+
 
 async function createMentor(userId, skills, workExperience, contactDetails) {
   const user = await User.findById(userId);
@@ -218,8 +202,6 @@ async function addUserToCompany(userID, companyID) {
 
 module.exports = {
   addUserToCompany,
-  getCompanyMentors,
-  getMentorsCompanyBySkill,
   createMentor,
   getMentorByID,
   getMentorsNames,

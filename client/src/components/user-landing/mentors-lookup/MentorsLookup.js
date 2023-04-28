@@ -10,14 +10,14 @@ import { skills } from '../../../skills-dataset'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-const MentorsLookup = () => {
+const MentorsLookup = ({user}) => {
   const [skillNameInput, setSkillNameInput] = useState("");
   const [searchedMentors, setSearchedMentors] = useState([]);
   const [featuredMentors, setFeaturedMentors] = useState([]);
 
   useEffect(() => {
     const getFeaturedMentors = async () => {
-      const mentors = await fetchFeaturedMentors();
+      const mentors = await fetchFeaturedMentors(user.companyID);
       setFeaturedMentors(mentors);
     };
     getFeaturedMentors();
@@ -25,7 +25,7 @@ const MentorsLookup = () => {
 
   const getSearchedMentorsBySkill = async (skill) => {
     setSkillNameInput(skill)
-    const mentors = await fetchMentorsBySkill(skill);
+    const mentors = await fetchMentorsBySkill(skill, user.companyID);
     setSearchedMentors(mentors);
   };
 

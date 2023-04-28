@@ -5,6 +5,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useNavigate
 } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,15 +16,15 @@ import MentorPage from "./components/mentors/mentor-page/MentorPage";
 import MentorForm from "./components/mentor-form/MentorForm";
 import AlertShouldLogin from "./components/alerts/AlertShouldLogin";
 import { googleLogout } from "@react-oauth/google";
-import { useNavigate } from "react-router-dom";
+import UserLanding from './components/user-landing/UserLanding'
+import PendingPage from './components/pending-page/PendingPage'
 
 function App() {
-  const navigate = useNavigate();
-
   const [isCompany, setIsCompany] = useState(sessionStorage.getItem("isCompany") ? JSON.parse(sessionStorage.getItem("isCompany")): false)
   const [user, setUser] = useState(null);
   const [company, setCompany] = useState(null);
   const [token, setToken] = useState(sessionStorage.getItem("token") ? JSON.parse(sessionStorage.getItem("token")): null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
@@ -42,14 +43,16 @@ function App() {
 
   const login = async (token, isCompany) => {
     if(isCompany) {
-      const fetchCompany = await fetchCompany(token)
-      setCompany(fetchCompany);
+      const fetchedCompany = await fetchCompany(token)
+      console.log(fetchedCompany)
+      setCompany(fetchedCompany);
       navigate('/company-landing')
     }
     else{
       const fetchedUser = await fetchUser(token)
+      console.log(fetchedUser)
       setUser(fetchedUser);
-      if(fetchedUser.companyId) navigate('/user-landing')
+      if(fetchedUser.isPending) navigate('/user-landing')
       else navigate('/pending-user')
     }
 
@@ -65,7 +68,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <Router>
+
         <ToastContainer />
         <NavigationBar
           user={user}
@@ -75,15 +78,14 @@ function App() {
 
         <Routes>
           <Route path="/" exact element={<Landing />} />
-          <Route path="/user-landing" exact element={<div>User Landing</div>} />
+          <Route path="/user-landing" element={<UserLanding user={user}/>} />
           <Route path="/company-landing" element={<div>Company Page</div>}/>
-          <Route path="/pending-user" element={<div>Please Choose Company Name</div>}/>
-          <Route path="mentors/:mentorID" element={<MentorPage user={user} />}/>
+          <Route path="/pending-user" element={<PendingPage />}/>
+          <Route path="/mentors/:mentorID" element={<MentorPage user={user} />}/>
           <Route path="/mentor-form" element={user ? <MentorForm user={user} /> : <AlertShouldLogin />}/>
 
 
         </Routes>
-      </Router>
     </div>
   );
 }

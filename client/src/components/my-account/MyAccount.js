@@ -14,9 +14,6 @@ import InputLabel from "@mui/material/InputLabel";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const MyAccount = ({ user, onDelete, setUpdatedUserPicture, UpdatedUserPicture }) => {
-  /*const [mentorData, setMentorData] = useState({
-    skills: [], workExperience: "", githubUrl: "", phoneNumber: "", linkedinUrl: ""
-  });*/
   const [mentor, setMentor] = useState(null)
   const [skills, setSkills] = useState([])
   const hiddenFileInput = useRef(null);
@@ -24,6 +21,7 @@ const MyAccount = ({ user, onDelete, setUpdatedUserPicture, UpdatedUserPicture }
   useEffect(() => {
     const getMentor = async () => {
       const mentor = await fetchMentorByUserId(user._id)
+      console.log(mentor)
       setMentor({ ...mentor, skills: [], githubUrl: mentor.contactDetails.githubUrl, phoneNumber: mentor.contactDetails.phoneNumber, linkedinUrl: mentor.contactDetails.linkedinUrl})
       setSkills(mentor.skills)
     }

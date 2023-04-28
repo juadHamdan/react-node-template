@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const companyQueries = require("../services/companyQueries");
+const { compareSkillsRatings, compareSkillRating } = require("../utils/compare-ratings");
 
 router.get("/", async (req, res) => {
     try {
@@ -11,6 +12,10 @@ router.get("/", async (req, res) => {
         res.status(500).send(error)
     }
 })
+
+//TODO: add to company pending user
+//   /companies/pendings/:companyID/:userID
+//router.patch('/)
 
 router.post("/", async (req, res) => {
     try {
@@ -40,5 +45,32 @@ router.get("/users/:companyID", async (req, res) => {
         res.status(500).send(error)
     }
 })
+
+// When using one of the route in this page you need to add mentors to the route:
+// example : /mentors/335465(companyID)
+
+router.get("/mentors/:companyID", async (req, res) => {
+    let companyID = req.params.companyID;
+    let skill = req.query.skill;
+    let limit = req.query.limit;
+    let mentors = [];
+    try {
+        if (!skill) {
+            mentors = await companyQueries.getCompanyMentors(companyID);
+            mentors = mentors.sort(compareSkillsRatings);
+        } else {
+            mentors = await companyQueries.getMentorsCompanyBySkill(skill, companyID);
+            mentors = mentors.sort((mentor1, mentor2) =>
+                compareSkillRating(mentor1, mentor2, skill)
+            );
+        }
+        mentors = limit ? mentors.slice(0, limit) : mentors;
+        res.send(mentors);
+    } catch (error) {
+        console.log(error)
+        res.send(error);
+    }
+});
+
 
 module.exports = router;

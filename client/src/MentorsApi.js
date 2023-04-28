@@ -13,7 +13,7 @@ async function fetchMentorById(id) {
 
 async function fetchMentorByUserId(userId) {
   try {
-    const response = await axios.get("/mentors/" + userId);
+    const response = await axios.get("/mentors/users/" + userId);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -31,9 +31,9 @@ async function postMentorById(id, mentor) {
   }
 }
 
-async function fetchMentorsBySkill(skill) {
+async function fetchMentorsBySkill(skill, companyId) {
   try {
-    const response = await axios.get("/mentors?skill=" + skill);
+    const response = await axios.get(`/companies/mentors/${companyId}?skill=${skill}`);
     console.log(response.data)
     return response.data;
   } catch (error) {
@@ -42,10 +42,10 @@ async function fetchMentorsBySkill(skill) {
   }
 }
 
-async function fetchFeaturedMentors() {
+async function fetchFeaturedMentors(companyId) {
   try {
     const response = await axios.get(
-      "/mentors?limit=" + FEATURED_MENTORS_NUMBER
+      `/companies/mentors/${companyId}?limit=${FEATURED_MENTORS_NUMBER}`
     );
     console.log("featured mentors:", response.data)
     return response.data;
@@ -55,9 +55,9 @@ async function fetchFeaturedMentors() {
   }
 }
 
-async function fetchMentorsNames() {
+async function fetchMentorsNames(companyId) {
   try {
-    const response = await axios.get("/mentors/names");
+    const response = await axios.get("/mentors/names/" + companyId);
     return response.data;
   } catch (error) {
     console.log(error);

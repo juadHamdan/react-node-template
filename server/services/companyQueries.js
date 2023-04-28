@@ -1,3 +1,5 @@
+const Mentor = require("../models/Mentor");
+const mongoose = require("mongoose");
 const Company = require("../models/Company");
 const User = require("../models/User")
 
@@ -25,4 +27,24 @@ function getCompanyUsers(companyID) {
     return User.find({ companyID: companyID })
 }
 
-module.exports = { getCompanies, addCompany, getPendingUsers, getCompanyUsers }
+async function getMentorsCompanyBySkill(skillName, companyID) {
+    const mentors = await getCompanyMentors(companyID);
+    let mentorsWithSkill = mentors.filter((mentor) => {
+      return mentor.skills.some((skill) => {
+        return skill.name.toLowerCase() === skillName.toLocaleLowerCase();
+      });
+    });
+    return mentorsWithSkill;
+  }
+
+  async function getCompanyMentors(companyID) {
+    let companyIDObj = getIdObject(companyID);
+    let mentors = await Mentor.find({}).populate({
+      path: 'user',
+      match: { 'companyID': companyIDObj }
+    }).populate({ path: "skills", model: "skill" })
+    mentors = mentors.filter((mentor => mentor.user != null));
+    return mentors;
+  }
+
+module.exports = { getCompanies, addCompany, getPendingUsers, getCompanyUsers, getMentorsCompanyBySkill, getCompanyMentors }

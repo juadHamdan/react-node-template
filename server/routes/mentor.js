@@ -1,32 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const databaseQueries = require("../services/databaseQueries");
-const { compareSkillsRatings, compareSkillRating } = require("../utils/compare-ratings");
 
-// When using one of the route in this page you need to add mentors to the route:
-// example : /mentors/335465(companyID)
 
-router.get("/:companyID", async (req, res) => {
-    let companyID = req.params.companyID;
-    let skill = req.query.skill;
-    let limit = req.query.limit;
-    let mentors = [];
-    try {
-        if (!skill) {
-            mentors = await databaseQueries.getCompanyMentors(companyID);
-            mentors = mentors.sort(compareSkillsRatings);
-        } else {
-            mentors = await databaseQueries.getMentorsCompanyBySkill(skill, companyID);
-            mentors = mentors.sort((mentor1, mentor2) =>
-                compareSkillRating(mentor1, mentor2, skill)
-            );
-        }
-        mentors = limit ? mentors.slice(0, limit) : mentors;
-        res.send(mentors);
-    } catch (error) {
-        res.send(error);
-    }
-});
 
 router.get("/:id", async (req, res) => {
     let mentorId = req.params.id;
@@ -38,8 +14,9 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-router.get("/:userId", async (req, res) => {
+router.get("/users/:userId", async (req, res) => {
     let userId = req.params.userId;
+    console.log(userId)
     try {
         let mentor = await databaseQueries.getMentorByUserId(userId);
         res.send(mentor);

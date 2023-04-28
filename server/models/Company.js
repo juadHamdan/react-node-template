@@ -6,8 +6,7 @@ const companySchema = new Schema({
     email: String,
     password: String,
     logoUrl: String,
-    description: String,
-    pendingUsers: [{ type: Schema.Types.ObjectId, ref: "user" }]
+    description: String
 })
 
 const Company = mongoose.model("company", companySchema)
