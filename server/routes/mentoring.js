@@ -1,126 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const databaseQueries = require("../services/databaseQueries");
-const {
-  compareSkillsRatings,
-  compareSkillRating,
-} = require("../utils/compare-ratings");
 
 const { upload } = require("../middlewares/mutler");
 const { createZoomMeeting } = require("../services/zoom-meeting")
 
 
-
-router.get("/mentors", async (req, res) => {
-  let skill = req.query.skill;
-  let limit = req.query.limit;
-  let mentors = [];
-  try {
-    if (!skill) {
-      mentors = await databaseQueries.getMentors();
-      mentors = mentors.sort(compareSkillsRatings);
-    } else {
-      mentors = await databaseQueries.getMentorsBySkill(skill);
-      mentors = mentors.sort((mentor1, mentor2) =>
-        compareSkillRating(mentor1, mentor2, skill)
-      );
-    }
-    mentors = limit ? mentors.slice(0, limit) : mentors;
-    res.send(mentors);
-  } catch (error) {
-    res.send(error);
-  }
-});
-
-router.get("/mentorsNames", async (req, res) => {
-  let mentorsNames = await databaseQueries.getMentorsNames();
-  mentorsNames = mentorsNames.map((mentor) => {
-    return {
-      _id: mentor._id,
-      fullName: mentor.user.firstName + " " + mentor.user.lastName,
-    };
-  });
-  res.send(mentorsNames);
-});
-
-router.get("/mentors/:id", async (req, res) => {
-  let mentorId = req.params.id;
-  try {
-    let mentor = await databaseQueries.getMentorByID(mentorId);
-    res.send(mentor);
-  } catch (error) {
-    res.send(error);
-  }
-});
-
-router.get("/mentor/:userId", async (req, res) => {
-  let userId = req.params.userId;
-  try {
-    let mentor = await databaseQueries.getMentorByUserId(userId);
-    res.send(mentor);
-  } catch (error) {
-    res.send(error);
-  }
-});
-
-router.post("/mentor/:userId", async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const skills = req.body.skills;
-    const workExperience = req.body.workExperience;
-    const contactDetails = {
-      githubUrl: req.body.githubUrl,
-      phoneNumber: req.body.phoneNumber,
-      linkedinUrl: req.body.linkedinUrl,
-    };
-    const result = await databaseQueries.createMentor(
-      userId,
-      skills,
-      workExperience,
-      contactDetails
-    );
-    res.send(result);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send({ message: "Internal server error" });
-  }
-});
-
-router.delete("/mentor/:userId", async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const result = await databaseQueries.getUserByID(userId);
-    if (result && result.isMentor) {
-      //is mentor
-      const mentor = await databaseQueries.getMentorByUserId(userId);
-      await databaseQueries.deleteMentorByID(mentor._id);
-      await databaseQueries.deleteUserByID({
-        _id: userId,
-      });
-    } else {
-      //only user
-      await databaseQueries.deleteUserByID({
-        _id: userId,
-      });
-    }
-    res.send(result);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send({ message: "Internal server error" });
-  }
-});
-
-router.put("/mentor/:id", async (req, res) => {
-  try {
-    const userID = req.params.id;
-    const updatedMentor = req.body;
-    const mentor = await databaseQueries.updateMentor(userID, updatedMentor);
-    res.status(200).send({ mentor });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send({ message: "Internal Server Error" });
-  }
-});
 
 router.post("/meetings/:userID", async (req, res) => {
         const userID = req.params.userID
@@ -229,21 +114,6 @@ router.get("/meetings/:userID", async (req, res) => {
 
 
 
-router.delete("/mentor-Page/:userId", async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const result = await databaseQueries.getUserByID(userId);
-    if (result) {
-      const mentor = await databaseQueries.getMentorByUserId(userId);
-      await databaseQueries.updateUser(userId);
-      await databaseQueries.deleteMentorByID(mentor._id);
-    }
-    res.send(result);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send({ message: "Internal server error" });
-  }
-});
 
 router.put("/images/:userID", upload.single("profileImg"), async (req, res) => {
   let userID = req.params.userID;
@@ -322,8 +192,6 @@ router.get("/users", async (req, res) => {
     res.send(error)
   }
 })
-
-
 
 
 module.exports = router;

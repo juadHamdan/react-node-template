@@ -5,22 +5,24 @@ const Meeting = require("../models/Meeting");
 const mongoose = require("mongoose");
 const fs = require("fs");
 const { promisify } = require("util");
-const { get } = require("http");
 const unlinkAsync = promisify(fs.unlink);
 
 const getIdObject = (id) => {
   return new mongoose.Types.ObjectId(id);
 };
 
-function getMentors() {
-  return Mentor.find({}).populate([
-    { path: "skills" },
-    { path: "user", select: "firstName lastName picture email position" },
-  ]);
+async function getCompanyMentors(companyID) {
+  let companyIDObj = getIdObject(companyID);
+  let mentors = await Mentor.find({}).populate({
+    path: 'user',
+    match: { 'companyID': companyIDObj }
+  }).populate({ path: "skills", model: "skill" })
+  mentors = mentors.filter((mentor => mentor.user != null));
+  return mentors;
 }
 
-async function getMentorsBySkill(skillName) {
-  const mentors = await getMentors();
+async function getMentorsCompanyBySkill(skillName, companyID) {
+  const mentors = await getCompanyMentors(companyID);
   let mentorsWithSkill = mentors.filter((mentor) => {
     return mentor.skills.some((skill) => {
       return skill.name.toLowerCase() === skillName.toLocaleLowerCase();
@@ -97,7 +99,7 @@ function getUserByID(userID) {
   return User.findById(userID);
 }
 
-async function addMeeting(userID, title, startDate, endDate , colleagueId , zoomLink) {
+async function addMeeting(userID, title, startDate, endDate, colleagueId, zoomLink) {
   let userIdObject = getIdObject(userID);
   let menteeIdObject = getIdObject(colleagueId)
   startDate = new Date(startDate);
@@ -107,8 +109,8 @@ async function addMeeting(userID, title, startDate, endDate , colleagueId , zoom
     startDate,
     endDate,
     mentor: userIdObject,
-    mentee : menteeIdObject,
-    zoomLink : zoomLink
+    mentee: menteeIdObject,
+    zoomLink: zoomLink
   });
   meeting = await meeting.save();
   return meeting._id;
@@ -204,17 +206,20 @@ function addReview(meetingID, rating, description) {
   return Meeting.findByIdAndUpdate(meetingID, { rating: rating, description: description });
 }
 
-async function getUsersByCompany() {
-  return User.find({});
-}
-
 async function getUsers() {
   return User.find({});
 }
 
+async function addUserToCompany(userID, companyID) {
+  let companyIDObj = getIdObject(companyID);
+  return User.findByIdAndUpdate(userID, { companyID: companyIDObj }, { new: true });
+}
+
+
 module.exports = {
-  getMentors,
-  getMentorsBySkill,
+  addUserToCompany,
+  getCompanyMentors,
+  getMentorsCompanyBySkill,
   createMentor,
   getMentorByID,
   getMentorsNames,
