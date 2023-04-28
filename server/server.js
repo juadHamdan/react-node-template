@@ -16,6 +16,12 @@ const mentoringRoute = require("./routes/mentoring");
 app.use("/", mentoringRoute);
 app.use("/images", express.static(path.join(__dirname, 'images')))
 
+const companyRoute = require("./routes/company");
+app.use("/companies", companyRoute);
+
+const mentorRoute = require("./routes/mentor");
+app.use("/mentors", mentorRoute);
+
 const isLoggedIn = require("./auth-route-handlers");
 
 //request that requires login

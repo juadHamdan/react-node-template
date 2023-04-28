@@ -13,7 +13,7 @@ async function fetchMentorById(id) {
 
 async function fetchMentorByUserId(userId) {
   try {
-    const response = await axios.get("/mentor/" + userId);
+    const response = await axios.get("/mentors/" + userId);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -23,7 +23,7 @@ async function fetchMentorByUserId(userId) {
 
 async function postMentorById(id, mentor) {
   try {
-    const response = await axios.post("/mentor/" + id, mentor);
+    const response = await axios.post("/mentors/" + id, mentor);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -57,7 +57,7 @@ async function fetchFeaturedMentors() {
 
 async function fetchMentorsNames() {
   try {
-    const response = await axios.get("/mentorsNames");
+    const response = await axios.get("/mentors/names");
     return response.data;
   } catch (error) {
     console.log(error);
@@ -66,7 +66,7 @@ async function fetchMentorsNames() {
 }
 async function deleteUserById(id) {
   try {
-    const response = await axios.delete("/mentor/" + id);
+    const response = await axios.delete("/mentors/" + id);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -76,7 +76,7 @@ async function deleteUserById(id) {
 
 async function updateMentor(userID, updatedMentor) {
   try {
-    const response = await axios.put("/mentor/" + userID, updatedMentor);
+    const response = await axios.put("/mentors/" + userID, updatedMentor);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -86,7 +86,7 @@ async function updateMentor(userID, updatedMentor) {
 
 async function deleteMentor(userID) {
   try {
-    const response = await axios.delete("/mentor-Page/" + userID);
+    const response = await axios.delete("/mentors/pages" + userID);
     return response.data;
   } catch (err) {
     console.log(err);
