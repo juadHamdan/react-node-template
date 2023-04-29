@@ -95,7 +95,7 @@ const MentorForm = ({ user }) => {
                     <div className="inputs-container">
                         <h3>Share Your Proffessional Experience:</h3>
                         <div className="inputs">
-                            <TextField required name="workExperience" value={mentorData.workExperience} label="Work Experience (Company Name, years, ...)" variant="outlined" onChange={handleChange} />
+                            <TextField required name="workExperience" value={mentorData.workExperience} label="Position At Company" variant="outlined" onChange={handleChange} />
                             <TextField required name="githubUrl" value={mentorData.githubUrl} label="Github Link" variant="outlined" onChange={handleChange} />
                         </div>
                         <h3>Share Your Contact Info:</h3>
