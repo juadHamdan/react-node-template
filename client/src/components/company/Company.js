@@ -1,12 +1,12 @@
 import './company.css'
 import { useState, useEffect } from 'react'
-import { fetchCompanyPendingUsers, fetchCompanyUsers, fetchCompanyMentors,fetchFutureMeetings } from '../../CompanyApi'
+import { fetchCompanyPendingUsers, fetchCompanyUsers, fetchCompanyMentors, fetchFutureMeetings } from '../../CompanyApi'
 import { approveUser } from '../../MentorsApi'
 import BiChart from '../charts/BiChart'
 import ColumnChart from '../charts/ColumnChart'
 import VerifiedIcon from '@mui/icons-material/Verified';
-import CustomizedTables from "../../table/table"
 import { DEFAULT_USER_PICTURE } from '../../Constants'
+import Table from '../../table/Table'
 
 const Company = ({ company }) => {
     const [companyUsers, setCompanyUsers] = useState([])
@@ -18,7 +18,7 @@ const Company = ({ company }) => {
     const [numOfUsers, setNumOfUsers] = useState(0)
     const [numOfPendign, setNumOfPendign] = useState(0)
     const [skillsCount, setSkillsCount] = useState({})
-    const [futureMeetings, setFutureMeetings] = useState([])
+    const [futureMeetings, setFutureMeetings] = useState(null)
 
     useEffect(() => {
         console.log(company);
@@ -78,10 +78,10 @@ const Company = ({ company }) => {
         <div id="company-container">
             <div>Display Company Data and allow for edit (and Add)</div>
             <div className="company-details">
-            <img style={{  borderRadius: '50%' , width : 150 , height : 150}} src={ company.logoUrl || DEFAULT_USER_PICTURE} />
-            <label>{company.name}</label>
+                <img style={{ borderRadius: '50%', width: 150, height: 150 }} src={company.logoUrl || DEFAULT_USER_PICTURE} />
+                <label>{company.name}</label>
             </div>
-            <CustomizedTables meetings={futureMeetings} />
+            {futureMeetings && <Table data={futureMeetings} />}
             {numOfMentors && numOfUsers && numOfPendign && <BiChart mentors={numOfMentors} users={numOfUsers} pending={numOfPendign} />}
             {skillsCount && <ColumnChart mapskills={skillsCount} />}
 
