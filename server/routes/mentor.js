@@ -25,9 +25,10 @@ router.get("/users/:userId", async (req, res) => {
     }
 });
 
-router.get("/names", async (req, res) => {
+router.get("/names/:companyID", async (req, res) => {
+    let companyID = req.params.companyID
     try {
-        let mentorsNames = await databaseQueries.getMentorsNames();
+        let mentorsNames = await databaseQueries.getCompanyMentorsNames(companyID);
         mentorsNames = mentorsNames.map((mentor) => {
             return {
                 _id: mentor._id,

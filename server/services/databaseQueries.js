@@ -42,11 +42,15 @@ function getMentorByID(mentorID) {
   ]);
 }
 
-function getMentorsNames() {
-  return Mentor.find({}).populate({
+async function getCompanyMentorsNames(companyID) {
+  let companyIDObj = getIdObject(companyID);
+  let mentors = await Mentor.find({}).populate({
     path: "user",
+    match: { 'companyID': companyIDObj },
     select: "firstName lastName",
   });
+  mentors = mentors.filter((mentor => mentor.user != null));
+  return mentors;
 }
 
 async function getUserByID(userID) {
@@ -204,7 +208,7 @@ module.exports = {
   addUserToCompany,
   createMentor,
   getMentorByID,
-  getMentorsNames,
+  getCompanyMentorsNames,
   addMeeting,
   getUserByID,
   deleteMeeting,
