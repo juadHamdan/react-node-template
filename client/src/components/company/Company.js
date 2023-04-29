@@ -6,6 +6,7 @@ import BiChart from '../charts/BiChart'
 import ColumnChart from '../charts/ColumnChart'
 import VerifiedIcon from '@mui/icons-material/Verified';
 import CustomizedTables from "../../table/table"
+import { DEFAULT_USER_PICTURE } from '../../Constants'
 
 const Company = ({ company }) => {
     const [companyUsers, setCompanyUsers] = useState([])
@@ -20,6 +21,7 @@ const Company = ({ company }) => {
     const [futureMeetings, setFutureMeetings] = useState([])
 
     useEffect(() => {
+        console.log(company);
         if (company) {
             const getCompanyUsers = async () => {
                 const fetchedCompanyUsers = await fetchCompanyUsers(company._id)
@@ -75,6 +77,10 @@ const Company = ({ company }) => {
     return (
         <div id="company-container">
             <div>Display Company Data and allow for edit (and Add)</div>
+            <div className="company-details">
+            <img style={{  borderRadius: '50%' , width : 150 , height : 150}} src={ company.logoUrl || DEFAULT_USER_PICTURE} />
+            <label>{company.name}</label>
+            </div>
             <CustomizedTables meetings={futureMeetings} />
             {numOfMentors && numOfUsers && numOfPendign && <BiChart mentors={numOfMentors} users={numOfUsers} pending={numOfPendign} />}
             {skillsCount && <ColumnChart mapskills={skillsCount} />}
