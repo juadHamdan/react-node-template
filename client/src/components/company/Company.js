@@ -1,7 +1,10 @@
 import './company.css'
 import { useState, useEffect } from 'react'
-import { fetchCompanyPendingUsers, fetchCompanyUsers, fetchFutureMeetings } from '../../CompanyApi'
+import { fetchCompanyPendingUsers, fetchCompanyUsers, fetchCompanyMentors,fetchFutureMeetings } from '../../CompanyApi'
 import { approveUser } from '../../MentorsApi'
+import BiChart from '../charts/BiChart'
+import ColumnChart from '../charts/ColumnChart'
+import VerifiedIcon from '@mui/icons-material/Verified';
 import CustomizedTables from "../../table/table"
 
 const Company = ({ company }) => {
