@@ -18,6 +18,7 @@ import AlertShouldLogin from "./components/alerts/AlertShouldLogin";
 import { googleLogout } from "@react-oauth/google";
 import UserLanding from './components/user-landing/UserLanding'
 import PendingPage from './components/pending-page/PendingPage'
+import Company from './components/company/Company'
 
 function App() {
   const [isCompany, setIsCompany] = useState(sessionStorage.getItem("isCompany") ? JSON.parse(sessionStorage.getItem("isCompany")): false)
@@ -79,7 +80,7 @@ function App() {
         <Routes>
           <Route path="/" exact element={<Landing />} />
           <Route path="/user-landing" element={<UserLanding user={user}/>} />
-          <Route path="/company-landing" element={<div>Company Page</div>}/>
+          <Route path="/company-landing" element={<Company/>}/>
           <Route path="/pending-user" element={<PendingPage />}/>
           <Route path="/mentors/:mentorID" element={<MentorPage user={user} />}/>
           <Route path="/mentor-form" element={user ? <MentorForm user={user} /> : <AlertShouldLogin />}/>

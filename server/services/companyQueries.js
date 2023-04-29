@@ -24,7 +24,7 @@ function getPendingUsers(companyID) {
 // mentors and users 
 function getCompanyUsers(companyID) {
     companyID = getIdObject(companyID)
-    return User.find({ companyID: companyID })
+    return User.find({ $and: [{ companyID: companyID }, { isPending: false }] })
 }
 
 async function getMentorsCompanyBySkill(skillName, companyID) {

@@ -30,6 +30,7 @@ router.post("/", async (req, res) => {
 
 // companies/users/34656example546?isPending = true
 router.get("/users/:companyID", async (req, res) => {
+    console.log(req.params.companyID)
     try {
         let isPending = JSON.parse(req.query.isPending.toLowerCase());
         if (isPending) {
