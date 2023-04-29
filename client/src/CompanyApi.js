@@ -43,9 +43,29 @@ async function addPendingUserToCompany(companyID, userID) {
     }
   }
 
+  // async function fetchCompanySkills(){
+  //   try {
+  //     const response = await axios.get(`/companies/users/${companyID}`);
+  //     return response.data;
+  //   } catch (err) {
+  //     console.log(err);
+  //     return null;
+  //   }
+  // }
+
+  async function fetchCompanyMentors(companyID){
+      try {
+      const response = await axios.get(`/companies/mentors/${companyID}`);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return null;
+  }
+  }
+
 
   
 
 export {
-    fetchCompanies, addPendingUserToCompany, fetchCompanyUsers, fetchCompanyPendingUsers
+    fetchCompanies, addPendingUserToCompany, fetchCompanyUsers, fetchCompanyPendingUsers, fetchCompanyMentors
 };
