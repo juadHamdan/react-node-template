@@ -6,7 +6,9 @@ import BiChart from '../charts/BiChart'
 import ColumnChart from '../charts/ColumnChart'
 import VerifiedIcon from '@mui/icons-material/Verified';
 import { DEFAULT_USER_PICTURE } from '../../Constants'
-import Table from '../../table/Table'
+import  Table  from '../../table/Table'
+
+
 
 const Company = ({ company }) => {
     const [companyUsers, setCompanyUsers] = useState([])
