@@ -80,7 +80,7 @@ function App() {
         <Routes>
           <Route path="/" exact element={<Landing />} />
           <Route path="/user-landing" element={<UserLanding user={user}/>} />
-          <Route path="/company-landing" element={<Company company={company}/>}/>
+          <Route path="/company-landing" element={company && <Company company={company}/>}/>
           <Route path="/pending-user" element={<PendingPage user={user}/>}/>
           <Route path="/mentors/:mentorID" element={<MentorPage user={user} />}/>
           <Route path="/mentor-form" element={user ? <MentorForm user={user} /> : <AlertShouldLogin />}/>

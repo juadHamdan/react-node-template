@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const companyQueries = require("../services/companyQueries");
 const { compareSkillsRatings, compareSkillRating } = require("../utils/compare-ratings");
+const { formatTime } = require("../utils/time-formate")
 
 router.get("/", async (req, res) => {
     try {
@@ -82,5 +83,26 @@ router.get("/mentors/:companyID", async (req, res) => {
     }
 });
 
+router.get("/meetings/:companyID", async (req, res) => {
+    let companyID = req.params.companyID
+    try {
+        let meetings = await companyQueries.getMeetingsInCompany(companyID)
+        meetings = meetings.map(meeting => {
+            let date = meeting.startDate.toString().split(" ").slice(0, 3).join(" ");
+            let startTime = formatTime(meeting.startDate.getHours(), meeting.startDate.getMinutes())
+            let endTime = formatTime(meeting.endDate.getHours(), meeting.endDate.getMinutes())
+            return {
+                Title: meeting.title,
+                Mentor: meeting.mentor.firstName + " " + meeting.mentor.lastName,
+                Mentee: meeting.mentee.firstName + " " + meeting.mentee.lastName,
+                Date: date + ", " + startTime + " - " + endTime
+            }
+        })
+        res.send(meetings)
+    } catch (error) {
+        console.log(error)
+        res.send(error);
+    }
+})
 
 module.exports = router;
