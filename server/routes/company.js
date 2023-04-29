@@ -13,9 +13,17 @@ router.get("/", async (req, res) => {
     }
 })
 
-//TODO: add to company pending user
-//   /companies/pendings/:companyID/:userID
-//router.patch('/)
+router.patch("/pendings/:companyID/:userID", async (req, res) => {
+    let companyID = req.params.companyID;
+    let userID = req.params.userID;
+    try {
+        await companyQueries.addUserToCompanyPending(companyID, userID);
+        res.send("user added to company pending successfully.")
+    } catch (error) {
+        console.log(error);
+        res.status(500).send(error)
+    }
+})
 
 router.post("/", async (req, res) => {
     try {
@@ -30,9 +38,9 @@ router.post("/", async (req, res) => {
 
 // companies/users/34656example546?isPending = true
 router.get("/users/:companyID", async (req, res) => {
-    console.log(req.params.companyID)
     try {
-        let isPending = JSON.parse(req.query.isPending.toLowerCase());
+        let isPending = req.query.isPending
+        isPending = isPending ? JSON.parse(isPending.toLowerCase()) : false;
         if (isPending) {
             let pendingUsers = await companyQueries.getPendingUsers(req.params.companyID);
             res.send(pendingUsers);
