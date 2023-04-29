@@ -52,8 +52,8 @@ function App() {
       const fetchedUser = await fetchUser(token)
       console.log(fetchedUser)
       setUser(fetchedUser);
-      if(fetchedUser.isPending) navigate('/user-landing')
-      else navigate('/pending-user')
+      if(fetchedUser.isPending) navigate('/pending-user')
+      else navigate('/user-landing')
     }
 
   };
