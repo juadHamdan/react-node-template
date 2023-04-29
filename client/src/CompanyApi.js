@@ -53,6 +53,18 @@ async function fetchFutureMeetings(companyID) {
   }
 }
 
+async function fetchCompanyMentors(companyID) {
+  try {
+    const response = await axios.get(`/companies/mentors/${companyID}`);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
+
+
 export {
-  fetchCompanies, addPendingUserToCompany, fetchCompanyUsers, fetchCompanyPendingUsers, fetchFutureMeetings
+  fetchCompanies, addPendingUserToCompany, fetchCompanyUsers, fetchCompanyPendingUsers, fetchCompanyMentors,
+  fetchFutureMeetings
 };
