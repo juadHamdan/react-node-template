@@ -41,9 +41,9 @@ router.get("/names/:companyID", async (req, res) => {
     }
 });
 
-router.patch("/:userID/:companyID", async (req, res) => {
+router.patch("/:userID", async (req, res) => {
     try {
-        await databaseQueries.addUserToCompany(req.params.userID, req.params.companyID);
+        await databaseQueries.approveUser(req.params.userID);
         res.send("The user registered successfully in the company.")
     } catch (error) {
         res.send(error);

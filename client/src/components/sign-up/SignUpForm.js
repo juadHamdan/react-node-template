@@ -21,7 +21,7 @@ const SignUpForm = ({ onSubmit }) => {
             <form onSubmit={handleSubmit}>
                 <div className="row">
                     <TextField required name="firstName" value={formData.firstName} label="First Name" variant="outlined" onChange={handleChange} />
-                    <TextField required name="lastName" value={formData.lastName} label="Last Name" variant="outlined" onChange={handleChange} />
+                    <TextField name="lastName" value={formData.lastName} label="Last Name" variant="outlined" onChange={handleChange} />
                 </div>
 
                 <TextField required type="email" name="email" value={formData.email} label="Email" variant="outlined" onChange={handleChange} />

@@ -6,7 +6,8 @@ const PendingPage = ({user}) => {
 
     useEffect(() => {
         const getCompanies = async ()  => {
-            setCompanies(await fetchCompanies())
+            const fetchedCompanies = await fetchCompanies()
+            setCompanies(fetchedCompanies)
         }
         getCompanies()
     }, [])
@@ -18,7 +19,7 @@ const PendingPage = ({user}) => {
 
     return (
         <div>
-            {companies.map(company => <button onClick={() => onCompanySubmit(company._id)}>{company.name}</button>)}
+            {companies && companies.map(company => <button onClick={() => onCompanySubmit(company._id)}>{company.name}</button>)}
         </div>
     )
 }

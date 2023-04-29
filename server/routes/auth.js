@@ -69,25 +69,25 @@ router.post('/login', async (req, res) => {
     const isCompanyQuery = req.query.isCompany
     const { email, password } = req.body
     try {
-        let id = 0
         if(isCompanyQuery === 'false'){
             const existingUser = await User.findOne({ email })
             if (!existingUser) return res.status(404).send({ message: "User doesn't exist." })
             const isPasswordCorrect = await bcrypt.compare(password, existingUser.password)
             if (!isPasswordCorrect) return res.status(400).send({ message: "Invalid credentials" })
-            id = existingUser._id
+            const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, process.env.JWT_SECRET, { expiresIn: "1h" })
+            res.send({ result: existingUser, token })
         }
         else{
             const existingCompany = await Company.findOne({ email })
             if (!existingCompany) return res.status(404).send({ message: "Company doesn't exist." })
             const isPasswordCorrect = await bcrypt.compare(password, existingCompany.password)
             if (!isPasswordCorrect) return res.status(400).send({ message: "Invalid credentials" })
-            id = existingCompany._id
+            const token = jwt.sign({ email: existingCompany.email, id: existingCompany._id }, process.env.JWT_SECRET, { expiresIn: "1h" })
+            res.send({ result: existingCompany, token })
         }
 
 
-        const token = jwt.sign({ email: existingUser.email, id: id }, process.env.JWT_SECRET, { expiresIn: "1h" })
-        res.send({ result: existingUser, token })
+
     }
     catch (err) {
         console.log(err)
@@ -111,7 +111,7 @@ router.post('/signup', async (req, res) => {
         else{
             const existingCompany = await Company.findOne({ email })
             if (existingCompany) return res.status(400).send({ message: "Company already exist." })
-            result = await Company.create({ email: email, password: hashedPassword })
+            result = await Company.create({ name: firstName, email: email, password: hashedPassword })
         }
 
         const token = jwt.sign({ email: result.email, id: result._id }, process.env.JWT_SECRET, { expiresIn: "1h" })
@@ -146,7 +146,7 @@ router.post('/google-login', async (req, res) => {
             const existingCompany = await Company.findOne({ email })
             if (existingCompany) res.send({ message: "Logged In Successfully" })
             else {
-                const result = await Company.create({ email: payload.email, password: "" })
+                const result = await Company.create({ name: payload.name, email: payload.email, password: "" })
                 res.send({ result: result, token })
             }
         }

@@ -16,6 +16,7 @@ router.get("/", async (req, res) => {
 router.patch("/pendings/:companyID/:userID", async (req, res) => {
     let companyID = req.params.companyID;
     let userID = req.params.userID;
+    console.log("Here", companyID, userID)
     try {
         await companyQueries.addUserToCompanyPending(companyID, userID);
         res.send("user added to company pending successfully.")

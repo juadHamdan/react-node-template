@@ -198,14 +198,13 @@ async function getUsers() {
   return User.find({});
 }
 
-async function addUserToCompany(userID, companyID) {
-  let companyIDObj = getIdObject(companyID);
-  return User.findByIdAndUpdate(userID, { companyID: companyIDObj }, { new: true });
+async function approveUser(userID) {
+  return User.findByIdAndUpdate(userID, { isPending: false }, { new: true });
 }
 
 
 module.exports = {
-  addUserToCompany,
+  approveUser,
   createMentor,
   getMentorByID,
   getCompanyMentorsNames,

@@ -104,6 +104,16 @@ async function fetchColleagues() {
   }
 }
 
+async function approveUser(userID) {
+  try {
+    const response = await axios.patch(`/mentors/${userID}`);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
+
 export {
   fetchMentorById,
   postMentorById,
@@ -115,4 +125,5 @@ export {
   deleteUserById,
   deleteMentor,
   fetchColleagues,
+  approveUser
 };

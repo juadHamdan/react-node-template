@@ -3,6 +3,7 @@ import axios from "axios";
 async function fetchCompanies() {
   try {
     const response = await axios.get("/companies");
+    console.log(response.data)
     return response.data;
   } catch (err) {
     console.log(err);
@@ -14,6 +15,7 @@ async function fetchCompanies() {
 async function addPendingUserToCompany(companyID, userID) {
     try {
       const response = await axios.patch(`/companies/pendings/${companyID}/${userID}`);
+      console.log(response)
       return response.data;
     } catch (err) {
       console.log(err);
@@ -40,6 +42,9 @@ async function addPendingUserToCompany(companyID, userID) {
       return null;
     }
   }
+
+
+  
 
 export {
     fetchCompanies, addPendingUserToCompany, fetchCompanyUsers, fetchCompanyPendingUsers
