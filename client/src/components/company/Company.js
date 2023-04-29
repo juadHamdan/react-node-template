@@ -5,25 +5,29 @@ import {approveUser} from '../../MentorsApi'
 import BiChart from '../charts/BiChart'
 import ColumnChart from '../charts/ColumnChart'
 import VerifiedIcon from '@mui/icons-material/Verified';
+
 const Company = ({company}) => {
     const [companyUsers, setCompanyUsers] = useState([])
     const [companyPendingUsers, setCompanyPendingUsers] = useState([])
+    const [mentors, setMentors] = useState([])
+    const [mentees, setMentees] = useState([])
     const [companyMentors , setCompanyMentors] = useState([])
     const [numOfMentors , setNumOfMentors] = useState(0)
     const [numOfUsers , setNumOfUsers] = useState(0)
     const [numOfPendign , setNumOfPendign] = useState(0)
     const [skillsCount , setSkillsCount] = useState({})
-    const [mentors, setMentors] = useState([])
-    const [mentees, setMentees] = useState([])
+
     useEffect(() => {
-        if(company){
+        if (company) {
             const getCompanyUsers = async () => {
                 const fetchedCompanyUsers = await fetchCompanyUsers(company._id)
                 setCompanyUsers(fetchedCompanyUsers)
-                setMentees(fetchedCompanyUsers.filter(user => !user.isMentor))
-                setMentors(fetchedCompanyUsers.filter(user => user.isMentor))
-                setNumOfMentors(mentors.length)
-                setNumOfUsers(mentees.length)
+                const fetchedMentees = fetchedCompanyUsers.filter(user => !user.isMentor)
+                const fetchedMentors = fetchedCompanyUsers.filter(user => user.isMentor)
+                setNumOfMentors(fetchedMentors.length)
+                setNumOfUsers(fetchedMentees.length)
+                setMentees(fetchedMentees)
+                setMentors(fetchedMentors)
             }
             getCompanyUsers()
 
@@ -61,10 +65,12 @@ const Company = ({company}) => {
         setCompanyPendingUsers(newPendingUsers)
     }
 
-
     return (
         <div id="company-container">
             <div>Display Company Data and allow for edit (and Add)</div>
+
+            { numOfMentors && numOfUsers && numOfPendign && <BiChart mentors={numOfMentors} users={numOfUsers} pending={numOfPendign}/>}
+            { skillsCount && <ColumnChart mapskills={skillsCount} />}
 
             <div className="approve-pending-users-container">
                 <p className="sub-title">Approve Pending Users:</p>
@@ -120,8 +126,6 @@ const Company = ({company}) => {
                         </div>)}
                 </div>
             </div>
-            { numOfMentors && numOfUsers && numOfPendign && <BiChart mentors={numOfMentors} users={numOfUsers} pending={numOfPendign}/>}
-            { skillsCount && <ColumnChart mapskills={skillsCount} />}
         </div>
     )
 }
