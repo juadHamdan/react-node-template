@@ -89,8 +89,11 @@ router.get("/meetings/:userID", async (req, res) => {
     let userID = req.params.userID;
     let user = await databaseQueries.getUserByID(userID);
     let mentorMeetings = [];
-    if (user.isMentor) {
+   
       mentorMeetings = await databaseQueries.getMentorMeetings(userID);
+      let mentorMeetingsAsMentee = await databaseQueries.getMenteeMeetings(userID);
+      mentorMeetings.push(...mentorMeetingsAsMentee)
+      console.log(mentorMeetings);
       mentorMeetings = mentorMeetings.map((meeting) => {
         return {
           _id: meeting._id,
@@ -103,9 +106,7 @@ router.get("/meetings/:userID", async (req, res) => {
           zoomLink: meeting.zoomLink
         }
       })
-    } else {
-      mentorMeetings = await databaseQueries.getMenteeMeetings(userID);
-    }
+    
     res.send(mentorMeetings);
   } catch (error) {
     res.send(error);
