@@ -260,7 +260,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
               this.changeAppointment({
                 field: 'colleagueId', changes: id,
               })
-            }} companyID={this.props.user.companyID}
+            }} user={this.props.user}
             />
 
             <div className={classes.buttonGroup}>

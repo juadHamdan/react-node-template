@@ -3,14 +3,16 @@ import { useState, useEffect } from 'react'
 import TextField from '@mui/material/TextField';
 import { fetchCompanyUsers } from '../../../CompanyApi'
 
-const ColleaguesForm = ({ onAddColleague, companyID }) => {
+const ColleaguesForm = ({ onAddColleague, user }) => {
     const [colleagueNameInput, setColleagueNameInput] = useState("")
     const [colleagues, setColleagues] = useState([])
     const [showColeaguesMenu, setShowColeaguesMenu] = useState(false)
 
     useEffect(() => {
         const getColleagues = async () => {
-            const mentors = await fetchCompanyUsers(companyID);
+            let mentors = await fetchCompanyUsers(user.companyID);
+            let index = mentors.findIndex(mentor => mentor.email === user.email)
+            mentors.splice(index, 1)
             setColleagues(mentors);
         };
         getColleagues();
