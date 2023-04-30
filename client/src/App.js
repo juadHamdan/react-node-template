@@ -21,10 +21,10 @@ import PendingPage from './components/pending-page/PendingPage'
 import Company from './components/company/Company'
 
 function App() {
-  const [isCompany, setIsCompany] = useState(sessionStorage.getItem("isCompany") ? JSON.parse(sessionStorage.getItem("isCompany")): false)
+  const [isCompany, setIsCompany] = useState(sessionStorage.getItem("isCompany") ? JSON.parse(sessionStorage.getItem("isCompany")) : false)
   const [user, setUser] = useState(null);
   const [company, setCompany] = useState(null);
-  const [token, setToken] = useState(sessionStorage.getItem("token") ? JSON.parse(sessionStorage.getItem("token")): null);
+  const [token, setToken] = useState(sessionStorage.getItem("token") ? JSON.parse(sessionStorage.getItem("token")) : null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,22 +39,22 @@ function App() {
     sessionStorage.setItem("token", JSON.stringify(token));
     sessionStorage.setItem("isCompany", JSON.stringify(isCompany));
     login(token, isCompany);
-    toast("Logged In Successfully");
+    toast("Logged In Successfully", { autoClose: 1000 });
   };
 
   const login = async (token, isCompany) => {
-    if(isCompany) {
+    if (isCompany) {
       const fetchedCompany = await fetchCompany(token)
       console.log(fetchedCompany)
       setCompany(fetchedCompany);
       setIsCompany(true)
       navigate('/company-landing')
     }
-    else{
+    else {
       const fetchedUser = await fetchUser(token)
       console.log(fetchedUser)
       setUser(fetchedUser);
-      if(fetchedUser.isPending) navigate('/pending-user')
+      if (fetchedUser.isPending) navigate('/pending-user')
       else navigate('/user-landing')
     }
 
@@ -64,32 +64,32 @@ function App() {
     googleLogout();
     setUser(null);
     sessionStorage.clear();
-    toast("Logged Out Successfully");
+    // toast("Logged Out Successfully", { autoClose: 3000 });
     window.location.href = "/";
   };
 
   return (
     <div className="app-container">
 
-        <ToastContainer />
-        {!isCompany && 
+      <ToastContainer />
+      {!isCompany &&
         <NavigationBar
           user={user}
           onLogout={onLogout}
           onAuthorization={onAuthorization}
         />
-        }
+      }
 
-        <Routes>
-          <Route path="/" exact element={<Landing />} />
-          <Route path="/user-landing" element={<UserLanding user={user}/>} />
-          <Route path="/company-landing" element={company && <Company company={company} onLogout={onLogout}/>}/>
-          <Route path="/pending-user" element={<PendingPage user={user}/>}/>
-          <Route path="/mentors/:mentorID" element={<MentorPage user={user} />}/>
-          <Route path="/mentor-form" element={user ? <MentorForm user={user} /> : <AlertShouldLogin />}/>
+      <Routes>
+        <Route path="/" exact element={<Landing />} />
+        <Route path="/user-landing" element={<UserLanding user={user} />} />
+        <Route path="/company-landing" element={company && <Company company={company} onLogout={onLogout} />} />
+        <Route path="/pending-user" element={<PendingPage user={user} />} />
+        <Route path="/mentors/:mentorID" element={<MentorPage user={user} />} />
+        <Route path="/mentor-form" element={user ? <MentorForm user={user} /> : <AlertShouldLogin />} />
 
 
-        </Routes>
+      </Routes>
     </div>
   );
 }
