@@ -2,6 +2,7 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import ReviewForm from "./ReviewForm"
+import sendEmail from "./sendEmail";
 import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -256,9 +257,9 @@ class AppointmentFormContainerBasic extends React.PureComponent {
 
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
 
-            <ColleaguesForm onAddColleague={(id) => {
+            <ColleaguesForm onAddColleague={(colleague) => {
               this.changeAppointment({
-                field: 'colleagueId', changes: id,
+                field: 'colleague', changes: colleague,
               })}}
               />
 
@@ -423,11 +424,13 @@ export default class Demo extends React.PureComponent {
 
   commitChanges({ added, changed, deleted }) {
     if (added) {
+      console.log("the added here :" + added);
       console.log("ADD MEETING FUNCTION")
-      const meeting = { title: added.title, startDate: new Date(added.startDate), endDate: new Date(added.endDate), colleagueId: added.colleagueId }
+      const meeting = { title: added.title, startDate: new Date(added.startDate), endDate: new Date(added.endDate), colleagueId: added.colleague._id }
       addMeeting(this.props.user._id, meeting).then(meetingId => {
         const newMeetings = [...this.state.data, { id: meetingId, ...added }]
         this.setState({ data: newMeetings })
+        sendEmail(this.props.user , added.colleague , meeting)
       })
   
     }

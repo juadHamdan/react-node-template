@@ -20,7 +20,7 @@ const ColleaguesForm = ({ onAddColleague }) => {
 
     const handleAddColleague = (colleague) => {
         setColleagueNameInput(`${colleague.firstName} ${colleague.lastName}`)
-        onAddColleague(colleague._id)
+        onAddColleague(colleague)
         setColleagues([])
     }
 
