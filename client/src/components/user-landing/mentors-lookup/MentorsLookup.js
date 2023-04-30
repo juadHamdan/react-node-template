@@ -10,7 +10,7 @@ import { skills } from '../../../skills-dataset'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-const MentorsLookup = ({user}) => {
+const MentorsLookup = ({ user }) => {
   const [skillNameInput, setSkillNameInput] = useState("");
   const [searchedMentors, setSearchedMentors] = useState([]);
   const [featuredMentors, setFeaturedMentors] = useState([]);
@@ -38,7 +38,7 @@ const MentorsLookup = ({user}) => {
             <SkillsSearchInput onAddSkillName={getSearchedMentorsBySkill} />
           </div>
           <div className="name-form-container">
-            <NamesSearch />
+            <NamesSearch companyID={user?.companyID} />
           </div>
         </div>
       </div>
