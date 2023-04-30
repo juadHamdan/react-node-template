@@ -1,38 +1,33 @@
-
-
-#mentor-page-container {    
+#mentor-page-background{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     top: 0;
     width: calc(100% - 40px);
     background: linear-gradient(-45deg, #565CC2ff, #86A1F9ff);
     padding: 150px 20px 20px 20px;
+} 
 
-}
-
-#mentor-page-container .container{
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 5px;
+#mentor-page-container {    
+    max-width: 1200px;
 }
 
 
 #mentor-page-container .mentor-data-container{
-    max-width: 1000px;
     position: relative;
     background-color: white;
     border-radius: 5px;
     display: flex;
     justify-content: space-around;
-    gap: 50px;
     align-items: center;
     padding: 120px 20px 50px 20px;
 }
 
 
 #mentor-page-container .mentor-data-container .contact-info-container{
-    width: 300px;
+    width: 350px;
+    height: 250px;
 }
 #mentor-page-container .mentor-data-container .image-container{
     position: absolute;
@@ -99,10 +94,14 @@
 
 #mentor-page-container .mentor-data-container .name{
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     margin: 5px 0;
 }
-
+#mentor-page-container .mentor-data-container .position{
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 5px 0;
+}
 #mentor-page-container .mentor-data-container .contact-info-title{
     font-weight: bold;
     font-size: 0.8rem;
@@ -119,29 +118,32 @@
 
 
 
-
-#mentor-page-container .skills{
-    position: relative;
+#mentor-page-container .skills-container{
+    background-color: white;
     border-radius: 5px;
-    padding: 10px;
+    padding: 20px 25px;
+    height: 380px;
+    overflow-y: scroll;
 }
-#mentor-page-container .skills .title{
-    position: absolute;
-    left: 5px;
-    top: -35px;
+#mentor-page-container .skills-container .title{
     font-weight: bold;
     font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: gray;
 }
+#mentor-page-container .skills{
+    border-radius: 5px;
+}
+
 #mentor-page-container .skill{
     margin: 1px 0;
     padding: 0 10px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     font-weight: bold;
-    font-size: 0.9rem;
-    gap: 5px;   
+    font-size: 0.9rem; 
     border: 1px solid gray;
     border-radius: 50px;
     margin-bottom: 10px;
@@ -169,23 +171,43 @@
 
 
 
+#mentor-page-container .reviews-container{
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px 30px;
+}
+#mentor-page-container .reviews-container .title{
+    text-align: left;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: gray;
+}
 
 
 
 
 
 #mentor-page-container .scheduler-container{
+    border-radius: 5px;
+    background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 10px 30px 30px 30px;
+}
+#mentor-page-container .scheduler-container .title{
     width: 100%;
-
-    margin-bottom: 30px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: gray;
 }
 
 
 
-
+/*
 @media (max-width: 800px){
     #mentor-page-container .mentor-data-container{
         flex-direction: column;
@@ -207,3 +229,4 @@
         height: 40px;
     }
 }
+*/

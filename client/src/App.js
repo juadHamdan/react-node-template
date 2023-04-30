@@ -47,6 +47,7 @@ function App() {
       const fetchedCompany = await fetchCompany(token)
       console.log(fetchedCompany)
       setCompany(fetchedCompany);
+      setIsCompany(true)
       navigate('/company-landing')
     }
     else{
@@ -71,16 +72,18 @@ function App() {
     <div className="app-container">
 
         <ToastContainer />
+        {!isCompany && 
         <NavigationBar
           user={user}
           onLogout={onLogout}
           onAuthorization={onAuthorization}
         />
+        }
 
         <Routes>
           <Route path="/" exact element={<Landing />} />
           <Route path="/user-landing" element={<UserLanding user={user}/>} />
-          <Route path="/company-landing" element={<Company company={company}/>}/>
+          <Route path="/company-landing" element={company && <Company company={company} onLogout={onLogout}/>}/>
           <Route path="/pending-user" element={<PendingPage user={user}/>}/>
           <Route path="/mentors/:mentorID" element={<MentorPage user={user} />}/>
           <Route path="/mentor-form" element={user ? <MentorForm user={user} /> : <AlertShouldLogin />}/>

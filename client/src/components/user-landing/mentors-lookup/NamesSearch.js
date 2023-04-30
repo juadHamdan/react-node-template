@@ -3,14 +3,14 @@ import { fetchMentorsNames } from "../../../MentorsApi"
 import { Link } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 
-const NamesSearch = () => {
+const NamesSearch = ({ companyID }) => {
     const [mentorName, setMentorName] = useState("")
     const [searchedMentors, setSearchedMentors] = useState([])
     const [mentorsNames, setMentorsNames] = useState([]);
 
     useEffect(() => {
         const getMentorsNames = async () => {
-            const names = await fetchMentorsNames()
+            const names = await fetchMentorsNames(companyID)
             setMentorsNames(names)
         }
         getMentorsNames()

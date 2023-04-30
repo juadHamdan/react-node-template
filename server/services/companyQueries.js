@@ -2,6 +2,7 @@ const Mentor = require("../models/Mentor");
 const mongoose = require("mongoose");
 const Company = require("../models/Company");
 const User = require("../models/User")
+const Meeting = require("../models/Meeting")
 
 const getIdObject = (id) => {
   return new mongoose.Types.ObjectId(id);
@@ -52,7 +53,17 @@ function addUserToCompanyPending(companyID, userID) {
   return User.findByIdAndUpdate(userID, { companyID: companyID });
 }
 
+async function getMeetingsInCompany(companyID) {
+  companyID = getIdObject(companyID);
+  let meetings = await Meeting.find({  startDate: { $gte: new Date() } }).populate({
+    path: 'mentor',
+    match: { 'companyID': companyID }
+  }).populate({ path: 'mentee', model: 'user' })
+  meetings = meetings.filter((meeting => meeting.mentor != null))
+  return meetings
+}
+
 module.exports = {
   getCompanies, addCompany, getPendingUsers, getCompanyUsers, getMentorsCompanyBySkill,
-  getCompanyMentors, addUserToCompanyPending
+  getCompanyMentors, addUserToCompanyPending, getMeetingsInCompany
 }
