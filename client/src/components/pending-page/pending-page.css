@@ -1,0 +1,13 @@
+#pending-page-container {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+#pending-page-container .pending-message {
+  padding: 20px 30px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
