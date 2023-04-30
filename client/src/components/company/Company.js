@@ -84,13 +84,11 @@ const Company = ({ company, onLogout }) => {
         newPendingUsers.splice(index, 1)
         setCompanyPendingUsers(newPendingUsers)
     }
-    
+
 
     return (
         <div id="company-container">
             <div className="sidebar-placeholder">
-
-
                 <div className="sidebar-container">
                     <div className="company-details">
                         <img src={company.logoUrl || DEFAULT_USER_PICTURE} />
@@ -125,8 +123,8 @@ const Company = ({ company, onLogout }) => {
 
                 {activeBtn === 1 &&
                     <div className="meetings-container">
-                        <p className="title">Upcoming Meetings:</p>
-                        {futureMeetings && <Table data={futureMeetings} />}
+                        <p className="title">{futureMeetings.length != 0 ? "Upcoming Meetings:" : "There is no upcoming meetings"}</p>
+                        {futureMeetings && futureMeetings.length != 0 && <Table data={futureMeetings} />}
                     </div>
                 }
 
@@ -150,7 +148,7 @@ const Company = ({ company, onLogout }) => {
                                 </div>
                                 {companyPendingUsers && companyPendingUsers.map((pendingUser, index) =>
                                     <div className="list-item" >
-                                        <ThumbUpAltIcon className="approve-icon" onClick={() => onApproveUser(pendingUser._id, index)} /> 
+                                        <ThumbUpAltIcon className="approve-icon" onClick={() => onApproveUser(pendingUser._id, index)} />
                                         <ThumbDownAltIcon className="reject-icon" onClick={() => onRejectUser(pendingUser._id, index)} /> |
                                         <img src={pendingUser.picture} /> |
                                         <p>{pendingUser.firstName} {pendingUser.lastName}</p> |
