@@ -204,7 +204,16 @@
   }
 
   #company-container .meetings-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     width: 100%;
+  }
+  #company-container .meetings-container .title{
+    color: gray;
+    font-size: 1.2rem;
+    font-weight: bold;
   }
   #company-container .stats-container{
     width: 100%;

@@ -6,8 +6,9 @@ import BiChart from '../charts/BiChart'
 import ColumnChart from '../charts/ColumnChart'
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
-import CustomizedTables from "../../table/table"
 import { DEFAULT_USER_PICTURE } from '../../Constants'
+import Table from '../table/Table'
+
 
 const Company = ({ company, onLogout }) => {
     const [companyUsers, setCompanyUsers] = useState([])
@@ -19,7 +20,7 @@ const Company = ({ company, onLogout }) => {
     const [numOfUsers, setNumOfUsers] = useState(0)
     const [numOfPendign, setNumOfPendign] = useState(0)
     const [skillsCount, setSkillsCount] = useState({})
-    const [futureMeetings, setFutureMeetings] = useState([])
+    const [futureMeetings, setFutureMeetings] = useState(null)
     const [activeBtn, setActiveBtn] = useState(0)
 
     useEffect(() => {
@@ -46,9 +47,11 @@ const Company = ({ company, onLogout }) => {
 
             const getFutureMeetings = async () => {
                 const fetchedMeetings = await fetchFutureMeetings(company._id)
+                console.log(fetchedMeetings);
                 setFutureMeetings(fetchedMeetings)
             }
             getFutureMeetings()
+
             const getCompanyMentors = async () => {
                 const fetchedCompanyMentors = await fetchCompanyMentors(company._id)
                 mapSkills(fetchedCompanyMentors)
@@ -121,8 +124,9 @@ const Company = ({ company, onLogout }) => {
 
 
                 {activeBtn === 1 &&
-                <div className="meetings-container">
-                    <CustomizedTables meetings={futureMeetings} />
+                    <div className="meetings-container">
+                        <p className="title">Upcoming Meetings:</p>
+                        {futureMeetings && <Table data={futureMeetings} />}
                     </div>
                 }
 
