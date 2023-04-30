@@ -69,10 +69,6 @@
 
 
 
-
-
-
-
 #company-container .company-page-container{
     position: relative;
     width: 70vw;
@@ -116,12 +112,11 @@
 
 #company-container .list{
     width: max-content;
-    max-height: 500px;
+    max-height: 15rem;
     overflow-y: scroll;
     border: 1px solid #f0f0f0;
     border-radius: 5px;
 }
-
 
 
 #company-container .list .list-item{

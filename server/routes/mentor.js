@@ -14,6 +14,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+
 router.get("/users/:userId", async (req, res) => {
     let userId = req.params.userId;
     console.log(userId)

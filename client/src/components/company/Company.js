@@ -4,10 +4,12 @@ import { fetchCompanyPendingUsers, fetchCompanyUsers, fetchCompanyMentors, fetch
 import { approveUser } from '../../MentorsApi'
 import BiChart from '../charts/BiChart'
 import ColumnChart from '../charts/ColumnChart'
-import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
-import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
+
 import { DEFAULT_USER_PICTURE } from '../../Constants'
 import Table from '../table/Table'
+import MentorsTable from "../table/MentorTable"
+import MenteesTable from "../table/MenteeTable"
+import PendingTable from '../table/PendingTable'
 
 
 const Company = ({ company, onLogout }) => {
@@ -140,56 +142,22 @@ const Company = ({ company, onLogout }) => {
                         <div className="approve-pending-users-container">
                             <p className="sub-title">Approve Pending Users:</p>
                             <div className="list">
-                                <div className="list-item list-header">
-                                    <p className="list-item-header">Action</p> |
-                                    <p className="list-item-header">Picture</p> |
-                                    <p className="list-item-header">Full Name</p> |
-                                    <p className="list-item-header">Email</p>
-                                </div>
-                                {companyPendingUsers && companyPendingUsers.map((pendingUser, index) =>
-                                    <div className="list-item" >
-                                        <ThumbUpAltIcon className="approve-icon" onClick={() => onApproveUser(pendingUser._id, index)} />
-                                        <ThumbDownAltIcon className="reject-icon" onClick={() => onRejectUser(pendingUser._id, index)} /> |
-                                        <img src={pendingUser.picture} /> |
-                                        <p>{pendingUser.firstName} {pendingUser.lastName}</p> |
-                                        <p>{pendingUser.email}</p>
-                                    </div>)}
+                                {companyPendingUsers && companyPendingUsers.length != 0 && <PendingTable companyPendingUsers={companyPendingUsers}
+                                    onApproveUser={onApproveUser} onRejectUser={onRejectUser} />}
                             </div>
                         </div>
 
                         <div className="mentors-container">
                             <p className="sub-title">Our Mentors:</p>
                             <div className="list">
-                                <div className="list-item list-header">
-                                    <p className="list-item-header">Page</p> |
-                                    <p className="list-item-header">Picture</p> |
-                                    <p className="list-item-header">Full Name</p> |
-                                    <p className="list-item-header">Email</p>
-                                </div>
-                                {mentors && mentors.map((mentor, index) =>
-                                    <div className="list-item" >
-                                        <button className="mentor-page-btn">Mentor Page</button> |
-                                        <img src={mentor.picture} /> |
-                                        <p>{mentor.firstName} {mentor.lastName}</p> |
-                                        <p>{mentor.email}</p>
-                                    </div>)}
+                                {mentors && mentors.length != 0 && <MentorsTable mentors={mentors} />}
                             </div>
                         </div>
 
                         <div className="mentees-container">
                             <p className="sub-title">Our Mentees:</p>
                             <div className="list">
-                                <div className="list-item list-header">
-                                    <p className="list-item-header">Picture</p> |
-                                    <p className="list-item-header">Full Name</p> |
-                                    <p className="list-item-header">Email</p>
-                                </div>
-                                {mentees && mentees.map((mentee, index) =>
-                                    <div className="list-item" >
-                                        <img src={mentee.picture} /> |
-                                        <p>{mentee.firstName} {mentee.lastName}</p> |
-                                        <p>{mentee.email}</p>
-                                    </div>)}
+                                {mentees && mentees.length != 0 && <MenteesTable mentees={mentees} />}
                             </div>
                         </div>
                     </div>
