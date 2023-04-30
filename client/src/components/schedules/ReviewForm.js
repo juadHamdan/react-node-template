@@ -15,7 +15,7 @@ const ReviewForm = ({ meetingId }) => {
     return (
         <form className="review-form" onSubmit={handleSubmit}>
             Rating :<input type="number" min="0" max="5" onChange={handleChange} name="rating"></input>
-            Description: <textarea required name="description" onChange={handleChange}></textarea>
+            Review : <textarea required name="description" onChange={handleChange}></textarea>
             <button type="submit">save</button>
         </form>)
 }

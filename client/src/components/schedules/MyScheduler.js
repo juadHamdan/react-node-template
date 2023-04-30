@@ -135,6 +135,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
   }
 
 
+
   commitAppointment(type) {
     const { commitChanges } = this.props;
     const appointment = {
@@ -184,7 +185,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       label: 'Meeting ' + field[0].toUpperCase() + field.slice(1),
       className: classes.textField,
     });
-
+   
     const pickerEditorProps = field => ({
       // keyboard: true,
       value: displayAppointmentData[field],
@@ -204,7 +205,6 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       visibleChange();
       cancelAppointment();
     };
-
     return (
       <AppointmentForm.Overlay
         visible={visible}
@@ -259,9 +259,10 @@ class AppointmentFormContainerBasic extends React.PureComponent {
 
             <ColleaguesForm onAddColleague={(colleague) => {
               this.changeAppointment({
-                field: 'colleague', changes: colleague,
-              })}}
-              />
+                 field: 'colleague', changes: colleague,
+              })
+            }} user={this.props.user}
+            />
 
             <div className={classes.buttonGroup}>
               {!isNewAppointment && (
@@ -358,6 +359,7 @@ export default class Demo extends React.PureComponent {
         visibleChange: this.toggleEditingFormVisibility,
         onEditingAppointmentChange: this.onEditingAppointmentChange,
         cancelAppointment,
+        user: this.props.user
       };
     });
   }
@@ -367,7 +369,6 @@ export default class Demo extends React.PureComponent {
     console.log("MOUNT")
     const getMeetings = async () => {
       const meetings = await fetchMeetings(this.props.user._id)
-      console.log(meetings)
       this.setState({ data: meetings })
     }
     getMeetings()
@@ -432,7 +433,7 @@ export default class Demo extends React.PureComponent {
         this.setState({ data: newMeetings })
         sendEmail(this.props.user , added.colleague , meeting)
       })
-  
+
     }
     if (deleted !== undefined) {
       this.setDeletedAppointmentId(deleted);
@@ -464,7 +465,7 @@ export default class Demo extends React.PureComponent {
   }) => (
     <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
       {appointmentData.zoomLink && <a href={appointmentData?.zoomLink}>Join Zoom Meeting</a>}
-      <ReviewForm meetingId={appointmentData._id} />
+      {this.props.user._id == appointmentData.mentee && <ReviewForm meetingId={appointmentData._id} />}
     </AppointmentTooltip.Content>
   ));
 
