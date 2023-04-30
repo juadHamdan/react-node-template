@@ -36,7 +36,7 @@ const PendingPage = ({ user }) => {
         />
       )}
 
-      {showPendingMessage && <PandingMessage />}
+      {(showPendingMessage || (user?.companyID && user?.isPending === true)) && <PandingMessage />}
     </div>
   );
 };

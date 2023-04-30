@@ -119,7 +119,7 @@ const NavBar = ({ user, onLogout, onAuthorization }) => {
             >
               <button className="btn">Home</button>
             </Link>
-            {!user?.isMentor &&
+            {!user?.isMentor && user?.isPending === false &&
               <Link
                 onClick={() => setShowNavMenu(false)}
                 to="/mentor-form"
@@ -127,9 +127,10 @@ const NavBar = ({ user, onLogout, onAuthorization }) => {
                 <button className="btn">Become A Mentor</button>
               </Link>
             }
-            <button className="btn" onClick={onOpenSchedulerModal}>
+
+            {user?.isPending === false && <button className="btn" onClick={onOpenSchedulerModal}>
               My Schedule
-            </button>
+            </button>}
           </div>
 
 
