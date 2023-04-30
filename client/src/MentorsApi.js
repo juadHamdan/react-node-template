@@ -94,15 +94,6 @@ async function deleteMentor(userID) {
   }
 }
 
-async function fetchColleagues() {
-  try {
-    const response = await axios.get("/users");
-    return response.data;
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
-}
 
 async function approveUser(userID) {
   try {
@@ -124,6 +115,5 @@ export {
   updateMentor,
   deleteUserById,
   deleteMentor,
-  fetchColleagues,
   approveUser
 };

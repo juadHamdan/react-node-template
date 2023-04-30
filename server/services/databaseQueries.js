@@ -194,10 +194,6 @@ function addReview(meetingID, rating, description) {
   return Meeting.findByIdAndUpdate(meetingID, { rating: rating, description: description });
 }
 
-async function getUsers() {
-  return User.find({});
-}
-
 async function approveUser(userID) {
   return User.findByIdAndUpdate(userID, { isPending: false }, { new: true });
 }
@@ -228,6 +224,5 @@ module.exports = {
   getMeetingById,
   getReviews,
   addReview,
-  getUsers
 }
 
