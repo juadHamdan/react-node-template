@@ -4,4 +4,42 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 100px;
+}
+
+#landing-container .companies-container {
+    width: 100%;
+}
+
+#landing-container .companies-container .companies {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+}
+
+#landing-container .companies-container .title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.75rem;
+    color: gray;
+    margin-bottom: 40px;
+}
+
+#landing-container .companies-container .company-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+#landing-container .companies-container .company-card .name {
+    position: absolute;
+    top: -60px;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+#landing-container .companies-container .company-card img {
+    width: 100px;
 }
