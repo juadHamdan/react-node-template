@@ -170,82 +170,29 @@ const Company = ({ company, onLogout }) => {
             </div>
 
           <div className="Tabels">
-            <div className="approve-pending-users-container">
-              <p className="sub-title">Approve Pending Users:</p>
-              <div className="list">
-                <div className="list-item list-header">
-                  <p className="list-item-header">Action</p> |
-                  <p className="list-item-header">Picture</p> |
-                  <p className="list-item-header">Full Name</p> |
-                  <p className="list-item-header">Email</p>
-                </div>
-                {companyPendingUsers &&
-                  companyPendingUsers.map((pendingUser, index) => (
-                    <div className="list-item">
-                      <ThumbUpAltIcon
-                        className="approve-icon"
-                        onClick={() => onApproveUser(pendingUser._id, index)}
-                      />
-                      <ThumbDownAltIcon
-                        className="reject-icon"
-                        onClick={() => onRejectUser(pendingUser._id, index)}
-                      />{" "}
-                      |
-                      <img src={pendingUser.picture} /> |
-                      <p>
-                        {pendingUser.firstName} {pendingUser.lastName}
-                      </p>{" "}
-                      |<p>{pendingUser.email}</p>
+          <div className="users-container">
+                        <div className="approve-pending-users-container">
+                            <p className="sub-title">Approve Pending Users:</p>
+                            <div className="list">
+                                {companyPendingUsers && companyPendingUsers.length != 0 && <PendingTable companyPendingUsers={companyPendingUsers}
+                                    onApproveUser={onApproveUser} onRejectUser={onRejectUser} />}
+                            </div>
+                        </div>
+
+                        <div className="mentors-container">
+                            <p className="sub-title">Our Mentors:</p>
+                            <div className="list">
+                                {mentors && mentors.length != 0 && <MentorsTable mentors={mentors} />}
+                            </div>
+                        </div>
+
+                        <div className="mentees-container">
+                            <p className="sub-title">Our Mentees:</p>
+                            <div className="list">
+                                {mentees && mentees.length != 0 && <MenteesTable mentees={mentees} />}
+                            </div>
+                        </div>
                     </div>
-                  ))}
-              </div>
-            </div>
-
-
-            <div className="mentees-container">
-                <p className="sub-title">Our Mentees:</p>
-                <div className="list">
-                  <div className="list-item list-header">
-                    <p className="list-item-header">Picture</p> |
-                    <p className="list-item-header">Full Name</p> |
-                    <p className="list-item-header">Email</p>
-                  </div>
-                  {mentees &&
-                    mentees.map((mentee, index) => (
-                      <div className="list-item">
-                        <img src={mentee.picture} /> |
-                        <p>
-                          {mentee.firstName} {mentee.lastName}
-                        </p>{" "}
-                        |<p>{mentee.email}</p>
-                      </div>
-                    ))}
-                </div>
-              </div>
-
-
-              <div className="mentors-container">
-              <p className="sub-title">Our Mentors:</p>
-              <div className="list">
-                <div className="list-item list-header">
-                  <p className="list-item-header">Page</p> |
-                  <p className="list-item-header">Picture</p> |
-                  <p className="list-item-header">Full Name</p> |
-                  <p className="list-item-header">Email</p>
-                </div>
-                {mentors &&
-                  mentors.map((mentor, index) => (
-                    <div className="list-item">
-                      <button className="mentor-page-btn">Mentor Page</button> |
-                      <img src={mentor.picture} /> |
-                      <p>
-                        {mentor.firstName} {mentor.lastName}
-                      </p>{" "}
-                      |<p>{mentor.email}</p>
-                    </div>
-                  ))}
-              </div>
-            </div>
             
               </div>
           </>
@@ -279,82 +226,29 @@ const Company = ({ company, onLogout }) => {
         )}
 
         {activeBtn === 1 && (
-          <div className="users-container">
-            <div className="approve-pending-users-container">
-              <p className="sub-title">Approve Pending Users:</p>
-              <div className="list">
-                <div className="list-item list-header">
-                  <p className="list-item-header">Action</p> |
-                  <p className="list-item-header">Picture</p> |
-                  <p className="list-item-header">Full Name</p> |
-                  <p className="list-item-header">Email</p>
-                </div>
-                {companyPendingUsers &&
-                  companyPendingUsers.map((pendingUser, index) => (
-                    <div className="list-item">
-                      <ThumbUpAltIcon
-                        className="approve-icon"
-                        onClick={() => onApproveUser(pendingUser._id, index)}
-                      />
-                      <ThumbDownAltIcon
-                        className="reject-icon"
-                        onClick={() => onRejectUser(pendingUser._id, index)}
-                      />{" "}
-                      |
-                      <img src={pendingUser.picture} /> |
-                      <p>
-                        {pendingUser.firstName} {pendingUser.lastName}
-                      </p>{" "}
-                      |<p>{pendingUser.email}</p>
-                    </div>
-                  ))}
-              </div>
-            </div>
+         <div className="users-container">
+         <div className="approve-pending-users-container">
+             <p className="sub-title">Approve Pending Users:</p>
+             <div className="list">
+                 {companyPendingUsers && companyPendingUsers.length != 0 && <PendingTable companyPendingUsers={companyPendingUsers}
+                     onApproveUser={onApproveUser} onRejectUser={onRejectUser} />}
+             </div>
+         </div>
 
-            <div className="mentors-container">
-              <p className="sub-title">Our Mentors:</p>
-              <div className="list">
-                <div className="list-item list-header">
-                  <p className="list-item-header">Page</p> |
-                  <p className="list-item-header">Picture</p> |
-                  <p className="list-item-header">Full Name</p> |
-                  <p className="list-item-header">Email</p>
-                </div>
-                {mentors &&
-                  mentors.map((mentor, index) => (
-                    <div className="list-item">
-                      <button className="mentor-page-btn">Mentor Page</button> |
-                      <img src={mentor.picture} /> |
-                      <p>
-                        {mentor.firstName} {mentor.lastName}
-                      </p>{" "}
-                      |<p>{mentor.email}</p>
-                    </div>
-                  ))}
-              </div>
-            </div>
+         <div className="mentors-container">
+             <p className="sub-title">Our Mentors:</p>
+             <div className="list">
+                 {mentors && mentors.length != 0 && <MentorsTable mentors={mentors} />}
+             </div>
+         </div>
 
-            <div className="mentees-container">
-              <p className="sub-title">Our Mentees:</p>
-              <div className="list">
-                <div className="list-item list-header">
-                  <p className="list-item-header">Picture</p> |
-                  <p className="list-item-header">Full Name</p> |
-                  <p className="list-item-header">Email</p>
-                </div>
-                {mentees &&
-                  mentees.map((mentee, index) => (
-                    <div className="list-item">
-                      <img src={mentee.picture} /> |
-                      <p>
-                        {mentee.firstName} {mentee.lastName}
-                      </p>{" "}
-                      |<p>{mentee.email}</p>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </div>
+         <div className="mentees-container">
+             <p className="sub-title">Our Mentees:</p>
+             <div className="list">
+                 {mentees && mentees.length != 0 && <MenteesTable mentees={mentees} />}
+             </div>
+         </div>
+     </div>
         )}
       </div>
     </div>
@@ -362,3 +256,32 @@ const Company = ({ company, onLogout }) => {
 };
 
 export default Company;
+
+
+
+
+// {activeBtn === 0 &&
+//                     <div className="users-container">
+//                         <div className="approve-pending-users-container">
+//                             <p className="sub-title">Approve Pending Users:</p>
+//                             <div className="list">
+//                                 {companyPendingUsers && companyPendingUsers.length != 0 && <PendingTable companyPendingUsers={companyPendingUsers}
+//                                     onApproveUser={onApproveUser} onRejectUser={onRejectUser} />}
+//                             </div>
+//                         </div>
+
+//                         <div className="mentors-container">
+//                             <p className="sub-title">Our Mentors:</p>
+//                             <div className="list">
+//                                 {mentors && mentors.length != 0 && <MentorsTable mentors={mentors} />}
+//                             </div>
+//                         </div>
+
+//                         <div className="mentees-container">
+//                             <p className="sub-title">Our Mentees:</p>
+//                             <div className="list">
+//                                 {mentees && mentees.length != 0 && <MenteesTable mentees={mentees} />}
+//                             </div>
+//                         </div>
+//                     </div>
+//                 }

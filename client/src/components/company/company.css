@@ -6,7 +6,7 @@
   grid-column: 1 / span 12;
   display: flex;
   justify-content: center;
-  margin-top: 1000px;
+  margin-top: 1500px;
 }
 
 #company-container .company-page-container {
@@ -173,6 +173,10 @@
     margin-top: 100px;
     margin-right: 500px;
     
+}
+
+#company-container .Tabels{
+  
 }
 
 
