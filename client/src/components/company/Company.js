@@ -15,6 +15,11 @@ import { DEFAULT_USER_PICTURE } from "../../Constants";
 import Table from "../table/Table";
 import AdminDashboard from "./Dashboard";
 import Card from "../templates/Card";
+import MentorsTable from "../table/MentorTable"
+import MenteesTable from "../table/MenteeTable"
+import PendingTable from '../table/PendingTable'
+
+
 const Company = ({ company, onLogout }) => {
   const [companyUsers, setCompanyUsers] = useState([]);
   const [companyPendingUsers, setCompanyPendingUsers] = useState([]);

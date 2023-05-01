@@ -1,0 +1,26 @@
+.company-data-table tr img {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 2rem;
+} 
+
+.company-data-table .header {
+    color: black;
+}
+
+.approve-icon {
+    color: green;
+}
+
+.reject-icon {
+    color: red;
+}
+
+.company-data-table {
+    width: max-content;
+    max-height: 500px;
+    overflow-y: scroll;
+    border: 1px solid #f0f0f0;
+    border-radius: 5px;
+}
+
