@@ -112,7 +112,7 @@ function MentorPage({ user }) {
                     <Grid item sm={12} md={12} lg={6}>
 
                         <div className="scheduler-container" ref={scheduleRef}>
-                            <p className="title">Choose Available Meeting Spot:</p>
+                            <p className="title">My schedule:</p>
                             <MentorSchedule user={user} mentorId={mentor.user._id} />
                         </div>
                     </Grid>

@@ -18,6 +18,7 @@ import Card from "../templates/Card";
 import MentorsTable from "../table/MentorTable"
 import MenteesTable from "../table/MenteeTable"
 import PendingTable from '../table/PendingTable'
+import { useNavigate } from "react-router-dom";
 
 
 const Company = ({ company, onLogout }) => {
@@ -33,6 +34,7 @@ const Company = ({ company, onLogout }) => {
   const [futureMeetings, setFutureMeetings] = useState(null);
   const [activeBtn, setActiveBtn] = useState(0);
 
+  const naviage = useNavigate();
   useEffect(() => {
     console.log(company);
     if (company) {
@@ -112,31 +114,31 @@ const Company = ({ company, onLogout }) => {
             <img src={company.logoUrl || DEFAULT_USER_PICTURE} />
             <p className="name">{company.name}</p>
           </div>
-
+        
           <div className="routes">
             <button
-              onClick={() => setActiveBtn(0)}
+              onClick={() => window.location.href="#header-section"}
               className={`route ${activeBtn === 0 && "route-active"}`}
             >
               Dashboard
             </button>
             <button
-              onClick={() => setActiveBtn(1)}
-              className={`route ${activeBtn === 1 && "route-active"}`}
+              onClick={() => window.location.href="#statistic-section"}
+              className={`route ${activeBtn === 3 && "route-active"}`}
             >
-              Mentees & Mentors
+              Data & Statistics
             </button>
             <button
-              onClick={() => setActiveBtn(2)}
+              onClick={() => window.location.href="#meetings-section"}
               className={`route ${activeBtn === 3 && "route-active"}`}
             >
               Meetings
             </button>
             <button
-              onClick={() => setActiveBtn(3)}
-              className={`route ${activeBtn === 3 && "route-active"}`}
+              onClick={() => window.location.href="#users-section"}
+              className={`route ${activeBtn === 1 && "route-active"}`}
             >
-              Data & Statistics
+              Mentees & Mentors
             </button>
           </div>
           <button className="logout-btn" onClick={onLogout}>
@@ -160,95 +162,64 @@ const Company = ({ company, onLogout }) => {
 
         {activeBtn === 0 && (
             <>
-            <div className="status-container">
+            <div className="dashboard-container">
+            <div className="status-container" id="header-section">
             {futureMeetings && <Card numOfUsers={numOfUsers} numOfPendign={numOfPendign} numOfMentors={numOfMentors} futureMeetings={futureMeetings} /> }
             </div>
 
-            <div className="stats-container">
+
+            <div className="stats-container" id="statistic-section">
             {skillsCount && <ColumnChart mapskills={skillsCount} />}
             {numOfMentors && numOfUsers && numOfPendign && ( <BiChart mentors={numOfMentors} users={numOfUsers} pending={numOfPendign} /> )}
             </div>
 
+
           <div className="Tabels">
           <div className="users-container">
+                      <div className="section-two" id="meetings-section">
                         <div className="approve-pending-users-container">
-                            <p className="sub-title">Approve Pending Users:</p>
+                            <h3>Approve Pending Users:</h3>
                             <div className="list">
                                 {companyPendingUsers && companyPendingUsers.length != 0 && <PendingTable companyPendingUsers={companyPendingUsers}
                                     onApproveUser={onApproveUser} onRejectUser={onRejectUser} />}
                             </div>
                         </div>
+                
+                        <div className="meetings-container">
+                          <h3 className="title">
+                            {futureMeetings && futureMeetings.length != 0
+                              ? "Upcoming Meetings:"
+                              : "There is no upcoming meetings"}
+                          </h3>
+                          <div className="list">
+                          {futureMeetings && futureMeetings.length != 0 && (
+                            <Table data={futureMeetings} />
+                          )}
+                          </div>
+                        </div>
+                        </div>
 
+
+                        <div className="users-containerr" id="users-section">
                         <div className="mentors-container">
-                            <p className="sub-title">Our Mentors:</p>
+                            <h3>Our Mentors:</h3>
                             <div className="list">
                                 {mentors && mentors.length != 0 && <MentorsTable mentors={mentors} />}
                             </div>
                         </div>
 
                         <div className="mentees-container">
-                            <p className="sub-title">Our Mentees:</p>
+                            <h3>Our Mentees:</h3>
                             <div className="list">
                                 {mentees && mentees.length != 0 && <MenteesTable mentees={mentees} />}
                             </div>
                         </div>
+                        </div>
                     </div>
             
               </div>
+              </div>
           </>
-        )}
-
-
-        {activeBtn === 2 && (
-          <div className="meetings-container">
-            <p className="title">
-              {futureMeetings.length != 0
-                ? "Upcoming Meetings:"
-                : "There is no upcoming meetings"}
-            </p>
-            {futureMeetings && futureMeetings.length != 0 && (
-              <Table data={futureMeetings} />
-            )}
-          </div>
-        )}
-
-        {activeBtn === 3 && (
-          <div className="stats-container">
-            {numOfMentors && numOfUsers && numOfPendign && (
-              <BiChart
-                mentors={numOfMentors}
-                users={numOfUsers}
-                pending={numOfPendign}
-              />
-            )}
-            {skillsCount && <ColumnChart mapskills={skillsCount} />}
-          </div>
-        )}
-
-        {activeBtn === 1 && (
-         <div className="users-container">
-         <div className="approve-pending-users-container">
-             <p className="sub-title">Approve Pending Users:</p>
-             <div className="list">
-                 {companyPendingUsers && companyPendingUsers.length != 0 && <PendingTable companyPendingUsers={companyPendingUsers}
-                     onApproveUser={onApproveUser} onRejectUser={onRejectUser} />}
-             </div>
-         </div>
-
-         <div className="mentors-container">
-             <p className="sub-title">Our Mentors:</p>
-             <div className="list">
-                 {mentors && mentors.length != 0 && <MentorsTable mentors={mentors} />}
-             </div>
-         </div>
-
-         <div className="mentees-container">
-             <p className="sub-title">Our Mentees:</p>
-             <div className="list">
-                 {mentees && mentees.length != 0 && <MenteesTable mentees={mentees} />}
-             </div>
-         </div>
-     </div>
         )}
       </div>
     </div>

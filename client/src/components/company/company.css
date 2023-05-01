@@ -1,12 +1,147 @@
 #company-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 19% auto;
+}
+
+#company-container .company-page-container {
   display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  animation: slideInRight 0.5s ease-in-out;
+}
+
+#company-container .app-logo-container {
+  display: flex;
+  justify-content: center;
+  margin-right: 200px;
+  animation: slideInLeft 0.5s ease-in-out;
+}
+
+#company-container .dashboard-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  margin-right: 200px;
+  animation: slideInRight 0.5s ease-in-out;
+}
+
+.section-two {
+  display: flex;
+  flex-direction: row;
+  gap: 140px;
+  background-color: #f5f6fa;
+  padding: 2rem;
+  margin-top: 300px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.users-containerr {
+  display: flex;
+  flex-direction: row;
+  margin-top: 100px;
+  gap: 200px;
+  background-color: #f5f6fa;
+  padding: 2rem;
+  margin-top: 300px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.mentors-container,
+.mentees-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  animation: slideInUp 0.5s ease-in-out;
+}
+
+.title-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 10px;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 #company-container .status-container {
+  display: flex;
+  justify-content: center;
+  animation: slideInUp 0.5s ease-in-out;
+}
+
+#company-container .stats-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 300px;
+  gap: 300px;
+  background-color: #f5f6fa;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+#company-container .Tabels {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 50px;
+  animation: slideInRight 0.5s ease-in-out;
+}
+
+#company-container .approve-pending-users-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  animation: slideInLeft 0.5s ease-in-out;
+}
+
+#company-container .company-page-container .app-icon {
+  width: 50px;
+  height: 50px;
+  margin-right: 5px;
+}
+
+#company-container .meetings-container {
+  text-align: center;
+  animation: slideInUp 0.5s ease-in-out;
+}
+
+@keyframes slideInRight {
+  
+  from {
+    transform: translateX(50%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  
+}
+
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-50%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+
+
+
+
+/* #company-container .status-container {
   grid-column: 1 / span 12;
   display: flex;
   justify-content: center;
-  margin-top: 1500px;
 }
 
 #company-container .company-page-container {
@@ -173,7 +308,7 @@
     margin-top: 100px;
     margin-right: 500px;
     
-}
+} */
 
 
 
@@ -182,7 +317,7 @@
   /* sidebar */
 
   #company-container .sidebar-placeholder {
-    width: 15vw;
+    width: 19vw;
     height: 100vh;
   
   }
