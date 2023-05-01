@@ -57,8 +57,8 @@ const ApexChart = ({ mapskills }) => {
 
   return (
     <div id="chart">
-      <h3>Analysis of Mentor Skillsets</h3>
-      <ReactApexChart options={chartData.options} series={chartData.series} type="bar" height={350} width={500} />
+        <h3 style={{ textAlign: 'center' }}>Analysis of Mentor Skillsets</h3>
+        <ReactApexChart options={chartData.options} series={chartData.series} type="bar" height={250} width={500} />
     </div>
   );
 };

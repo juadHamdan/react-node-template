@@ -27,7 +27,7 @@ function ApexChart({ mentors , users , pending }) {
   return (
     <div id="chart">
       <h3>Proportion of Users and Mentors in the System</h3>
-      <ReactApexChart options={chartData.options} series={chartData.series} type="pie" width={380} />
+      <ReactApexChart options={chartData.options} series={chartData.series} type="pie" width={400}  />
     </div>
   );
 }
