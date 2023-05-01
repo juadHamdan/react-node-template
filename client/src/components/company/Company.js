@@ -256,32 +256,3 @@ const Company = ({ company, onLogout }) => {
 };
 
 export default Company;
-
-
-
-
-// {activeBtn === 0 &&
-//                     <div className="users-container">
-//                         <div className="approve-pending-users-container">
-//                             <p className="sub-title">Approve Pending Users:</p>
-//                             <div className="list">
-//                                 {companyPendingUsers && companyPendingUsers.length != 0 && <PendingTable companyPendingUsers={companyPendingUsers}
-//                                     onApproveUser={onApproveUser} onRejectUser={onRejectUser} />}
-//                             </div>
-//                         </div>
-
-//                         <div className="mentors-container">
-//                             <p className="sub-title">Our Mentors:</p>
-//                             <div className="list">
-//                                 {mentors && mentors.length != 0 && <MentorsTable mentors={mentors} />}
-//                             </div>
-//                         </div>
-
-//                         <div className="mentees-container">
-//                             <p className="sub-title">Our Mentees:</p>
-//                             <div className="list">
-//                                 {mentees && mentees.length != 0 && <MenteesTable mentees={mentees} />}
-//                             </div>
-//                         </div>
-//                     </div>
-//                 }
