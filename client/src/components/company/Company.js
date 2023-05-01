@@ -1,5 +1,5 @@
 import "./company.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect , useRef } from "react";
 import {
   fetchCompanyPendingUsers,
   fetchCompanyUsers,
@@ -18,8 +18,8 @@ import Card from "../templates/Card";
 import MentorsTable from "../table/MentorTable"
 import MenteesTable from "../table/MenteeTable"
 import PendingTable from '../table/PendingTable'
-import { useNavigate } from "react-router-dom";
 
+const scrollToRef = (ref) => ref.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
 
 const Company = ({ company, onLogout }) => {
   const [companyUsers, setCompanyUsers] = useState([]);
@@ -33,8 +33,10 @@ const Company = ({ company, onLogout }) => {
   const [skillsCount, setSkillsCount] = useState({});
   const [futureMeetings, setFutureMeetings] = useState(null);
   const [activeBtn, setActiveBtn] = useState(0);
-
-  const naviage = useNavigate();
+  const dashboardRef = useRef(null)
+  const statisticRef = useRef(null)
+  const meetingRef = useRef(null)
+  const usersRef = useRef(null)
   useEffect(() => {
     console.log(company);
     if (company) {
@@ -117,25 +119,25 @@ const Company = ({ company, onLogout }) => {
         
           <div className="routes">
             <button
-              onClick={() => window.location.href="#header-section"}
+              onClick={() =>scrollToRef(dashboardRef)}
               className={`route ${activeBtn === 0 && "route-active"}`}
             >
               Dashboard
             </button>
             <button
-              onClick={() => window.location.href="#statistic-section"}
+              onClick={() => scrollToRef(statisticRef)}
               className={`route ${activeBtn === 3 && "route-active"}`}
             >
               Data & Statistics
             </button>
             <button
-              onClick={() => window.location.href="#meetings-section"}
+              onClick={() => scrollToRef(meetingRef)}
               className={`route ${activeBtn === 3 && "route-active"}`}
             >
               Meetings
             </button>
             <button
-              onClick={() => window.location.href="#users-section"}
+              onClick={() => scrollToRef(usersRef)}
               className={`route ${activeBtn === 1 && "route-active"}`}
             >
               Mentees & Mentors
@@ -150,25 +152,23 @@ const Company = ({ company, onLogout }) => {
 
       <div className="company-page-container">
         <div
-          className="app-logo-container"
-          onClick={() => (window.location.href = "/")}
-        >
+          className="app-logo-container">
           <img
             className="app-icon"
             src="https://icons.iconarchive.com/icons/fa-team/fontawesome/256/FontAwesome-Laptop-Code-icon.png"
-          />
-          <h2>Book A Mentor</h2>
+            onClick={() => (window.location.href = "/")} />
+          <h1>Book A Mentor</h1>
         </div>
 
         {activeBtn === 0 && (
             <>
             <div className="dashboard-container">
-            <div className="status-container" id="header-section">
+            <div className="status-container" ref={dashboardRef}>
             {futureMeetings && <Card numOfUsers={numOfUsers} numOfPendign={numOfPendign} numOfMentors={numOfMentors} futureMeetings={futureMeetings} /> }
             </div>
 
 
-            <div className="stats-container" id="statistic-section">
+            <div className="stats-container" ref={statisticRef}>
             {skillsCount && <ColumnChart mapskills={skillsCount} />}
             {numOfMentors && numOfUsers && numOfPendign && ( <BiChart mentors={numOfMentors} users={numOfUsers} pending={numOfPendign} /> )}
             </div>
@@ -176,7 +176,7 @@ const Company = ({ company, onLogout }) => {
 
           <div className="Tabels">
           <div className="users-container">
-                      <div className="section-two" id="meetings-section">
+                      <div className="section-two" ref={meetingRef}>
                         <div className="approve-pending-users-container">
                             <h3>Approve Pending Users:</h3>
                             <div className="list">
@@ -200,7 +200,7 @@ const Company = ({ company, onLogout }) => {
                         </div>
 
 
-                        <div className="users-containerr" id="users-section">
+                        <div className="users-containerr" ref={usersRef}>
                         <div className="mentors-container">
                             <h3>Our Mentors:</h3>
                             <div className="list">
@@ -215,6 +215,7 @@ const Company = ({ company, onLogout }) => {
                             </div>
                         </div>
                         </div>
+                        <div style={{height : 300}}></div>
                     </div>
             
               </div>

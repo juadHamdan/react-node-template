@@ -24,3 +24,12 @@
     border-radius: 5px;
 }
 
+
+.mentor-page-icon{
+    width: 50px;
+}
+
+.mentor-page-icon:hover{
+    cursor:pointer;
+    opacity: 0.5;
+}

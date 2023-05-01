@@ -16,14 +16,17 @@
   justify-content: center;
   margin-right: 200px;
   animation: slideInLeft 0.5s ease-in-out;
+  align-items: center;
+  gap: 10px ;
+
 }
 
 #company-container .dashboard-container {
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
   margin-right: 200px;
   animation: slideInRight 0.5s ease-in-out;
+  margin-top: 200px;
 }
 
 .section-two {
@@ -32,18 +35,17 @@
   gap: 140px;
   background-color: #f5f6fa;
   padding: 2rem;
-  margin-top: 300px;
+  margin-top: 200px;
   animation: fadeIn 0.5s ease-in-out;
 }
 
 .users-containerr {
   display: flex;
   flex-direction: row;
-  margin-top: 100px;
   gap: 200px;
   background-color: #f5f6fa;
   padding: 2rem;
-  margin-top: 300px;
+  margin-top: 200px;
   animation: fadeIn 0.5s ease-in-out;
 }
 
@@ -74,7 +76,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 300px;
+  margin-top: 200px;
   gap: 300px;
   background-color: #f5f6fa;
   animation: fadeIn 0.5s ease-in-out;

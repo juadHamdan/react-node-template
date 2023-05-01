@@ -3,8 +3,8 @@ import { UserOutlined, TeamOutlined, ClockCircleOutlined, VideoCameraOutlined  }
 import React from 'react';
 
 const Cards = ({numOfUsers, numOfMentors, numOfPendign, futureMeetings}) => {
-  const cardStyle = { backgroundColor: "#ffcccc", textAlign: "center", width: "250px" , margin : "50px"};
-  const cardTitleStyle = { fontSize: "15px" };
+  const cardStyle = { backgroundColor: "#ffcccc", textAlign: "center" ,  width: "250px" , margin : "50px"};
+  const cardTitleStyle = { fontSize: "20px" , fontWeight : "bold"};
 
   return (
     <Row gutter={16}>
